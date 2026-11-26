@@ -1,0 +1,22 @@
+{
+  "name": "nsh-awesome",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Curated awesome list, searchable static directory, discovery script, and machine-readable index.json for Native Shell (NSH) modules (nshm).",
+  "repository": "https://github.com/AkaraChen/nsh-awesome",
+  "homepage": "https://akarachen.github.io/nsh-awesome/",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "discover": "node scripts/discover.mjs",
+    "generate": "node scripts/generate.mjs",
+    "generate:check": "node scripts/generate.mjs --check",
+    "lint": "node scripts/lint.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "verify:install": "node scripts/verify-install.mjs",
+    "test": "node --test scripts/verify.test.mjs"
+  }
+}

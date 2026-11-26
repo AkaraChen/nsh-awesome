@@ -1,0 +1,1100 @@
+{
+  "schemaVersion": 1,
+  "title": {
+    "en": "Awesome NSH",
+    "zh": "Awesome NSH 精选"
+  },
+  "description": {
+    "en": "A curated list, searchable directory, and machine-readable index of Native Shell (nsh) modules (nshm), framework crates, templates, and guides.",
+    "zh": "Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。"
+  },
+  "repository": "https://github.com/AkaraChen/nsh-awesome",
+  "siteUrl": "https://akarachen.github.io/nsh-awesome/",
+  "nshVerifiedVersion": "0.7.1",
+  "sections": [
+    {
+      "id": "nshm",
+      "title": { "en": "Installable nshm", "zh": "可安装 nshm" },
+      "emoji": "🧩",
+      "description": {
+        "en": "Modules verified with `nsh add` in a clean scratch app on nsh 0.7.1 (from crates.io, `github:owner/repo`, or Git URL).",
+        "zh": "以下模块均已在 nsh 0.7.1 全新临时应用中实测通过 `nsh add` 安装验证（涵盖 crates.io、`github:owner/repo` 与 Git URL）。"
+      }
+    },
+    {
+      "id": "framework",
+      "title": { "en": "Framework & Official Crates", "zh": "框架与官方 Crate" },
+      "emoji": "🧱",
+      "description": {
+        "en": "NOT nshm — cannot be installed with `nsh add`. Core framework, runtime, bundler, and platform backend crates maintained in `longbridge/nsh` (`cargo add` or managed automatically by `nsh`).",
+        "zh": "注意：本节 crate 并非 nshm，不可使用 `nsh add` 安装。它们是 `longbridge/nsh` 官方维护的核心框架、运行时、打包器与平台后端 crate（供 Rust `cargo add` 或由 `nsh` 自动构建链接）。"
+      }
+    },
+    {
+      "id": "templates",
+      "title": { "en": "Examples & Templates", "zh": "示例与模板" },
+      "emoji": "📦",
+      "description": {
+        "en": "Starter boilerplates, official examples, showcase catalogs, and production reference applications built with Native Shell.",
+        "zh": "使用 Native Shell 构建的官方示例、工程脚手架、Showcase 目录以及可参考的真实应用。"
+      }
+    },
+    {
+      "id": "articles",
+      "title": { "en": "Articles & Tutorials", "zh": "文章与教程" },
+      "emoji": "📚",
+      "description": {
+        "en": "Official documentation, architecture guides, and module authoring references for Native Shell.",
+        "zh": "Native Shell 官方文档、架构指南与 nshm 模块开发参考。"
+      }
+    }
+  ],
+  "categories": [
+    { "id": "official", "section": "nshm", "emoji": "🧰", "title": { "en": "Official Modules", "zh": "官方扩展模块" } },
+    { "id": "ui", "section": "nshm", "emoji": "🎨", "title": { "en": "UI Components & Themes", "zh": "UI 组件与主题" } },
+    { "id": "icons", "section": "nshm", "emoji": "✨", "title": { "en": "Icons", "zh": "图标库" } },
+    { "id": "visualization", "section": "nshm", "emoji": "📊", "title": { "en": "Charts, Graphs & GPU Canvas", "zh": "图表、图谱与 GPU 画布" } },
+    { "id": "data", "section": "nshm", "emoji": "🔌", "title": { "en": "Data & Analytics", "zh": "数据请求与分析" } },
+    { "id": "platforms", "section": "nshm", "emoji": "📱", "title": { "en": "Platform Targets", "zh": "社区平台后端" } },
+    { "id": "core", "section": "framework", "emoji": "⚙️", "title": { "en": "Core Runtime & Tooling", "zh": "核心运行时与工具链" } },
+    { "id": "backend", "section": "framework", "emoji": "🖥️", "title": { "en": "Official Platform Backends", "zh": "官方平台后端" } },
+    { "id": "starters", "section": "templates", "emoji": "🚀", "title": { "en": "Starters & Reference Apps", "zh": "脚手架与参考应用" } },
+    { "id": "guides", "section": "articles", "emoji": "📖", "title": { "en": "Documentation & Guides", "zh": "官方文档与指南" } }
+  ],
+  "entries": [
+    {
+      "id": "nsh-extra",
+      "name": "nsh-extra",
+      "section": "nshm",
+      "category": "official",
+      "kind": "rust-nshm",
+      "installable": true,
+      "sourceType": "crates.io",
+      "installCommand": "nsh add nsh-extra --features camera",
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Official optional device modules for NSH apps gated by Cargo features: camera, location, photos, push, and speech.",
+        "zh": "NSH 官方按 Cargo feature 按需开启的设备能力模块集合，涵盖 camera、location、photos、push 与 speech。"
+      },
+      "sourceUrl": "https://github.com/longbridge/nsh/tree/main/crates/nsh-extra",
+      "cratesUrl": "https://crates.io/crates/nsh-extra",
+      "homepage": "https://nsh.dev/docs/nshm#nsh-extra",
+      "platforms": ["iOS", "Android", "macOS", "Windows", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "Per-feature platform availability: camera (iOS, Android), location (macOS, iOS, Web), photos (iOS), push (iOS, Android), speech (macOS, iOS, Android, Windows, Web).",
+        "zh": "各 feature 平台支持不同：camera（iOS、Android）、location（macOS、iOS、Web）、photos（iOS）、push（iOS、Android）、speech（macOS、iOS、Android、Windows、Web）。"
+      }
+    },
+    {
+      "id": "nsh-omarchy",
+      "name": "nsh-omarchy",
+      "section": "nshm",
+      "category": "ui",
+      "kind": "rust-nshm",
+      "installable": true,
+      "sourceType": "crates.io",
+      "installCommand": "nsh add nsh-omarchy",
+      "version": "0.2.0",
+      "nshVersion": ">=0.7",
+      "description": {
+        "en": "Omarchy-themed UI component set built on nsh-base with live system theme following, forms, overlays, tables, and charts for Rust and TSX.",
+        "zh": "基于 nsh-base 的 Omarchy 风格原生 UI 组件库，支持自动跟随系统主题切换，在 Rust 与 TSX 中提供表单、浮层、表格与图表。"
+      },
+      "sourceUrl": "https://github.com/huacnlee/nsh-omarchy",
+      "cratesUrl": "https://crates.io/crates/nsh-omarchy",
+      "homepage": "https://huacnlee.github.io/nsh-omarchy/",
+      "platforms": ["macOS", "Linux", "Windows", "iOS", "Android", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "Falls back to Tokyo Night (dark) or Flexoki Light when Omarchy theme files are absent.",
+        "zh": "未检测到 Omarchy 主题配置时自动回退为 Tokyo Night（深色）或 Flexoki Light（浅色）。"
+      }
+    },
+    {
+      "id": "nsh-shadcn",
+      "name": "nsh-shadcn",
+      "section": "nshm",
+      "category": "ui",
+      "kind": "rust-nshm",
+      "installable": true,
+      "sourceType": "github",
+      "installCommand": "nsh add github:caoxing9/nsh-shadcn",
+      "version": "0.1.0",
+      "nshVersion": ">=0.7.1",
+      "description": {
+        "en": "Rust-backed shadcn/ui new-york-v4 component port drawn with native views across desktop, mobile, and web for both Rust and TSX.",
+        "zh": "使用 Rust 实现的 shadcn/ui new-york-v4 原生组件库，在桌面、移动与 Web 端以原生视图渲染，同时支持 Rust 与 TSX 调用。"
+      },
+      "sourceUrl": "https://github.com/caoxing9/nsh-shadcn",
+      "cratesUrl": null,
+      "homepage": null,
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-26",
+      "notes": {
+        "en": "GitHub-only; not published on crates.io yet.",
+        "zh": "仅托管于 GitHub，尚未发布到 crates.io。"
+      }
+    },
+    {
+      "id": "nsh-widgets",
+      "name": "nsh-widgets",
+      "section": "nshm",
+      "category": "ui",
+      "kind": "hybrid-nshm",
+      "installable": true,
+      "sourceType": "git",
+      "installCommand": "nsh add https://github.com/SuperNSH/widgets.git --rev master",
+      "version": "0.4.1",
+      "nshVersion": "^0.7.1",
+      "description": {
+        "en": "Cross-platform home-screen widgets and Live Activities using one shared Widget Tree IR rendered natively via WidgetKit, RemoteViews, Plasma, and GNOME.",
+        "zh": "跨平台桌面/锁屏小组件与 Live Activities 模块，通过统一 Widget Tree IR 在 WidgetKit、Android RemoteViews、KDE Plasma 与 GNOME 原生渲染。"
+      },
+      "sourceUrl": "https://github.com/SuperNSH/widgets",
+      "cratesUrl": "https://crates.io/crates/nsh-widgets",
+      "homepage": null,
+      "platforms": ["iOS", "macOS", "Android", "Linux"],
+      "license": "MIT",
+      "updatedAt": "2026-11-26",
+      "notes": {
+        "en": "Use the Git URL `--rev master` on NSH 0.7.1; crates.io 0.4.1 and tag v0.4.1 still pin `nsh: ^0.6`.",
+        "zh": "NSH 0.7.1 需通过 Git URL `--rev master` 安装；crates.io 0.4.1 与 v0.4.1 tag 仍锁定 `nsh: ^0.6`。"
+      }
+    },
+    {
+      "id": "nsh-icon",
+      "name": "nsh-icon",
+      "section": "nshm",
+      "category": "icons",
+      "kind": "rust-nshm",
+      "installable": true,
+      "sourceType": "crates.io",
+      "installCommand": "nsh add nsh-icon",
+      "version": "0.2.2",
+      "nshVersion": ">=0.7",
+      "description": {
+        "en": "Tree-shaken vector icon renderer (`<Icon>` and `icon()`) paired with five installable icon-set crates (Lucide, Heroicons, Tabler, Phosphor, Remix).",
+        "zh": "支持按需裁剪的矢量图标渲染器（`<Icon>` 与 `icon()`），配套 5 个可单独安装的图标集 crate（Lucide、Heroicons、Tabler、Phosphor、Remix）。"
+      },
+      "sourceUrl": "https://github.com/huacnlee/nsh-icon",
+      "cratesUrl": "https://crates.io/crates/nsh-icon",
+      "homepage": null,
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "Install companion icon packs alongside it, e.g. `nsh add nsh-icon-lucide`, `nsh-icon-heroicons`, `nsh-icon-tabler`, `nsh-icon-phosphor`, `nsh-icon-remix`.",
+        "zh": "配合具体图标包使用，例如 `nsh add nsh-icon-lucide`（另有 heroicons、tabler、phosphor、remix 共 5 个子包）。"
+      }
+    },
+    {
+      "id": "supernsh-icons",
+      "name": "supernsh-icons",
+      "section": "nshm",
+      "category": "icons",
+      "kind": "hybrid-nshm",
+      "installable": true,
+      "sourceType": "crates.io",
+      "installCommand": "nsh add supernsh-icons",
+      "version": "0.2.0",
+      "nshVersion": ">=0.7",
+      "description": {
+        "en": "Typed SVG and font-glyph icon library covering 260 Iconify sets (~465,000 icons) with 35 installable companion set crates.",
+        "zh": "基于 Iconify 的强类型 SVG 与字体图标库，覆盖 260 套（约 46.5 万个）图标，并拆分为 35 个可按需安装的 `supernsh-icons-*` 子 crate。"
+      },
+      "sourceUrl": "https://github.com/SuperNSH/icons",
+      "cratesUrl": "https://crates.io/crates/supernsh-icons",
+      "homepage": "https://supernsh.github.io/icons/",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "Companion crates `supernsh-icons-lucide`, `supernsh-icons-mdi`, `supernsh-icons-ph`, etc. are grouped under this entry rather than listed 35 times.",
+        "zh": "35 个 `supernsh-icons-*` 图标集子 crate 均归并在此条目下，避免清单被重复子包刷屏。"
+      }
+    },
+    {
+      "id": "nsh-graph",
+      "name": "nsh-graph",
+      "section": "nshm",
+      "category": "visualization",
+      "kind": "hybrid-nshm",
+      "installable": true,
+      "sourceType": "crates.io",
+      "installCommand": "nsh add nsh-graph",
+      "version": "0.3.0",
+      "nshVersion": ">=0.7",
+      "description": {
+        "en": "Interactive network graph component on native `<Canvas>` with force, hierarchical, circular, and grid layouts plus an opt-in Rust backend.",
+        "zh": "基于原生 `<Canvas>` 的交互式网络图谱组件，内置力导向、分层、环形与网格布局，并支持可选的 Rust 加速后端。"
+      },
+      "sourceUrl": "https://github.com/JetSquirrel/nsh-graph",
+      "cratesUrl": "https://crates.io/crates/nsh-graph",
+      "homepage": "https://jetsquirrel.github.io/nsh-graph/",
+      "platforms": ["iOS", "Android", "macOS", "Windows", "Linux", "GPUI", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "Includes community collapsing, PNG export via `OffscreenCanvas`, and color-blind-safe palettes.",
+        "zh": "支持社区折叠、通过 `OffscreenCanvas` 导出 PNG 与色盲友好配色方案。"
+      }
+    },
+    {
+      "id": "nsh-o11y",
+      "name": "nsh-o11y",
+      "section": "nshm",
+      "category": "visualization",
+      "kind": "hybrid-nshm",
+      "installable": true,
+      "sourceType": "crates.io",
+      "installCommand": "nsh add nsh-o11y",
+      "version": "0.1.0",
+      "nshVersion": ">=0.7",
+      "description": {
+        "en": "High-throughput observability charts (`TimeSeriesChart`, `LogView`, `TraceWaterfall`, `FlameGraph`) using M4 pyramid decimation and an optional Rust store.",
+        "zh": "高性能可观测性可视化图表套件（时序折线、日志直方图、Trace 瀑布图与火焰图），采用 M4 金字塔降采样与可选 Rust 存储。"
+      },
+      "sourceUrl": "https://github.com/JetSquirrel/nsh-o11y",
+      "cratesUrl": "https://crates.io/crates/nsh-o11y",
+      "homepage": "https://jetsquirrel.github.io/nsh-o11y/",
+      "platforms": ["iOS", "Android", "macOS", "Windows", "Linux", "GPUI", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "Supports synchronized crosshairs across panels (`createChartSync`) and live streaming appends.",
+        "zh": "支持多面板联动十字准星（`createChartSync`）与实时流式数据追加。"
+      }
+    },
+    {
+      "id": "nsh-webgpu",
+      "name": "nsh-webgpu",
+      "section": "nshm",
+      "category": "visualization",
+      "kind": "hybrid-nshm",
+      "installable": true,
+      "sourceType": "github",
+      "installCommand": "nsh add github:SuperNSH/webgpu",
+      "version": "0.1.0",
+      "nshVersion": ">=0.7.1",
+      "description": {
+        "en": "WebGPU (`navigator.gpu`, `GPUDevice`, `<Canvas getContext(\"webgpu\")>`) for NSH apps ported from react-native-webgpu onto wgpu 29.",
+        "zh": "基于 wgpu 29 移植自 react-native-webgpu 的 NSH WebGPU 模块，提供 `navigator.gpu` 与 `<Canvas>` 原生 GPU 渲染。"
+      },
+      "sourceUrl": "https://github.com/SuperNSH/webgpu",
+      "cratesUrl": null,
+      "homepage": null,
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "GitHub-only (`publish = false` in Cargo.toml).",
+        "zh": "仅托管于 GitHub（`Cargo.toml` 标注 `publish = false`，未发布至 crates.io）。"
+      }
+    },
+    {
+      "id": "nsh-skia",
+      "name": "nsh-skia",
+      "section": "nshm",
+      "category": "visualization",
+      "kind": "hybrid-nshm",
+      "installable": true,
+      "sourceType": "github",
+      "installCommand": "nsh add github:SuperNSH/skia",
+      "version": "0.1.0",
+      "nshVersion": ">=0.7.1",
+      "description": {
+        "en": "Skia 2D canvas and drawing primitives (`<Canvas>`, `<Circle>`, `<Path>`, `Skia.RuntimeEffect`) backed by `skia-safe` for macOS and Linux.",
+        "zh": "基于 `skia-safe` 实现的 Skia 2D 绘图与着色器模块（兼容 react-native-skia API），支持 macOS Metal 与 Linux OpenGL。"
+      },
+      "sourceUrl": "https://github.com/SuperNSH/skia",
+      "cratesUrl": null,
+      "homepage": null,
+      "platforms": ["macOS", "Linux"],
+      "license": "MIT",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "GitHub-only; hardware GPU views verified on macOS and Linux (Web unsupported; mobile/Windows fall back to in-memory images).",
+        "zh": "仅托管于 GitHub；已在 macOS 与 Linux 验证 GPU 视图（不支持 Web，移动端与 Windows 仅提供内存图像回退）。"
+      }
+    },
+    {
+      "id": "nsh-query",
+      "name": "nsh-query",
+      "section": "nshm",
+      "category": "data",
+      "kind": "tsx-nshm",
+      "installable": true,
+      "sourceType": "github",
+      "installCommand": "nsh add github:Dearest/nsh-query",
+      "version": "0.1.0",
+      "nshVersion": ">=0.6",
+      "description": {
+        "en": "Pure-TSX TanStack Query adapter (`useQuery`, `useMutation`, persistence) wired to NSH app lifecycle, network status, and `Storage`.",
+        "zh": "纯 TSX 实现的 TanStack Query 适配模块（`useQuery`、`useMutation` 与持久化缓存），已接入 NSH 应用生命周期与存储。"
+      },
+      "sourceUrl": "https://github.com/Dearest/nsh-query",
+      "cratesUrl": null,
+      "homepage": null,
+      "platforms": ["iOS", "Android", "macOS", "Windows", "Linux", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-25",
+      "notes": {
+        "en": "Pure TSX nshm (requires no Rust toolchain); GitHub-only.",
+        "zh": "纯 TSX nshm（无需 Rust 工具链即可打包）；仅托管于 GitHub。"
+      }
+    },
+    {
+      "id": "nsmetry",
+      "name": "nsmetry",
+      "section": "nshm",
+      "category": "data",
+      "kind": "hybrid-nshm",
+      "installable": true,
+      "sourceType": "crates.io",
+      "installCommand": "nsh add nsmetry",
+      "version": "0.1.0",
+      "nshVersion": ">=0.7",
+      "description": {
+        "en": "Privacy-first event analytics client SDK for NSH apps with batching and retries targeting a self-hosted NsMetry Cloudflare Worker.",
+        "zh": "面向 NSH 应用的隐私优先事件分析客户端 SDK，支持批量上报与重试，对接自托管 NsMetry Cloudflare Worker 服务。"
+      },
+      "sourceUrl": "https://github.com/huacnlee/nsmetry",
+      "cratesUrl": "https://crates.io/crates/nsmetry",
+      "homepage": null,
+      "platforms": ["macOS", "Windows", "Linux", "Android", "iOS", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-26",
+      "notes": {
+        "en": "Monorepo contains both the Cloudflare Worker dashboard app and the root nshm SDK crate.",
+        "zh": "仓库同时包含服务端分析面板应用与根目录的 nshm 客户端 SDK。"
+      }
+    },
+    {
+      "id": "nsh-platform-harmonyos",
+      "name": "nsh-platform-harmonyos",
+      "section": "nshm",
+      "category": "platforms",
+      "kind": "platform-nshm",
+      "installable": true,
+      "sourceType": "github",
+      "installCommand": "nsh add github:huacnlee/nsh-platform-harmonyos",
+      "version": "0.1.1",
+      "nshVersion": ">=0.7",
+      "description": {
+        "en": "Community platform nshm providing `--target harmonyos` to run and package NSH apps natively on HarmonyOS and OpenHarmony with ArkUI.",
+        "zh": "社区维护的鸿蒙平台 nshm，安装后可使用 `--target harmonyos` 将 NSH 应用以 ArkUI 原生视图运行与打包至 HarmonyOS / OpenHarmony。"
+      },
+      "sourceUrl": "https://github.com/huacnlee/nsh-platform-harmonyos",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-harmonyos",
+      "homepage": null,
+      "platforms": ["HarmonyOS", "OpenHarmony"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-26",
+      "notes": {
+        "en": "Install via `github:huacnlee/nsh-platform-harmonyos` (`0.1.1`); crates.io `0.1.0` predates `nsh.json` `\"platform\"` and fails `nsh add`.",
+        "zh": "需使用 `github:huacnlee/nsh-platform-harmonyos`（0.1.1）安装；crates.io 上的 0.1.0 缺少 `nsh.json` `\"platform\"` 字段会导致 `nsh add` 报错。"
+      }
+    },
+
+    {
+      "id": "crate-nsh-cli",
+      "name": "nsh-cli",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official `nsh` CLI tool for initializing, checking, running, packaging, and signing apps.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 `nsh` 命令行工具，负责项目初始化、类型检查、运行、打包与签名发布。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-cli",
+      "cratesUrl": "https://crates.io/crates/nsh-cli",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "Linux", "Windows"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-core",
+      "name": "nsh-core",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Platform-independent shadow tree, reactive signals, layout engine, and mount instructions.",
+        "zh": "非 nshm（不可 `nsh add`）— 与平台无关的核心 crate，包含影子树、响应式信号、布局引擎与挂载指令。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-core",
+      "cratesUrl": "https://crates.io/crates/nsh-core",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-base",
+      "name": "nsh-base",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Unstyled UI primitives (`nsh/base`) providing focus, navigation, dialogs, editor, and accessibility behavior.",
+        "zh": "非 nshm（不可 `nsh add`）— 无样式基础组件行为层（`nsh/base`），提供焦点管理、导航、对话框、代码编辑器与无障碍逻辑。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-base",
+      "cratesUrl": "https://crates.io/crates/nsh-base",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-engine",
+      "name": "nsh-engine",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Engine thread driving the JS host and `nsh-core` while emitting native mount batches.",
+        "zh": "非 nshm（不可 `nsh add`）— 驱动 JS 宿主与 `nsh-core` 并输出原生挂载批次的引擎线程 crate。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-engine",
+      "cratesUrl": "https://crates.io/crates/nsh-engine",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-macros",
+      "name": "nsh-macros",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Procedural derive macros for NSH Rust components, props, events, and `#[native_module]` exports.",
+        "zh": "非 nshm（不可 `nsh add`）— NSH Rust 组件过程宏 crate，提供 Props、事件与 `#[native_module]` 导出宏。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-macros",
+      "cratesUrl": "https://crates.io/crates/nsh-macros",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-js",
+      "name": "nsh-js",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — QuickJS runtime host handling JS evaluation, native bridge op decoding, and bytecode execution.",
+        "zh": "非 nshm（不可 `nsh add`）— QuickJS 运行时宿主 crate，负责 JS 执行、原生桥接操作解码与字节码加载。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-js",
+      "cratesUrl": "https://crates.io/crates/nsh-js",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-bundler",
+      "name": "nsh-bundler",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Rolldown-based JS/TSX bundler and JSX compiler used by the NSH toolchain.",
+        "zh": "非 nshm（不可 `nsh add`）— NSH 工具链内置的 Rolldown 打包器与 JSX 编译器。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-bundler",
+      "cratesUrl": "https://crates.io/crates/nsh-bundler",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "Linux", "Windows"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-testing",
+      "name": "nsh-testing",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Headless testing driver that runs NSH apps without a window for `nsh test` and Rust integration tests.",
+        "zh": "非 nshm（不可 `nsh add`）— 无头测试驱动，供 `nsh test` 与 Rust 集成测试在无窗口环境下驱动应用。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-testing",
+      "cratesUrl": "https://crates.io/crates/nsh-testing",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "Linux", "Windows"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-updater",
+      "name": "nsh-updater",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Self-update client supporting signed update manifests, verification, and binary replacement.",
+        "zh": "非 nshm（不可 `nsh add`）— 打包应用自更新客户端 crate，支持签名校验与下载替换。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-updater",
+      "cratesUrl": "https://crates.io/crates/nsh-updater",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "Windows", "Linux"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-package",
+      "name": "nsh-package",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Signed `.nshpkg` archive format, Ed25519 key hierarchy, revocation lists, and trust store.",
+        "zh": "非 nshm（不可 `nsh add`）— `.nshpkg` 签名包格式、二级密钥体系、吊销列表与信任库实现。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-package",
+      "cratesUrl": "https://crates.io/crates/nsh-package",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-i18n",
+      "name": "nsh-i18n",
+      "section": "framework",
+      "category": "core",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Locale formatting tables and `rust-i18n` translation loader for NSH apps.",
+        "zh": "非 nshm（不可 `nsh add`）— NSH 应用语言本地化数据与 `rust-i18n` 翻译加载支持库。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-i18n",
+      "cratesUrl": "https://crates.io/crates/nsh-i18n",
+      "homepage": "https://nsh.dev",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-macos",
+      "name": "nsh-platform-macos",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official macOS AppKit backend with CoreText rendering, native view mounting, and window hosting.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 macOS AppKit 平台后端，提供 CoreText 排版、原生控件挂载与窗口宿主。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-macos",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-macos",
+      "homepage": "https://nsh.dev/docs/macos",
+      "platforms": ["macOS"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-ios",
+      "name": "nsh-platform-ios",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official iOS UIKit backend and NativeShell Swift embedding ABI.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 iOS UIKit 平台后端及 NativeShell Swift 嵌入接口。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-ios",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-ios",
+      "homepage": "https://nsh.dev/docs/ios",
+      "platforms": ["iOS"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-android",
+      "name": "nsh-platform-android",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official Android JNI glue, StaticLayout text measurement, and native animation driver.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 Android 平台后端，包含 JNI 胶水、StaticLayout 文本测量与原生动画驱动。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-android",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-android",
+      "homepage": "https://nsh.dev/docs/android",
+      "platforms": ["Android"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-windows",
+      "name": "nsh-platform-windows",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official Windows Win32, Direct2D, and DirectWrite native backend.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 Windows Win32、Direct2D 与 DirectWrite 原生渲染后端。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-windows",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-windows",
+      "homepage": "https://nsh.dev/docs/windows",
+      "platforms": ["Windows"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-linux",
+      "name": "nsh-platform-linux",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official Linux GTK 4 and Pango native widget mounting backend.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 Linux GTK 4 与 Pango 原生控件后端。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-linux",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-linux",
+      "homepage": "https://nsh.dev/docs/linux",
+      "platforms": ["Linux"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-web",
+      "name": "nsh-platform-web",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official WebAssembly DOM rendering backend for deploying NSH apps as static web sites.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 WebAssembly DOM 后端，将 NSH 应用打包发布为静态网站。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-web",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-web",
+      "homepage": "https://nsh.dev/docs/web",
+      "platforms": ["Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-gpui",
+      "name": "nsh-platform-gpui",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official GPUI rendering backend for embedding NSH surfaces inside GPUI desktop apps.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方 GPUI 后端，支持将 NSH 界面嵌入 GPUI 桌面应用。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-gpui",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-gpui",
+      "homepage": "https://nsh.dev/docs/gpui",
+      "platforms": ["macOS", "Windows", "Linux"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "crate-nsh-platform-tui",
+      "name": "nsh-platform-tui",
+      "section": "framework",
+      "category": "backend",
+      "kind": "framework-crate",
+      "installable": false,
+      "sourceType": "crates.io",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "NOT nshm (cannot `nsh add`) — Official terminal UI backend rendering NSH views into a terminal cell grid.",
+        "zh": "非 nshm（不可 `nsh add`）— 官方终端（TUI）渲染后端，在终端字符网格中绘制 NSH 界面。"
+      },
+      "sourceUrl": "https://crates.io/crates/nsh-platform-tui",
+      "cratesUrl": "https://crates.io/crates/nsh-platform-tui",
+      "homepage": "https://nsh.dev/docs/platforms",
+      "platforms": ["macOS", "Linux", "Windows"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+
+    {
+      "id": "tpl-longbridge-examples",
+      "name": "longbridge/nsh Examples",
+      "section": "templates",
+      "category": "starters",
+      "kind": "examples",
+      "installable": false,
+      "sourceType": "github",
+      "installCommand": null,
+      "version": "0.7.1",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Official NSH example apps covering TSX, Rust-only (`tasks-rs`), mixed `rust-exports`, tray, embedding, and `nsh-extra`.",
+        "zh": "官方示例集合，涵盖 TSX、纯 Rust（`tasks-rs`）、混合导出 `rust-exports`、系统托盘、宿主嵌入与 `nsh-extra` 用法。"
+      },
+      "sourceUrl": "https://github.com/longbridge/nsh/tree/main/examples",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/gallery",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "Apache-2.0",
+      "updatedAt": "2026-11-26",
+      "notes": null
+    },
+    {
+      "id": "tpl-supernsh-starter",
+      "name": "SuperNSH/starter",
+      "section": "templates",
+      "category": "starters",
+      "kind": "template",
+      "installable": false,
+      "sourceType": "github",
+      "installCommand": null,
+      "version": "0.1.0",
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Production-style NSH 0.7.1 application boilerplate demonstrating navigation, forms, virtualized lists, animations, and signed remote TSX packages.",
+        "zh": "基于 NSH 0.7.1 的生产级应用脚手架模板，完整演示导航、表单、虚拟列表、动画、与签名远程 TSX 包加载。"
+      },
+      "sourceUrl": "https://github.com/SuperNSH/starter",
+      "cratesUrl": null,
+      "homepage": null,
+      "platforms": ["macOS", "iOS", "Android", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-26",
+      "notes": {
+        "en": "App boilerplate (`publish = false`, `nsh.json` `\"root\": \"App\"`), not a library nshm.",
+        "zh": "属于应用工程模板（`publish = false` 且 `nsh.json` 含 `\"root\": \"App\"`），非可复用库。"
+      }
+    },
+    {
+      "id": "tpl-nsh-showcases",
+      "name": "longbridge/nsh-showcases",
+      "section": "templates",
+      "category": "starters",
+      "kind": "directory",
+      "installable": false,
+      "sourceType": "github",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.x",
+      "description": {
+        "en": "Official community showcase repository backing `nsh.dev/apps` and `nsh.dev/directory` with app stories and project manifests.",
+        "zh": "驱动 `nsh.dev/apps` 与 `nsh.dev/directory` 的官方社区展示仓库，收录真实应用案例与生态项目清单。"
+      },
+      "sourceUrl": "https://github.com/longbridge/nsh-showcases",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/apps",
+      "platforms": ["macOS", "iOS", "Android", "Windows", "Linux", "Web"],
+      "license": "MIT",
+      "updatedAt": "2026-11-26",
+      "notes": null
+    },
+    {
+      "id": "tpl-disktree",
+      "name": "huacnlee/disktree",
+      "section": "templates",
+      "category": "starters",
+      "kind": "reference-app",
+      "installable": false,
+      "sourceType": "github",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.x",
+      "description": {
+        "en": "Native disk-space treemap explorer featured in NSH's official `ext/` Rust-in-TSX tutorial.",
+        "zh": "原生磁盘空间分析应用，也是官方 `ext/` 混合模式（TSX UI + Rust 扫描器）教程中的代表案例。"
+      },
+      "sourceUrl": "https://github.com/huacnlee/disktree",
+      "cratesUrl": null,
+      "homepage": "https://huacnlee.github.io/disktree/",
+      "platforms": ["macOS", "Linux"],
+      "license": "MIT",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+
+    {
+      "id": "doc-nshm",
+      "name": "nshm Guide (Official Docs)",
+      "section": "articles",
+      "category": "guides",
+      "kind": "documentation",
+      "installable": false,
+      "sourceType": "web",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Authoritative NSH modules specification covering `nsh add`, `nsh.lock`, `nsh-extra`, `ext/` crates, platform nshms, and publishing.",
+        "zh": "官方 nshm 模块规范指南，详述 `nsh add`、`nsh.lock`、`nsh-extra`、`ext/` 本地扩展、平台 nshm 与模块发布方式。"
+      },
+      "sourceUrl": "https://nsh.dev/docs/nshm",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/docs/nshm",
+      "platforms": ["All"],
+      "license": "CC-BY-4.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "doc-getting-started",
+      "name": "Getting Started with Native Shell",
+      "section": "articles",
+      "category": "guides",
+      "kind": "tutorial",
+      "installable": false,
+      "sourceType": "web",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Step-by-step walkthrough for creating, running, checking, testing, and packaging your first TSX or Rust NSH application.",
+        "zh": "手把手入门教程：使用 `nsh` 创建、运行、类型检查、测试与打包第一个 TSX 或 Rust 原生应用。"
+      },
+      "sourceUrl": "https://nsh.dev/docs/getting-started",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/docs/getting-started",
+      "platforms": ["All"],
+      "license": "CC-BY-4.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "doc-rust",
+      "name": "Building with Rust",
+      "section": "articles",
+      "category": "guides",
+      "kind": "tutorial",
+      "installable": false,
+      "sourceType": "web",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Guide to writing Rust-first apps and extending TSX apps with `#[native_module]` crates and generated TypeScript declarations.",
+        "zh": "讲解纯 Rust 应用开发以及如何通过 `#[native_module]` 与自动生成的 TypeScript 声明在 TSX 应用中扩展 Rust 能力。"
+      },
+      "sourceUrl": "https://nsh.dev/docs/rust",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/docs/rust",
+      "platforms": ["All"],
+      "license": "CC-BY-4.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "doc-platform-extensions",
+      "name": "Platform Extensions Guide",
+      "section": "articles",
+      "category": "guides",
+      "kind": "documentation",
+      "installable": false,
+      "sourceType": "web",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Specification for implementing custom target backends as external executables or installable `\"platform\"` nshms.",
+        "zh": "阐述如何基于 NSH 公共平台扩展点实现自定义目标平台后端并打包为 `\"platform\"` nshm。"
+      },
+      "sourceUrl": "https://nsh.dev/docs/platform-extensions",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/docs/platform-extensions",
+      "platforms": ["All"],
+      "license": "CC-BY-4.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "doc-project-structure",
+      "name": "Project Structure & nsh.json Reference",
+      "section": "articles",
+      "category": "guides",
+      "kind": "documentation",
+      "installable": false,
+      "sourceType": "web",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Complete reference for `nsh.json` manifest keys, `.nsh/types`, asset macros, and module resolution rules.",
+        "zh": "全面解析 `nsh.json` 配置字段、`.nsh/types` 类型生成、静态资源引用与模块解析规则。"
+      },
+      "sourceUrl": "https://nsh.dev/docs/project-structure",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/docs/project-structure",
+      "platforms": ["All"],
+      "license": "CC-BY-4.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "doc-comparison",
+      "name": "Comparing Approaches (Electron, Tauri, RN, Flutter, GPUI)",
+      "section": "articles",
+      "category": "guides",
+      "kind": "article",
+      "installable": false,
+      "sourceType": "web",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Architecture and measured benchmark comparison between Native Shell and Electron, Tauri, React Native, Flutter, GPUI, Qt, and Slint.",
+        "zh": "从架构原理与实测指标出发，对比 Native Shell 与 Electron、Tauri、React Native、Flutter、GPUI、Qt 及 Slint 的取舍。"
+      },
+      "sourceUrl": "https://nsh.dev/docs/comparison",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/docs/comparison",
+      "platforms": ["All"],
+      "license": "CC-BY-4.0",
+      "updatedAt": "2026-11-25",
+      "notes": null
+    },
+    {
+      "id": "doc-official-directory",
+      "name": "Official NSH Directory",
+      "section": "articles",
+      "category": "guides",
+      "kind": "directory",
+      "installable": false,
+      "sourceType": "web",
+      "installCommand": null,
+      "version": null,
+      "nshVersion": "0.7.1",
+      "description": {
+        "en": "Official Native Shell community showcase directory listing curated components, libraries, and platforms from `longbridge/nsh-showcases`.",
+        "zh": "Native Shell 官方社区项目目录页，展示经 `longbridge/nsh-showcases` PR 审核收录的组件、库与平台项目。"
+      },
+      "sourceUrl": "https://nsh.dev/directory",
+      "cratesUrl": null,
+      "homepage": "https://nsh.dev/directory",
+      "platforms": ["All"],
+      "license": "CC-BY-4.0",
+      "updatedAt": "2026-11-26",
+      "notes": null
+    }
+  ]
+}

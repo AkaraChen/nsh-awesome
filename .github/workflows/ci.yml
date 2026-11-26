@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NSH_VERSION: 0.7.1
+
+jobs:
+  lint-and-consistency:
+    name: lint + generate --check
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check generated files match data/entries.json
+        run: node scripts/generate.mjs --check
+      - name: Run schema and awesome-lint checks
+        run: node scripts/lint.mjs
+      - name: Run unit tests
+        run: node --test scripts/verify.test.mjs
+
+  check-links:
+    name: check links
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Check all URLs in data, READMEs, and docs
+        run: node scripts/check-links.mjs
+
+  verify-install:
+    name: verify nsh add (0.7.1)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Cache nsh CLI binary
+        id: cache-nsh-bin
+        uses: actions/cache@v4
+        with:
+          path: ~/.nsh-ci/bin
+          key: nsh-bin-v${{ env.NSH_VERSION }}-${{ runner.os }}
+      - name: Install nsh v0.7.1
+        if: steps.cache-nsh-bin.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p ~/.nsh-ci/bin /tmp/nsh-dl
+          curl -fsSL "https://github.com/longbridge/nsh/releases/download/v${NSH_VERSION}/nsh-linux-x86_64.tar.gz" -o /tmp/nsh-dl/nsh.tar.gz
+          tar -xzf /tmp/nsh-dl/nsh.tar.gz -C /tmp/nsh-dl
+          cp /tmp/nsh-dl/nsh/bin/nsh ~/.nsh-ci/bin/nsh
+          chmod +x ~/.nsh-ci/bin/nsh
+          rm -rf /tmp/nsh-dl
+      - name: Cache NSH_HOME nshms
+        uses: actions/cache@v4
+        with:
+          path: ~/.nsh-ci/home
+          key: nsh-home-v${{ env.NSH_VERSION }}-${{ hashFiles('data/entries.json') }}-${{ github.run_id }}
+          restore-keys: |
+            nsh-home-v${{ env.NSH_VERSION }}-${{ hashFiles('data/entries.json') }}-
+            nsh-home-v${{ env.NSH_VERSION }}-
+      - name: Run nsh add for every installable nshm
+        run: |
+          NSH_BIN="$HOME/.nsh-ci/bin/nsh" \
+          NSH_HOME="$HOME/.nsh-ci/home" \
+          node scripts/verify-install.mjs
