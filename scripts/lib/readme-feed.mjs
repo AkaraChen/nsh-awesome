@@ -39,12 +39,6 @@ function renderEntryMarkdown(entry, lang) {
     metaParts.push(
       lang === 'en' ? `Install: \`${entry.installCommand}\`` : `安装：\`${entry.installCommand}\``,
     );
-  } else if (entry.section === 'framework') {
-    metaParts.push(
-      lang === 'en'
-        ? '**Not nshm** (cannot install with `nsh add`)'
-        : '**非 nshm**（不可通过 `nsh add` 安装）',
-    );
   }
 
   const kindLabels = {

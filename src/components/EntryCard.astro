@@ -51,11 +51,7 @@ const searchText = [
     </h3>
     <div class="card__eyebrow">
       <span class="card__dot" aria-hidden="true"></span>
-      {entry.section === 'framework' ? (
-        <span class="card__eyebrow-item card__eyebrow-warn">{t.notNshm}</span>
-      ) : (
-        <span class="card__eyebrow-item">{entry.kind}</span>
-      )}
+      <span class="card__eyebrow-item">{entry.kind}</span>
       <span class="card__eyebrow-item">{entry.sourceType}</span>
       {entry.version && <span class="card__eyebrow-item">v{entry.version}</span>}
     </div>

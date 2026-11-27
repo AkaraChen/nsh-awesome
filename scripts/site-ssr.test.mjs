@@ -96,6 +96,34 @@ test('home EN and ZH Astro SSR HTML contain all 43 semantic cards, 13 module lin
     for (const ctrl of controls) {
       assert.ok(/toolparamdescription="[^"]+"/.test(ctrl), `control missing toolparamdescription: ${ctrl}`);
     }
+
+    for (const forbidden of [
+      'reference-zone',
+      'What is Native Shell',
+      '什么是 Native Shell',
+      'Frequently Asked Questions',
+      '常见问题',
+    ]) {
+      assert.equal(html.includes(forbidden), false, `${file} must not contain "${forbidden}"`);
+    }
+  }
+
+  for (const file of [
+    'dist/index.html',
+    'dist/zh/index.html',
+    'dist/framework/index.html',
+    'dist/zh/framework/index.html',
+  ]) {
+    const html = fs.readFileSync(file, 'utf8');
+    const cardBlocks = [...html.matchAll(/<article\b[^>]*class="card"[^>]*>([\s\S]*?)<\/article>/g)];
+    assert.ok(cardBlocks.length > 0, `${file} expected article.card elements`);
+    for (const [fullCard] of cardBlocks) {
+      assert.equal(fullCard.includes('NOT nshm (cannot'), false, `${file} card leaked NOT nshm prefix`);
+      assert.equal(fullCard.includes('非 nshm（不可'), false, `${file} card leaked 非 nshm prefix`);
+      if (fullCard.includes('data-section="framework"')) {
+        assert.ok(fullCard.includes('framework-crate'), `${file} framework card missing framework-crate kind`);
+      }
+    }
   }
 });
 

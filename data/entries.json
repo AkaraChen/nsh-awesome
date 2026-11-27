@@ -26,8 +26,8 @@
       "title": { "en": "Framework & Official Crates", "zh": "框架与官方 Crate" },
       "emoji": "🧱",
       "description": {
-        "en": "NOT nshm — cannot be installed with `nsh add`. Core framework, runtime, bundler, and platform backend crates maintained in `longbridge/nsh` (`cargo add` or managed automatically by `nsh`).",
-        "zh": "注意：本节 crate 并非 nshm，不可使用 `nsh add` 安装。它们是 `longbridge/nsh` 官方维护的核心框架、运行时、打包器与平台后端 crate（供 Rust `cargo add` 或由 `nsh` 自动构建链接）。"
+        "en": "Official runtime, tooling, and platform backend crates maintained in `longbridge/nsh`; managed automatically by `nsh` or added in Rust via `cargo add` rather than `nsh add`.",
+        "zh": "由 `longbridge/nsh` 维护的官方运行时、工具链与平台后端 crate，由 `nsh` 自动管理或在 Rust 项目中以 `cargo add` 引入，而非 `nsh add` 模块。"
       }
     },
     {
@@ -413,8 +413,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official `nsh` CLI tool for initializing, checking, running, packaging, and signing apps.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 `nsh` 命令行工具，负责项目初始化、类型检查、运行、打包与签名发布。"
+        "en": "Official `nsh` CLI tool for initializing, checking, running, packaging, and signing apps.",
+        "zh": "官方 `nsh` 命令行工具，负责项目初始化、类型检查、运行、打包与签名发布。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-cli",
       "cratesUrl": "https://crates.io/crates/nsh-cli",
@@ -436,8 +436,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Platform-independent shadow tree, reactive signals, layout engine, and mount instructions.",
-        "zh": "非 nshm（不可 `nsh add`）— 与平台无关的核心 crate，包含影子树、响应式信号、布局引擎与挂载指令。"
+        "en": "Platform-independent shadow tree, reactive signals, layout engine, and mount instructions.",
+        "zh": "与平台无关的核心 crate，包含影子树、响应式信号、布局引擎与挂载指令。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-core",
       "cratesUrl": "https://crates.io/crates/nsh-core",
@@ -459,8 +459,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Unstyled UI primitives (`nsh/base`) providing focus, navigation, dialogs, editor, and accessibility behavior.",
-        "zh": "非 nshm（不可 `nsh add`）— 无样式基础组件行为层（`nsh/base`），提供焦点管理、导航、对话框、代码编辑器与无障碍逻辑。"
+        "en": "Unstyled UI primitives (`nsh/base`) providing focus, navigation, dialogs, editor, and accessibility behavior.",
+        "zh": "无样式基础组件行为层（`nsh/base`），提供焦点管理、导航、对话框、代码编辑器与无障碍逻辑。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-base",
       "cratesUrl": "https://crates.io/crates/nsh-base",
@@ -482,8 +482,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Engine thread driving the JS host and `nsh-core` while emitting native mount batches.",
-        "zh": "非 nshm（不可 `nsh add`）— 驱动 JS 宿主与 `nsh-core` 并输出原生挂载批次的引擎线程 crate。"
+        "en": "Engine thread driving the JS host and `nsh-core` while emitting native mount batches.",
+        "zh": "驱动 JS 宿主与 `nsh-core` 并输出原生挂载批次的引擎线程 crate。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-engine",
       "cratesUrl": "https://crates.io/crates/nsh-engine",
@@ -505,8 +505,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Procedural derive macros for NSH Rust components, props, events, and `#[native_module]` exports.",
-        "zh": "非 nshm（不可 `nsh add`）— NSH Rust 组件过程宏 crate，提供 Props、事件与 `#[native_module]` 导出宏。"
+        "en": "Procedural derive macros for NSH Rust components, props, events, and `#[native_module]` exports.",
+        "zh": "NSH Rust 组件过程宏 crate，提供 Props、事件与 `#[native_module]` 导出宏。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-macros",
       "cratesUrl": "https://crates.io/crates/nsh-macros",
@@ -528,8 +528,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — QuickJS runtime host handling JS evaluation, native bridge op decoding, and bytecode execution.",
-        "zh": "非 nshm（不可 `nsh add`）— QuickJS 运行时宿主 crate，负责 JS 执行、原生桥接操作解码与字节码加载。"
+        "en": "QuickJS runtime host handling JS evaluation, native bridge op decoding, and bytecode execution.",
+        "zh": "QuickJS 运行时宿主 crate，负责 JS 执行、原生桥接操作解码与字节码加载。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-js",
       "cratesUrl": "https://crates.io/crates/nsh-js",
@@ -551,8 +551,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Rolldown-based JS/TSX bundler and JSX compiler used by the NSH toolchain.",
-        "zh": "非 nshm（不可 `nsh add`）— NSH 工具链内置的 Rolldown 打包器与 JSX 编译器。"
+        "en": "Rolldown-based JS/TSX bundler and JSX compiler used by the NSH toolchain.",
+        "zh": "NSH 工具链内置的 Rolldown 打包器与 JSX 编译器。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-bundler",
       "cratesUrl": "https://crates.io/crates/nsh-bundler",
@@ -574,8 +574,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Headless testing driver that runs NSH apps without a window for `nsh test` and Rust integration tests.",
-        "zh": "非 nshm（不可 `nsh add`）— 无头测试驱动，供 `nsh test` 与 Rust 集成测试在无窗口环境下驱动应用。"
+        "en": "Headless testing driver that runs NSH apps without a window for `nsh test` and Rust integration tests.",
+        "zh": "无头测试驱动，供 `nsh test` 与 Rust 集成测试在无窗口环境下驱动应用。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-testing",
       "cratesUrl": "https://crates.io/crates/nsh-testing",
@@ -597,8 +597,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Self-update client supporting signed update manifests, verification, and binary replacement.",
-        "zh": "非 nshm（不可 `nsh add`）— 打包应用自更新客户端 crate，支持签名校验与下载替换。"
+        "en": "Self-update client supporting signed update manifests, verification, and binary replacement.",
+        "zh": "打包应用自更新客户端 crate，支持签名校验与下载替换。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-updater",
       "cratesUrl": "https://crates.io/crates/nsh-updater",
@@ -620,8 +620,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Signed `.nshpkg` archive format, Ed25519 key hierarchy, revocation lists, and trust store.",
-        "zh": "非 nshm（不可 `nsh add`）— `.nshpkg` 签名包格式、二级密钥体系、吊销列表与信任库实现。"
+        "en": "Signed `.nshpkg` archive format, Ed25519 key hierarchy, revocation lists, and trust store.",
+        "zh": "`.nshpkg` 签名包格式、二级密钥体系、吊销列表与信任库实现。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-package",
       "cratesUrl": "https://crates.io/crates/nsh-package",
@@ -643,8 +643,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Locale formatting tables and `rust-i18n` translation loader for NSH apps.",
-        "zh": "非 nshm（不可 `nsh add`）— NSH 应用语言本地化数据与 `rust-i18n` 翻译加载支持库。"
+        "en": "Locale formatting tables and `rust-i18n` translation loader for NSH apps.",
+        "zh": "NSH 应用语言本地化数据与 `rust-i18n` 翻译加载支持库。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-i18n",
       "cratesUrl": "https://crates.io/crates/nsh-i18n",
@@ -666,8 +666,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official macOS AppKit backend with CoreText rendering, native view mounting, and window hosting.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 macOS AppKit 平台后端，提供 CoreText 排版、原生控件挂载与窗口宿主。"
+        "en": "Official macOS AppKit backend with CoreText rendering, native view mounting, and window hosting.",
+        "zh": "官方 macOS AppKit 平台后端，提供 CoreText 排版、原生控件挂载与窗口宿主。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-macos",
       "cratesUrl": "https://crates.io/crates/nsh-platform-macos",
@@ -689,8 +689,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official iOS UIKit backend and NativeShell Swift embedding ABI.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 iOS UIKit 平台后端及 NativeShell Swift 嵌入接口。"
+        "en": "Official iOS UIKit backend and NativeShell Swift embedding ABI.",
+        "zh": "官方 iOS UIKit 平台后端及 NativeShell Swift 嵌入接口。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-ios",
       "cratesUrl": "https://crates.io/crates/nsh-platform-ios",
@@ -712,8 +712,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official Android JNI glue, StaticLayout text measurement, and native animation driver.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 Android 平台后端，包含 JNI 胶水、StaticLayout 文本测量与原生动画驱动。"
+        "en": "Official Android JNI glue, StaticLayout text measurement, and native animation driver.",
+        "zh": "官方 Android 平台后端，包含 JNI 胶水、StaticLayout 文本测量与原生动画驱动。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-android",
       "cratesUrl": "https://crates.io/crates/nsh-platform-android",
@@ -735,8 +735,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official Windows Win32, Direct2D, and DirectWrite native backend.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 Windows Win32、Direct2D 与 DirectWrite 原生渲染后端。"
+        "en": "Official Windows Win32, Direct2D, and DirectWrite native backend.",
+        "zh": "官方 Windows Win32、Direct2D 与 DirectWrite 原生渲染后端。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-windows",
       "cratesUrl": "https://crates.io/crates/nsh-platform-windows",
@@ -758,8 +758,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official Linux GTK 4 and Pango native widget mounting backend.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 Linux GTK 4 与 Pango 原生控件后端。"
+        "en": "Official Linux GTK 4 and Pango native widget mounting backend.",
+        "zh": "官方 Linux GTK 4 与 Pango 原生控件后端。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-linux",
       "cratesUrl": "https://crates.io/crates/nsh-platform-linux",
@@ -781,8 +781,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official WebAssembly DOM rendering backend for deploying NSH apps as static web sites.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 WebAssembly DOM 后端，将 NSH 应用打包发布为静态网站。"
+        "en": "Official WebAssembly DOM rendering backend for deploying NSH apps as static web sites.",
+        "zh": "官方 WebAssembly DOM 后端，将 NSH 应用打包发布为静态网站。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-web",
       "cratesUrl": "https://crates.io/crates/nsh-platform-web",
@@ -804,8 +804,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official GPUI rendering backend for embedding NSH surfaces inside GPUI desktop apps.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方 GPUI 后端，支持将 NSH 界面嵌入 GPUI 桌面应用。"
+        "en": "Official GPUI rendering backend for embedding NSH surfaces inside GPUI desktop apps.",
+        "zh": "官方 GPUI 后端，支持将 NSH 界面嵌入 GPUI 桌面应用。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-gpui",
       "cratesUrl": "https://crates.io/crates/nsh-platform-gpui",
@@ -827,8 +827,8 @@
       "version": "0.7.1",
       "nshVersion": "0.7.1",
       "description": {
-        "en": "NOT nshm (cannot `nsh add`) — Official terminal UI backend rendering NSH views into a terminal cell grid.",
-        "zh": "非 nshm（不可 `nsh add`）— 官方终端（TUI）渲染后端，在终端字符网格中绘制 NSH 界面。"
+        "en": "Official terminal UI backend rendering NSH views into a terminal cell grid.",
+        "zh": "官方终端（TUI）渲染后端，在终端字符网格中绘制 NSH 界面。"
       },
       "sourceUrl": "https://crates.io/crates/nsh-platform-tui",
       "cratesUrl": "https://crates.io/crates/nsh-platform-tui",

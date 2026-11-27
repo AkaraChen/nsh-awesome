@@ -928,9 +928,6 @@ main:focus {
   margin-right: 0.4rem;
   color: var(--border-strong);
 }
-.card__eyebrow-warn {
-  color: var(--muted-foreground);
-}
 
 .card__desc {
   margin: 0;
@@ -1072,74 +1069,6 @@ main:focus {
   color: var(--citrus);
 }
 
-/* Home Quiet Reference Zone */
-.reference-zone {
-  border-top: 1px solid var(--line);
-  background: var(--band-tinted);
-  padding: 2.5rem 0 3rem;
-}
-
-.ref-split {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 2rem;
-  margin-bottom: 2.4rem;
-}
-@media (min-width: 900px) {
-  .ref-split {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: 2.5rem;
-  }
-}
-
-.ref-summary {
-  margin: 0.45rem 0 0.9rem;
-  color: var(--muted-foreground);
-  font-size: 0.9rem;
-  line-height: 1.55;
-}
-
-.kpi-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 2rem;
-  background: transparent;
-  border: 0;
-  border-top: 1px solid var(--line);
-  border-radius: 0;
-  margin: 0;
-}
-@media (max-width: 560px) {
-  .kpi-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-.kpi-cell {
-  background: transparent;
-  padding: 0.85rem 0;
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: 0.22rem;
-}
-.kpi-cell dt {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--faint);
-}
-.kpi-value {
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-  font-size: 1.15rem;
-  font-weight: 680;
-  color: var(--citrus);
-}
-.kpi-detail {
-  font-size: 0.8rem;
-  line-height: 1.45;
-  color: var(--muted-foreground);
-}
-
 /* Content Bands, Prose, Callouts & Tables */
 .content-band {
   margin-bottom: 2.25rem;
@@ -1149,8 +1078,7 @@ main:focus {
   margin-bottom: 0;
 }
 .content-band h2,
-.md-prose h2,
-.ref-split h2 {
+.md-prose h2 {
   margin: 0 0 0.65rem;
   font-size: 1.24rem;
   font-weight: 670;
@@ -1346,36 +1274,6 @@ table.data-table {
   font-size: 0.96rem;
   font-weight: 640;
   color: var(--foreground);
-}
-
-/* FAQ Hairline Grid (no nested box farm) */
-.faq-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0 2.5rem;
-  border-top: 1px solid var(--line);
-}
-@media (min-width: 860px) {
-  .faq-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-.faq-item {
-  padding: 1.05rem 0;
-  border-bottom: 1px solid var(--line);
-}
-.faq-item h3 {
-  margin: 0 0 0.35rem;
-  font-size: 0.97rem;
-  font-weight: 640;
-  line-height: 1.4;
-  color: var(--foreground);
-}
-.faq-item p {
-  margin: 0;
-  font-size: 0.88rem;
-  line-height: 1.58;
-  color: var(--muted-foreground);
 }
 
 /* ModuleView Two-Column Package Registry */

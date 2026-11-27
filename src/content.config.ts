@@ -105,39 +105,6 @@ const homePageSchema = z.object({
   h1: z.string(),
   lead: z.string(),
   updatedAt: dateSchema,
-  definitionHeading: z.string(),
-  securityNotice: calloutSchema,
-  installSourcesTable: tableSchema,
-  ecosystemStats: z.object({
-    heading: z.string(),
-    summary: z.string(),
-    metrics: z.array(
-      z.object({
-        label: z.string(),
-        value: z.string(),
-        detail: z.string(),
-      }),
-    ),
-  }),
-  faqs: z.object({
-    heading: z.string(),
-    items: z.array(
-      z.object({
-        question: z.string(),
-        answer: z.string(),
-      }),
-    ),
-  }),
-  navigationHighlights: z.object({
-    heading: z.string(),
-    items: z.array(
-      z.object({
-        path: z.string(),
-        title: z.string(),
-        summary: z.string(),
-      }),
-    ),
-  }),
 });
 
 const sectionPageSchema = z.object({
