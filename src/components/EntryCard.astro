@@ -39,7 +39,7 @@ const searchText = [
   data-installable={entry.installable ? 'true' : 'false'}
   data-search={searchText}
 >
-  <div class="card__top">
+  <div class="card__head">
     <h3 class="card__title">
       <a
         href={titleHref}
@@ -49,19 +49,22 @@ const searchText = [
         {entry.name}
       </a>
     </h3>
-    <div class="card__badges">
+    <div class="card__eyebrow">
+      <span class="card__dot" aria-hidden="true"></span>
       {entry.section === 'framework' ? (
-        <span class="badge badge--warn">{t.notNshm}</span>
+        <span class="card__eyebrow-item card__eyebrow-warn">{t.notNshm}</span>
       ) : (
-        <span class="badge badge--citrus">{entry.kind}</span>
+        <span class="card__eyebrow-item">{entry.kind}</span>
       )}
-      <span class="badge badge--sky">{entry.sourceType}</span>
-      {entry.version && <span class="badge">v{entry.version}</span>}
+      <span class="card__eyebrow-item">{entry.sourceType}</span>
+      {entry.version && <span class="card__eyebrow-item">v{entry.version}</span>}
     </div>
   </div>
+
   <p class="card__desc">
     <InlineCode text={desc} />
   </p>
+
   {entry.installable && entry.installCommand && (
     <div class="install-row">
       <code class="install-cmd">{entry.installCommand}</code>
@@ -71,41 +74,47 @@ const searchText = [
       </button>
     </div>
   )}
+
   {note && (
     <p class="card__note">
       <InlineCode text={note} />
     </p>
   )}
-  <div class="card__meta">
+
+  <div class="card__footer">
     <div class="card__platforms">
       {(entry.platforms || []).map((p: string) => (
-        <span class="plat-tag">{p}</span>
+        <span class="plat-item">{p}</span>
       ))}
     </div>
-    <div class="card__links">
-      <span>{entry.license}</span>
-      <span>{entry.updatedAt}</span>
-      {detailHref && (
-        <a href={detailHref}>
-          {t.details}
+    <div class="card__bottom">
+      <div class="card__facts">
+        <span>{entry.license}</span>
+        <span>{entry.updatedAt}</span>
+      </div>
+      <div class="card__links">
+        {detailHref && (
+          <a class="card__link-primary" href={detailHref}>
+            {t.details}
+            <span class="sr-only"> — {entry.name}</span>
+          </a>
+        )}
+        <a href={entry.sourceUrl} target="_blank" rel="noopener">
+          {t.source}
           <span class="sr-only"> — {entry.name}</span>
         </a>
-      )}
-      <a href={entry.sourceUrl} target="_blank" rel="noopener">
-        {t.source}
-        <span class="sr-only"> — {entry.name}</span>
-      </a>
-      {entry.cratesUrl && entry.cratesUrl !== entry.sourceUrl && (
-        <a href={entry.cratesUrl} target="_blank" rel="noopener">
-          crates.io<span class="sr-only"> — {entry.name}</span>
-        </a>
-      )}
-      {entry.homepage && entry.homepage !== entry.sourceUrl && (
-        <a href={entry.homepage} target="_blank" rel="noopener">
-          {t.docs}
-          <span class="sr-only"> — {entry.name}</span>
-        </a>
-      )}
+        {entry.cratesUrl && entry.cratesUrl !== entry.sourceUrl && (
+          <a href={entry.cratesUrl} target="_blank" rel="noopener">
+            crates.io<span class="sr-only"> — {entry.name}</span>
+          </a>
+        )}
+        {entry.homepage && entry.homepage !== entry.sourceUrl && (
+          <a href={entry.homepage} target="_blank" rel="noopener">
+            {t.docs}
+            <span class="sr-only"> — {entry.name}</span>
+          </a>
+        )}
+      </div>
     </div>
   </div>
 </article>

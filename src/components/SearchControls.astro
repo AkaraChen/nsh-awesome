@@ -75,7 +75,8 @@ const activeCategories = categories.filter((c) => entries.some((e) => e.category
       {t.filterSubmit}
     </button>
   </form>
-  <div class="chips" id="section-chips" role="group" aria-label={t.filterBySection}>
+
+  <div class="chips chips--segmented" id="section-chips" role="group" aria-label={t.filterBySection}>
     <button type="button" class="chip is-active" data-section="all" aria-pressed="true">
       {t.allChip} ({entries.length})
     </button>
@@ -90,6 +91,7 @@ const activeCategories = categories.filter((c) => entries.some((e) => e.category
       })
     }
   </div>
+
   <div class="chips chips--sub" id="category-chips" role="group" aria-label={t.filterByCategory}>
     <button
       type="button"

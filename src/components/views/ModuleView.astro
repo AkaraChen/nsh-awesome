@@ -56,6 +56,7 @@ const jsonLdGraph = buildModuleSchema({
   description: route.description,
   updatedAt: route.lastmod,
 });
+const installLabel = t.installCommandLabel.replace(/[:：]\s*$/, '');
 ---
 
 <BaseLayout
@@ -76,146 +77,157 @@ const jsonLdGraph = buildModuleSchema({
   siteUrl={siteUrl}
 >
   <section class="hero hero--compact">
-    <div class="container hero__copy">
+    <div class="container hero__inner">
       <Breadcrumbs items={breadcrumbs} lang={lang} />
       <h1>{modMeta.h1}</h1>
       <p class="hero__desc">
         <InlineCode text={modMeta.summary} />
       </p>
-      <div class="endpoint-box">
-        <span class="endpoint-box__label">{t.installCommandLabel}</span>
-        <code class="install-cmd">{entry.installCommand}</code>
-        <button type="button" class="copy-btn" data-copy={entry.installCommand}>
-          <span data-copy-label>{t.copy}</span>
-          <span class="sr-only"> — {entry.installCommand}</span>
-        </button>
-      </div>
-      <div class="action-row">
-        <a class="pill-link" href={entry.sourceUrl} target="_blank" rel="noopener">
-          {t.sourceRepo}
-        </a>
-        {
-          entry.cratesUrl && entry.cratesUrl !== entry.sourceUrl && (
-            <a class="pill-link" href={entry.cratesUrl} target="_blank" rel="noopener">
-              crates.io
-            </a>
-          )
-        }
-        {
-          entry.homepage && entry.homepage !== entry.sourceUrl && (
-            <a class="pill-link" href={entry.homepage} target="_blank" rel="noopener">
-              {t.docsDemo}
-            </a>
-          )
-        }
-        <a class="pill-link" href={withBase(route.mdPath)}>
-          {t.markdown}
-        </a>
-      </div>
     </div>
   </section>
 
-  <div class="container page-body">
-    <section class="content-band">
-      <h2>{t.moduleFacts}</h2>
-      <dl class="facts-grid">
-        <div class="fact-item">
-          <dt>{t.factCategory}</dt>
-          <dd>{catMeta?.title?.[lang] || entry.category}</dd>
-        </div>
-        <div class="fact-item">
-          <dt>{t.factKind}</dt>
-          <dd>
-            <code>{entry.kind}</code>
-          </dd>
-        </div>
-        <div class="fact-item">
-          <dt>{t.factSourceType}</dt>
-          <dd>
-            <code>{entry.sourceType}</code>
-          </dd>
-        </div>
-        <div class="fact-item">
-          <dt>{t.factVersion}</dt>
-          <dd>
-            <code>{entry.version || 'N/A'}</code>
-          </dd>
-        </div>
-        <div class="fact-item">
-          <dt>{t.factNshTarget}</dt>
-          <dd>
-            <code>{entry.nshVersion || data.nshVerifiedVersion}</code>
-          </dd>
-        </div>
-        <div class="fact-item">
-          <dt>{t.factLicense}</dt>
-          <dd>{entry.license}</dd>
-        </div>
-        <div class="fact-item">
-          <dt>{t.factUpdated}</dt>
-          <dd>{entry.updatedAt}</dd>
-        </div>
-        <div class="fact-item">
-          <dt>{t.factPlatforms}</dt>
-          <dd>{(entry.platforms || []).join(lang === 'zh' ? '、' : ', ')}</dd>
-        </div>
-      </dl>
-    </section>
-
-    {
-      Content ? (
-        <div class="md-prose">
-          <Content />
-        </div>
-      ) : (
-        fallback!.paragraphs.map((sec) => (
-          <section class="content-band">
-            <h2>{sec.heading}</h2>
-            {sec.body.map((p) => (
-              <p>
-                <InlineCode text={p} />
-              </p>
-            ))}
-          </section>
-        ))
-      )
-    }
-
-    <DataTable
-      heading={modMeta.platformSupport.heading}
-      intro={modMeta.platformSupport.overview}
-      columns={[...t.platformHeaders]}
-      rows={modMeta.platformSupport.matrix.map((m) => [m.platform, m.status, m.notes])}
-    />
-
-    <Callout
-      heading={modMeta.securityNote.heading}
-      body={modMeta.securityNote.body}
-      variant="warn"
-    />
-
-    <RelatedLinks
-      items={modMeta.related.map((m) => ({
-        path: m.path,
-        label: m.name,
-        reason: m.reason,
-      }))}
-      heading={t.relatedModulesHeading}
-    />
-
-    {
-      modMeta.parentLinks.length > 0 && (
-        <section class="content-band">
-          <h2>{t.parentHubsHeading}</h2>
-          <div class="pill-links">
-            {modMeta.parentLinks.map((p) => (
-              <a class="pill-link" href={withBase(p.path)}>
-                <InlineCode text={p.label} />
-              </a>
-            ))}
+  <div class="container module-layout">
+    <div class="module-main">
+      {
+        Content ? (
+          <div class="md-prose prose-measure">
+            <Content />
           </div>
-        </section>
-      )
-    }
+        ) : (
+          fallback!.paragraphs.map((sec) => (
+            <section class="content-band prose-measure">
+              <h2>{sec.heading}</h2>
+              {sec.body.map((p) => (
+                <p>
+                  <InlineCode text={p} />
+                </p>
+              ))}
+            </section>
+          ))
+        )
+      }
+
+      <DataTable
+        heading={modMeta.platformSupport.heading}
+        intro={modMeta.platformSupport.overview}
+        columns={[...t.platformHeaders]}
+        rows={modMeta.platformSupport.matrix.map((m) => [m.platform, m.status, m.notes])}
+      />
+
+      <Callout
+        heading={modMeta.securityNote.heading}
+        body={modMeta.securityNote.body}
+        variant="warn"
+      />
+
+      <RelatedLinks
+        items={modMeta.related.map((m) => ({
+          path: m.path,
+          label: m.name,
+          reason: m.reason,
+        }))}
+        heading={t.relatedModulesHeading}
+      />
+    </div>
+
+    <aside class="module-rail">
+      <section class="rail-panel">
+        <h2>{installLabel}</h2>
+        <div class="install-row">
+          <code class="install-cmd">{entry.installCommand}</code>
+          <button type="button" class="copy-btn" data-copy={entry.installCommand}>
+            <span data-copy-label>{t.copy}</span>
+            <span class="sr-only"> — {entry.installCommand}</span>
+          </button>
+        </div>
+        <div class="rail-actions">
+          <a class="rail-link" href={entry.sourceUrl} target="_blank" rel="noopener">
+            <span>{t.sourceRepo}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          {
+            entry.cratesUrl && entry.cratesUrl !== entry.sourceUrl && (
+              <a class="rail-link" href={entry.cratesUrl} target="_blank" rel="noopener">
+                <span>crates.io</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            )
+          }
+          {
+            entry.homepage && entry.homepage !== entry.sourceUrl && (
+              <a class="rail-link" href={entry.homepage} target="_blank" rel="noopener">
+                <span>{t.docsDemo}</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            )
+          }
+          <a class="rail-link" href={withBase(route.mdPath)}>
+            <span>{t.markdown}</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="rail-panel">
+        <h2>{t.moduleFacts}</h2>
+        <dl class="facts-list">
+          <div class="fact-row">
+            <dt>{t.factCategory}</dt>
+            <dd>{catMeta?.title?.[lang] || entry.category}</dd>
+          </div>
+          <div class="fact-row">
+            <dt>{t.factKind}</dt>
+            <dd>
+              <code>{entry.kind}</code>
+            </dd>
+          </div>
+          <div class="fact-row">
+            <dt>{t.factSourceType}</dt>
+            <dd>
+              <code>{entry.sourceType}</code>
+            </dd>
+          </div>
+          <div class="fact-row">
+            <dt>{t.factVersion}</dt>
+            <dd>
+              <code>{entry.version || 'N/A'}</code>
+            </dd>
+          </div>
+          <div class="fact-row">
+            <dt>{t.factNshTarget}</dt>
+            <dd>
+              <code>{entry.nshVersion || data.nshVerifiedVersion}</code>
+            </dd>
+          </div>
+          <div class="fact-row">
+            <dt>{t.factLicense}</dt>
+            <dd>{entry.license}</dd>
+          </div>
+          <div class="fact-row">
+            <dt>{t.factUpdated}</dt>
+            <dd>{entry.updatedAt}</dd>
+          </div>
+          <div class="fact-row">
+            <dt>{t.factPlatforms}</dt>
+            <dd>{(entry.platforms || []).join(lang === 'zh' ? '、' : ', ')}</dd>
+          </div>
+        </dl>
+      </section>
+
+      {
+        modMeta.parentLinks.length > 0 && (
+          <section class="rail-panel">
+            <h2>{t.parentHubsHeading}</h2>
+            <div class="rail-nav-list">
+              {modMeta.parentLinks.map((p) => (
+                <a class="rail-nav-link" href={withBase(p.path)}>
+                  <InlineCode text={p.label} />
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </aside>
   </div>
 </BaseLayout>

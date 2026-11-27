@@ -76,7 +76,7 @@ const jsonLdGraph = buildSectionSchema({
   siteUrl={siteUrl}
 >
   <section class="hero hero--compact">
-    <div class="container hero__copy">
+    <div class="container hero__inner">
       <Breadcrumbs items={breadcrumbs} lang={lang} />
       <h1>{pageData.h1}</h1>
       <p class="hero__desc">
@@ -94,26 +94,15 @@ const jsonLdGraph = buildSectionSchema({
   </section>
 
   <div class="container page-body">
-    <section class="content-band">
-      <h2>{t.sectionOverview}</h2>
-      <div class="md-prose">
-        <Content />
-      </div>
-    </section>
-
-    <Callout
-      heading={pageData.technicalCallout.heading}
-      body={pageData.technicalCallout.body}
-      variant={slug === 'framework' ? 'warn' : 'info'}
-    />
-
-    <DataTable
-      heading={pageData.comparisonTable.heading}
-      intro={pageData.comparisonTable.intro}
-      columns={pageData.comparisonTable.columns}
-      rows={pageData.comparisonTable.rows}
-      linkModuleMap={slug === 'nshm' ? linkMap : null}
-    />
+    {
+      slug === 'framework' && (
+        <Callout
+          heading={pageData.technicalCallout.heading}
+          body={pageData.technicalCallout.body}
+          variant="warn"
+        />
+      )
+    }
 
     {
       categories.map((cat) => {
@@ -134,24 +123,51 @@ const jsonLdGraph = buildSectionSchema({
       })
     }
 
-    <section class="content-band">
-      <h2>{pageData.selectionAdvice.heading}</h2>
-      <div class="two-col">
-        {
-          pageData.selectionAdvice.items.map((item) => (
-            <article class="subcard">
-              <h3 class="card__title">
-                <InlineCode text={item.title} />
-              </h3>
-              <p class="card__desc">
-                <InlineCode text={item.body} />
-              </p>
-            </article>
-          ))
-        }
-      </div>
-    </section>
+    <div class="section-reference">
+      <section class="content-band">
+        <h2>{t.sectionOverview}</h2>
+        <div class="md-prose prose-measure">
+          <Content />
+        </div>
+      </section>
 
-    <RelatedLinks items={pageData.relatedLinks} heading={t.relatedHubs} />
+      {
+        slug !== 'framework' && (
+          <Callout
+            heading={pageData.technicalCallout.heading}
+            body={pageData.technicalCallout.body}
+            variant="info"
+          />
+        )
+      }
+
+      <DataTable
+        heading={pageData.comparisonTable.heading}
+        intro={pageData.comparisonTable.intro}
+        columns={pageData.comparisonTable.columns}
+        rows={pageData.comparisonTable.rows}
+        linkModuleMap={slug === 'nshm' ? linkMap : null}
+      />
+
+      <section class="content-band">
+        <h2>{pageData.selectionAdvice.heading}</h2>
+        <div class="related-grid">
+          {
+            pageData.selectionAdvice.items.map((item) => (
+              <article class="related-card">
+                <h3 class="related-card__title">
+                  <InlineCode text={item.title} />
+                </h3>
+                <p class="related-card__desc">
+                  <InlineCode text={item.body} />
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <RelatedLinks items={pageData.relatedLinks} heading={t.relatedHubs} />
+    </div>
   </div>
 </BaseLayout>

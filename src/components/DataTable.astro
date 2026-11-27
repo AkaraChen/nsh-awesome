@@ -2,6 +2,7 @@
 import InlineCode from './InlineCode.astro';
 
 interface Props {
+  id?: string;
   heading: string;
   intro?: string;
   columns: string[];
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const {
+  id,
   heading,
   intro = '',
   columns = [],
@@ -20,10 +22,10 @@ const {
 } = Astro.props;
 ---
 
-<section class="content-band">
+<section class="content-band" id={id}>
   {headingLevel === 3 ? <h3>{heading}</h3> : <h2>{heading}</h2>}
   {intro && (
-    <p>
+    <p class="prose-measure">
       <InlineCode text={intro} />
     </p>
   )}

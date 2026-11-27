@@ -47,6 +47,16 @@ const jsonLdGraph = buildArticleSchema({
   dateModified: route.lastmod,
   kind: 'discovery',
 });
+
+const tocItems = [
+  { id: 'sec-overview', label: t.methodologyOverview },
+  { id: 'sec-manifests', label: pageData.manifestRules.heading },
+  { id: 'sec-cargo-quirk', label: pageData.cargoPublishQuirk.heading },
+  { id: 'sec-channels', label: pageData.channelsTable.heading },
+  { id: 'sec-accepted', label: pageData.acceptedTable.heading },
+  { id: 'sec-exclusions', label: pageData.exclusionsTable.heading },
+  { id: 'sec-related', label: t.relatedCatalogSections },
+];
 ---
 
 <BaseLayout
@@ -68,7 +78,7 @@ const jsonLdGraph = buildArticleSchema({
   siteUrl={siteUrl}
 >
   <section class="hero hero--compact">
-    <div class="container hero__copy">
+    <div class="container hero__inner">
       <Breadcrumbs items={breadcrumbs} lang={lang} />
       <h1>{pageData.h1}</h1>
       <p class="hero__desc">
@@ -90,89 +100,115 @@ const jsonLdGraph = buildArticleSchema({
     </div>
   </section>
 
-  <div class="container page-body">
-    <section class="content-band">
-      <h2>{t.methodologyOverview}</h2>
-      <div class="md-prose">
-        <Content />
-      </div>
-    </section>
+  <div class="container docs-layout">
+    <aside class="docs-toc">
+      <p class="docs-toc__title" id="toc-heading">{t.onThisPage}</p>
+      <nav class="docs-toc__nav" aria-labelledby="toc-heading">
+        <ol class="docs-toc__list">
+          {
+            tocItems.map((item) => (
+              <li>
+                <a class="docs-toc__link" href={`#${item.id}`}>
+                  <InlineCode text={item.label} />
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+    </aside>
 
-    <section class="content-band">
-      <h2>{pageData.manifestRules.heading}</h2>
-      <p>
-        <InlineCode text={pageData.manifestRules.intro} />
-      </p>
-      <div
-        class="table-scroll"
-        tabindex="0"
-        role="region"
-        aria-label={pageData.manifestRules.heading}
-      >
-        <table class="data-table">
-          <thead>
-            <tr>
-              {pageData.manifestRules.columns.map((c) => (
-                <th scope="col">
-                  <InlineCode text={c} />
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {pageData.manifestRules.rows.map((r) => (
+    <div class="docs-content">
+      <section class="content-band" id="sec-overview">
+        <h2>{t.methodologyOverview}</h2>
+        <div class="md-prose prose-measure">
+          <Content />
+        </div>
+      </section>
+
+      <section class="content-band" id="sec-manifests">
+        <h2>{pageData.manifestRules.heading}</h2>
+        <p class="prose-measure">
+          <InlineCode text={pageData.manifestRules.intro} />
+        </p>
+        <div
+          class="table-scroll"
+          tabindex="0"
+          role="region"
+          aria-label={pageData.manifestRules.heading}
+        >
+          <table class="data-table">
+            <thead>
               <tr>
-                {r.map((cell) => (
-                  <td>
-                    <InlineCode text={cell} />
-                  </td>
+                {pageData.manifestRules.columns.map((c) => (
+                  <th scope="col">
+                    <InlineCode text={c} />
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <ul class="prose-list">
-        {
-          pageData.manifestRules.nuances.map((n) => (
-            <li>
-              <InlineCode text={n} />
-            </li>
-          ))
-        }
-      </ul>
-    </section>
+            </thead>
+            <tbody>
+              {pageData.manifestRules.rows.map((r) => (
+                <tr>
+                  {r.map((cell) => (
+                    <td>
+                      <InlineCode text={cell} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <ul class="prose-list prose-measure">
+          {
+            pageData.manifestRules.nuances.map((n) => (
+              <li>
+                <InlineCode text={n} />
+              </li>
+            ))
+          }
+        </ul>
+      </section>
 
-    <section class="content-band">
-      <h2>{pageData.cargoPublishQuirk.heading}</h2>
-      <p>
-        <InlineCode text={pageData.cargoPublishQuirk.explanation} />
-      </p>
-      <pre tabindex="0"><code>{pageData.cargoPublishQuirk.snippet}</code></pre>
-    </section>
+      <section class="content-band" id="sec-cargo-quirk">
+        <h2>{pageData.cargoPublishQuirk.heading}</h2>
+        <p class="prose-measure">
+          <InlineCode text={pageData.cargoPublishQuirk.explanation} />
+        </p>
+        <pre class="prose-measure" tabindex="0"><code>{pageData.cargoPublishQuirk.snippet}</code></pre>
+      </section>
 
-    <DataTable
-      heading={pageData.channelsTable.heading}
-      intro={pageData.channelsTable.intro}
-      columns={pageData.channelsTable.columns}
-      rows={pageData.channelsTable.rows}
-    />
+      <DataTable
+        id="sec-channels"
+        heading={pageData.channelsTable.heading}
+        intro={pageData.channelsTable.intro}
+        columns={pageData.channelsTable.columns}
+        rows={pageData.channelsTable.rows}
+      />
 
-    <DataTable
-      heading={pageData.acceptedTable.heading}
-      intro={pageData.acceptedTable.intro}
-      columns={pageData.acceptedTable.columns}
-      rows={pageData.acceptedTable.rows}
-      linkModuleMap={linkMap}
-    />
+      <DataTable
+        id="sec-accepted"
+        heading={pageData.acceptedTable.heading}
+        intro={pageData.acceptedTable.intro}
+        columns={pageData.acceptedTable.columns}
+        rows={pageData.acceptedTable.rows}
+        linkModuleMap={linkMap}
+      />
 
-    <DataTable
-      heading={pageData.exclusionsTable.heading}
-      intro={pageData.exclusionsTable.intro}
-      columns={pageData.exclusionsTable.columns}
-      rows={pageData.exclusionsTable.rows}
-    />
+      <DataTable
+        id="sec-exclusions"
+        heading={pageData.exclusionsTable.heading}
+        intro={pageData.exclusionsTable.intro}
+        columns={pageData.exclusionsTable.columns}
+        rows={pageData.exclusionsTable.rows}
+      />
 
-    <RelatedLinks items={pageData.relatedLinks} heading={t.relatedCatalogSections} />
+      <RelatedLinks
+        id="sec-related"
+        items={pageData.relatedLinks}
+        heading={t.relatedCatalogSections}
+      />
+    </div>
   </div>
 </BaseLayout>

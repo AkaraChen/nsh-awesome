@@ -11,34 +11,35 @@ export interface RelatedItem {
 }
 
 interface Props {
+  id?: string;
   items: RelatedItem[];
   heading: string;
   headingLevel?: 2 | 3;
 }
 
-const { items = [], heading, headingLevel = 2 } = Astro.props;
+const { id, items = [], heading, headingLevel = 2 } = Astro.props;
 ---
 
 {items.length > 0 && (
-  <section class="content-band">
+  <section class="content-band" id={id}>
     {headingLevel === 3 ? <h3>{heading}</h3> : <h2>{heading}</h2>}
-    <div class="two-col">
+    <div class="related-grid">
       {items.map((item) => (
-        <article class="subcard">
+        <article class="related-card">
           {headingLevel >= 3 ? (
-            <h4 class="card__title">
+            <h4 class="related-card__title">
               <a href={withBase(item.path)}>
                 <InlineCode text={item.label || item.title || ''} />
               </a>
             </h4>
           ) : (
-            <h3 class="card__title">
+            <h3 class="related-card__title">
               <a href={withBase(item.path)}>
                 <InlineCode text={item.label || item.title || ''} />
               </a>
             </h3>
           )}
-          <p class="card__desc">
+          <p class="related-card__desc">
             <InlineCode text={item.reason || item.summary || ''} />
           </p>
         </article>

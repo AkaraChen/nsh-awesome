@@ -26,16 +26,19 @@ function updateThemeBtn() {
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
   const isDark = document.documentElement.classList.contains('dark');
+  const nextLabel = isZh
+    ? isDark
+      ? '切换为浅色模式'
+      : '切换为深色模式'
+    : isDark
+      ? 'Switch to light mode'
+      : 'Switch to dark mode';
   const labelEl = btn.querySelector('[data-theme-label]');
   if (labelEl) {
-    labelEl.textContent = isZh
-      ? isDark
-        ? '浅色模式'
-        : '深色模式'
-      : isDark
-        ? 'Light mode'
-        : 'Dark mode';
+    labelEl.textContent = nextLabel;
   }
+  btn.setAttribute('aria-label', nextLabel);
+  btn.setAttribute('title', nextLabel);
   btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
 }
 

@@ -14,9 +14,9 @@ const homeHref = getLocalePath(lang, '');
 ---
 
 <header class="site-header">
-  <div class="container nav__inner">
+  <div class="container header__bar">
     <a class="brand" href={homeHref}>
-      <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+      <svg width="20" height="20" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
         <path
           d="M30 100 V58 a34 34 0 0 1 68 0 V100"
           fill="none"
@@ -34,9 +34,10 @@ const homeHref = getLocalePath(lang, '');
         <circle cx="64" cy="76" r="10" fill="#f3f5f8" />
       </svg>
       <span>Awesome NSH</span>
-      <span class="brand__tag">{nshmCount} nshm</span>
+      <span class="brand__count">{nshmCount} nshm</span>
     </a>
-    <nav class="nav__actions" aria-label={t.primaryNav}>
+
+    <nav class="nav-primary" aria-label={t.primaryNav}>
       {
         NAV_ITEMS.map((item) => {
           const href = getLocalePath(lang, item.slug);
@@ -52,9 +53,11 @@ const homeHref = getLocalePath(lang, '');
           );
         })
       }
-      <a class="nav__link" href={withBase('/index.json')}>index.json</a>
+    </nav>
+
+    <div class="header__tools">
       <a
-        class="ctrl-btn"
+        class="ctrl-btn ctrl-btn--sm"
         id="lang-toggle"
         href={withBase(altPath)}
         hreflang={t.langSwitchAttr}
@@ -62,7 +65,14 @@ const homeHref = getLocalePath(lang, '');
       >
         {t.langSwitchLabel}
       </a>
-      <button type="button" class="ctrl-btn" id="theme-toggle">
+      <button
+        type="button"
+        class="ctrl-btn ctrl-btn--icon"
+        id="theme-toggle"
+        aria-label={t.themeSwitchToLight}
+        title={t.themeSwitchToLight}
+        aria-pressed="true"
+      >
         <svg
           class="theme-icon theme-icon--sun"
           width="15"
@@ -90,8 +100,8 @@ const homeHref = getLocalePath(lang, '');
         >
           <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
         </svg>
-        <span data-theme-label>{t.themeLightLabel}</span>
+        <span class="sr-only" data-theme-label>{t.themeSwitchToLight}</span>
       </button>
-    </nav>
+    </div>
   </div>
 </header>

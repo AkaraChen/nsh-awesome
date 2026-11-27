@@ -42,6 +42,17 @@ const jsonLdGraph = buildArticleSchema({
   dateModified: route.lastmod,
   kind: 'about',
 });
+
+const tocItems = [
+  { id: 'sec-who', label: pageData.whoHeading },
+  { id: 'sec-how', label: pageData.how.heading },
+  { id: 'sec-why', label: pageData.why.heading },
+  { id: 'sec-criteria', label: pageData.criteria.heading },
+  { id: 'sec-boundary', label: pageData.verificationBoundary.heading },
+  { id: 'sec-security', label: pageData.securityPolicy.heading },
+  { id: 'sec-contributing', label: pageData.contributing.heading },
+  { id: 'sec-related', label: t.relatedDirectoryMethodology },
+];
 ---
 
 <BaseLayout
@@ -62,7 +73,7 @@ const jsonLdGraph = buildArticleSchema({
   siteUrl={siteUrl}
 >
   <section class="hero hero--compact">
-    <div class="container hero__copy">
+    <div class="container hero__inner">
       <Breadcrumbs items={breadcrumbs} lang={lang} />
       <h1>{pageData.h1}</h1>
       <p class="hero__desc">
@@ -84,148 +95,172 @@ const jsonLdGraph = buildArticleSchema({
     </div>
   </section>
 
-  <div class="container page-body">
-    <section class="content-band">
-      <h2>{pageData.whoHeading}</h2>
-      <div class="md-prose">
-        <Content />
-      </div>
-    </section>
+  <div class="container docs-layout">
+    <aside class="docs-toc">
+      <p class="docs-toc__title" id="toc-heading">{t.onThisPage}</p>
+      <nav class="docs-toc__nav" aria-labelledby="toc-heading">
+        <ol class="docs-toc__list">
+          {
+            tocItems.map((item) => (
+              <li>
+                <a class="docs-toc__link" href={`#${item.id}`}>
+                  <InlineCode text={item.label} />
+                </a>
+              </li>
+            ))
+          }
+        </ol>
+      </nav>
+    </aside>
 
-    <section class="content-band">
-      <h2>{pageData.how.heading}</h2>
-      {
-        pageData.how.paragraphs.map((p) => (
-          <p>
-            <InlineCode text={p} />
-          </p>
-        ))
-      }
-      {
-        pageData.how.pipelineScripts.length > 0 && (
-          <div class="table-scroll" tabindex="0" role="region" aria-label={pageData.how.heading}>
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th scope="col">{t.pipelineHeaders[0]}</th>
-                  <th scope="col">{t.pipelineHeaders[1]}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pageData.how.pipelineScripts.map((s) => (
+    <div class="docs-content">
+      <section class="content-band" id="sec-who">
+        <h2>{pageData.whoHeading}</h2>
+        <div class="md-prose prose-measure">
+          <Content />
+        </div>
+      </section>
+
+      <section class="content-band" id="sec-how">
+        <h2>{pageData.how.heading}</h2>
+        {
+          pageData.how.paragraphs.map((p) => (
+            <p class="prose-measure">
+              <InlineCode text={p} />
+            </p>
+          ))
+        }
+        {
+          pageData.how.pipelineScripts.length > 0 && (
+            <div class="table-scroll" tabindex="0" role="region" aria-label={pageData.how.heading}>
+              <table class="data-table">
+                <thead>
                   <tr>
-                    <td>
-                      <code>{s.script}</code>
-                    </td>
-                    <td>
-                      <InlineCode text={s.role} />
-                    </td>
+                    <th scope="col">{t.pipelineHeaders[0]}</th>
+                    <th scope="col">{t.pipelineHeaders[1]}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )
-      }
-    </section>
+                </thead>
+                <tbody>
+                  {pageData.how.pipelineScripts.map((s) => (
+                    <tr>
+                      <td>
+                        <code>{s.script}</code>
+                      </td>
+                      <td>
+                        <InlineCode text={s.role} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )
+        }
+      </section>
 
-    <section class="content-band">
-      <h2>{pageData.why.heading}</h2>
-      {
-        pageData.why.paragraphs.map((p) => (
-          <p>
-            <InlineCode text={p} />
-          </p>
-        ))
-      }
-    </section>
+      <section class="content-band" id="sec-why">
+        <h2>{pageData.why.heading}</h2>
+        {
+          pageData.why.paragraphs.map((p) => (
+            <p class="prose-measure">
+              <InlineCode text={p} />
+            </p>
+          ))
+        }
+      </section>
 
-    <section class="content-band">
-      <h2>{pageData.criteria.heading}</h2>
-      <div class="two-col">
-        <article class="subcard">
-          <h3>{t.inclusionCriteria}</h3>
-          <ul class="prose-list">
-            {
-              pageData.criteria.inclusion.map((item) => (
-                <li>
-                  <InlineCode text={item} />
-                </li>
-              ))
-            }
-          </ul>
-        </article>
-        <article class="subcard">
-          <h3>{t.exclusionRules}</h3>
-          <ul class="prose-list">
-            {
-              pageData.criteria.exclusion.map((item) => (
-                <li>
-                  <InlineCode text={item} />
-                </li>
-              ))
-            }
-          </ul>
-        </article>
-      </div>
-    </section>
+      <section class="content-band" id="sec-criteria">
+        <h2>{pageData.criteria.heading}</h2>
+        <div class="two-col">
+          <article class="panel-rule">
+            <h3>{t.inclusionCriteria}</h3>
+            <ul class="prose-list">
+              {
+                pageData.criteria.inclusion.map((item) => (
+                  <li>
+                    <InlineCode text={item} />
+                  </li>
+                ))
+              }
+            </ul>
+          </article>
+          <article class="panel-rule">
+            <h3>{t.exclusionRules}</h3>
+            <ul class="prose-list">
+              {
+                pageData.criteria.exclusion.map((item) => (
+                  <li>
+                    <InlineCode text={item} />
+                  </li>
+                ))
+              }
+            </ul>
+          </article>
+        </div>
+      </section>
 
-    <section class="content-band">
-      <h2>{pageData.verificationBoundary.heading}</h2>
-      <p>
-        <InlineCode text={pageData.verificationBoundary.summary} />
-      </p>
-      <div class="two-col">
-        <article class="subcard">
-          <h3>{t.verifiedScope}</h3>
-          <ul class="prose-list">
-            {
-              pageData.verificationBoundary.verifiedItems.map((item) => (
-                <li>
-                  <InlineCode text={item} />
-                </li>
-              ))
-            }
-          </ul>
-        </article>
-        <article class="subcard">
-          <h3>{t.notClaimedScope}</h3>
-          <ul class="prose-list">
-            {
-              pageData.verificationBoundary.notVerifiedItems.map((item) => (
-                <li>
-                  <InlineCode text={item} />
-                </li>
-              ))
-            }
-          </ul>
-        </article>
-      </div>
-    </section>
+      <section class="content-band" id="sec-boundary">
+        <h2>{pageData.verificationBoundary.heading}</h2>
+        <p class="prose-measure">
+          <InlineCode text={pageData.verificationBoundary.summary} />
+        </p>
+        <div class="two-col">
+          <article class="panel-rule">
+            <h3>{t.verifiedScope}</h3>
+            <ul class="prose-list">
+              {
+                pageData.verificationBoundary.verifiedItems.map((item) => (
+                  <li>
+                    <InlineCode text={item} />
+                  </li>
+                ))
+              }
+            </ul>
+          </article>
+          <article class="panel-rule">
+            <h3>{t.notClaimedScope}</h3>
+            <ul class="prose-list">
+              {
+                pageData.verificationBoundary.notVerifiedItems.map((item) => (
+                  <li>
+                    <InlineCode text={item} />
+                  </li>
+                ))
+              }
+            </ul>
+          </article>
+        </div>
+      </section>
 
-    <Callout
-      heading={pageData.securityPolicy.heading}
-      body={pageData.securityPolicy.body}
-      variant="warn"
-    />
+      <Callout
+        id="sec-security"
+        heading={pageData.securityPolicy.heading}
+        body={pageData.securityPolicy.body}
+        variant="warn"
+      />
 
-    <section class="content-band">
-      <h2>{pageData.contributing.heading}</h2>
-      <p>
-        <InlineCode text={pageData.contributing.body} />
-      </p>
-      <div class="pill-links">
-        <a
-          class="pill-link"
-          href={pageData.contributing.contributingUrl}
-          target="_blank"
-          rel="noopener"
-        >
-          {t.readContributing}
-        </a>
-      </div>
-    </section>
+      <section class="content-band" id="sec-contributing">
+        <h2>{pageData.contributing.heading}</h2>
+        <p class="prose-measure">
+          <InlineCode text={pageData.contributing.body} />
+        </p>
+        <div class="pill-links">
+          <a
+            class="pill-link"
+            href={pageData.contributing.contributingUrl}
+            target="_blank"
+            rel="noopener"
+          >
+            {t.readContributing}
+          </a>
+        </div>
+      </section>
 
-    <RelatedLinks items={pageData.relatedLinks} heading={t.relatedDirectoryMethodology} />
+      <RelatedLinks
+        id="sec-related"
+        items={pageData.relatedLinks}
+        heading={t.relatedDirectoryMethodology}
+      />
+    </div>
   </div>
 </BaseLayout>

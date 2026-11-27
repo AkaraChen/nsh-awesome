@@ -7,7 +7,7 @@ import SearchControls from '../SearchControls.astro';
 import DataTable from '../DataTable.astro';
 import Callout from '../Callout.astro';
 import RelatedLinks from '../RelatedLinks.astro';
-import { UI, getLocalePath, type Locale } from '../../i18n/ui';
+import { UI, getLocalePath, withBase, type Locale } from '../../i18n/ui';
 import { SECTION_SLUG_FOR_ID, getCatalogBundle, getPageContentEntry } from '../../lib/catalog';
 import { buildHomeSchema } from '../../../scripts/lib/seo-schema.mjs';
 
@@ -64,64 +64,74 @@ const jsonLdGraph = buildHomeSchema({
   nshVerifiedVersion={data.nshVerifiedVersion}
   siteUrl={siteUrl}
 >
-  <section class="hero">
-    <div class="container hero__copy">
-      <h1>{pageData.h1}</h1>
-      <p class="hero__desc">
-        <InlineCode text={pageData.lead} />
-      </p>
-      <div class="hero__stats">
-        <span class="stat-pill stat-pill--accent">{installableCount} {t.installableStat}</span>
-        <span class="stat-pill">{frameworkCount} {t.frameworkStat}</span>
-        <span class="stat-pill">{templateCount} {t.templatesStat}</span>
-        <span class="stat-pill">{articleCount} {t.guidesStat}</span>
-        <span class="stat-pill">{t.verifiedOnPrefix} {data.nshVerifiedVersion}</span>
+  <section class="hero hero--home">
+    <div class="container hero__split">
+      <div class="hero__main">
+        <h1>{pageData.h1}</h1>
+        <p class="hero__desc">
+          <InlineCode text={pageData.lead} />
+        </p>
+        <div class="hero__metrics-line">
+          <span class="hero__metric hero__metric--accent">
+            <strong>{installableCount}</strong> {t.installableStat}
+          </span>
+          <span class="hero__sep" aria-hidden="true">·</span>
+          <span class="hero__metric">
+            <strong>{frameworkCount}</strong> {t.frameworkStat}
+          </span>
+          <span class="hero__sep" aria-hidden="true">·</span>
+          <span class="hero__metric">
+            <strong>{templateCount}</strong> {t.templatesStat}
+          </span>
+          <span class="hero__sep" aria-hidden="true">·</span>
+          <span class="hero__metric">
+            <strong>{articleCount}</strong> {t.guidesStat}
+          </span>
+          <span class="hero__sep" aria-hidden="true">·</span>
+          <span class="hero__metric">
+            {t.verifiedOnPrefix} <strong>{data.nshVerifiedVersion}</strong>
+          </span>
+        </div>
       </div>
-      <div class="endpoint-box">
-        <span class="endpoint-box__label">{t.marketIndexUrl}</span>
-        <span class="endpoint-box__url">{indexUrl}</span>
-        <button type="button" class="copy-btn" data-copy={indexUrl} id="copy-index-btn">
-          <span data-copy-label>{t.copy}</span>
-          <span class="sr-only"> — {indexUrl}</span>
-        </button>
+
+      <div class="hero__aside">
+        <div class="index-bar">
+          <div class="index-bar__top">
+            <span class="index-bar__label">{t.marketIndexUrl}</span>
+            <a class="index-bar__raw" href={withBase('/index.json')}>index.json</a>
+          </div>
+          <div class="index-bar__row">
+            <code class="index-bar__url" tabindex="0" aria-label={indexUrl}>{indexUrl}</code>
+            <button type="button" class="copy-btn" data-copy={indexUrl} id="copy-index-btn">
+              <span data-copy-label>{t.copy}</span>
+              <span class="sr-only"> — {indexUrl}</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <div class="container page-body">
-    <section class="content-band">
-      <h2>{pageData.definitionHeading}</h2>
-      <div class="md-prose">
-        <Content />
+    <section class="catalog-band" id="directory-catalog">
+      <div class="catalog-header">
+        <h2>{t.fullDirectoryHeading(entries.length)}</h2>
+        <div class="results-meta">
+          <span id="results-summary" aria-live="polite">
+            {t.showingSummary(entries.length, entries.length)}
+          </span>
+          <button type="button" class="ctrl-btn ctrl-btn--sm" id="clear-filters" hidden>
+            {t.clearFilters}
+          </button>
+        </div>
       </div>
-    </section>
 
-    <DataTable
-      heading={pageData.installSourcesTable.heading}
-      intro={pageData.installSourcesTable.intro}
-      columns={pageData.installSourcesTable.columns}
-      rows={pageData.installSourcesTable.rows}
-    />
-
-    <RelatedLinks
-      items={pageData.navigationHighlights.items}
-      heading={pageData.navigationHighlights.heading}
-    />
-
-    <section class="content-band" id="directory-catalog">
-      <h2>{t.fullDirectoryHeading(entries.length)}</h2>
       <SearchControls entries={entries} sections={sections} categories={categories} lang={lang} />
-      <div class="results-meta">
-        <span id="results-summary" aria-live="polite">
-          {t.showingSummary(entries.length, entries.length)}
-        </span>
-        <button type="button" class="ctrl-btn" id="clear-filters" hidden>
-          {t.clearFilters}
-        </button>
-      </div>
+
       <div class="empty-state" id="empty-state" hidden>
         {t.emptyState}
       </div>
+
       <div id="catalog-root">
         {
           sections.map((sec) => {
@@ -155,51 +165,73 @@ const jsonLdGraph = buildHomeSchema({
         }
       </div>
     </section>
-
-    <section class="content-band">
-      <h2>{pageData.ecosystemStats.heading}</h2>
-      <p>
-        <InlineCode text={pageData.ecosystemStats.summary} />
-      </p>
-      <dl class="metrics-grid">
-        {
-          pageData.ecosystemStats.metrics.map((m) => (
-            <div class="subcard">
-              <dt class="fact-item__dt">
-                <strong>{m.label}</strong>
-              </dt>
-              <dd class="metric-value">{m.value}</dd>
-              <dd class="card__desc">
-                <InlineCode text={m.detail} />
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
-    </section>
-
-    <Callout
-      heading={pageData.securityNotice.heading}
-      body={pageData.securityNotice.body}
-      variant="warn"
-    />
-
-    <section class="content-band">
-      <h2>{pageData.faqs.heading}</h2>
-      <div class="faq-list">
-        {
-          pageData.faqs.items.map((item) => (
-            <article class="faq-item">
-              <h3>
-                <InlineCode text={item.question} />
-              </h3>
-              <p>
-                <InlineCode text={item.answer} />
-              </p>
-            </article>
-          ))
-        }
-      </div>
-    </section>
   </div>
+
+  <section class="reference-zone" aria-label={pageData.definitionHeading}>
+    <div class="container">
+      <div class="ref-split">
+        <div>
+          <h2>{pageData.definitionHeading}</h2>
+          <div class="md-prose prose-measure">
+            <Content />
+          </div>
+        </div>
+        <div>
+          <h2>{pageData.ecosystemStats.heading}</h2>
+          <p class="ref-summary prose-measure">
+            <InlineCode text={pageData.ecosystemStats.summary} />
+          </p>
+          <dl class="kpi-grid">
+            {
+              pageData.ecosystemStats.metrics.map((m) => (
+                <div class="kpi-cell">
+                  <dt>{m.label}</dt>
+                  <dd class="kpi-value">{m.value}</dd>
+                  <dd class="kpi-detail">
+                    <InlineCode text={m.detail} />
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <DataTable
+        heading={pageData.installSourcesTable.heading}
+        intro={pageData.installSourcesTable.intro}
+        columns={pageData.installSourcesTable.columns}
+        rows={pageData.installSourcesTable.rows}
+      />
+
+      <RelatedLinks
+        items={pageData.navigationHighlights.items}
+        heading={pageData.navigationHighlights.heading}
+      />
+
+      <Callout
+        heading={pageData.securityNotice.heading}
+        body={pageData.securityNotice.body}
+        variant="warn"
+      />
+
+      <section class="content-band">
+        <h2>{pageData.faqs.heading}</h2>
+        <div class="faq-grid">
+          {
+            pageData.faqs.items.map((item) => (
+              <article class="faq-item">
+                <h3>
+                  <InlineCode text={item.question} />
+                </h3>
+                <p>
+                  <InlineCode text={item.answer} />
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </section>
 </BaseLayout>
