@@ -3,3 +3,5 @@ node_modules/
 .artifact-report/
 /tmp/
 *.log
+.vercel
+.env*

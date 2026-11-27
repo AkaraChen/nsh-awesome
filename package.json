@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Curated awesome list, searchable static directory, discovery script, and machine-readable index.json for Native Shell (NSH) modules (nshm).",
   "repository": "https://github.com/AkaraChen/nsh-awesome",
-  "homepage": "https://akarachen.github.io/nsh-awesome/",
+  "homepage": "https://nsh-awesome.vercel.app/",
   "license": "MIT",
   "engines": {
     "node": ">=22.0.0"

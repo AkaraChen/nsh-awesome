@@ -10,7 +10,7 @@
     "zh": "Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。"
   },
   "repository": "https://github.com/AkaraChen/nsh-awesome",
-  "siteUrl": "https://akarachen.github.io/nsh-awesome/",
+  "siteUrl": "https://nsh-awesome.vercel.app/",
   "nshVerifiedVersion": "0.7.1",
   "updatedAt": "2026-11-26",
   "counts": {

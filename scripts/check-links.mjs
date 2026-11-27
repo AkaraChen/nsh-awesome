@@ -11,9 +11,9 @@ import fs from 'node:fs';
 const ignoreSelf = process.argv.includes('--ignore-self');
 const UA = 'nsh-awesome-link-check/1.0 (https://github.com/AkaraChen/nsh-awesome)';
 const SELF_HOSTS = [
-  'https://akarachen.github.io/nsh-awesome',
+  'https://nsh-awesome.vercel.app',
   'https://github.com/AkaraChen/nsh-awesome',
-  'https://img.shields.io/endpoint?url=https%3A%2F%2Fakarachen.github.io%2Fnsh-awesome%2Fcount.json',
+  'https://img.shields.io/endpoint?url=https%3A%2F%2Fnsh-awesome.vercel.app%2Fcount.json',
 ];
 
 function collectUrls() {

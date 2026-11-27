@@ -1,6 +1,6 @@
 <!-- GENERATED FILE — DO NOT EDIT DIRECTLY. Edit data/entries.json and run `node scripts/generate.mjs`. -->
 
-# Awesome NSH [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![awesome · nsh](https://akarachen.github.io/nsh-awesome/badge.svg)](https://akarachen.github.io/nsh-awesome/) [![nshm count](https://img.shields.io/endpoint?url=https%3A%2F%2Fakarachen.github.io%2Fnsh-awesome%2Fcount.json)](https://akarachen.github.io/nsh-awesome/) [![CI](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml/badge.svg)](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml)
+# Awesome NSH [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![awesome · nsh](https://nsh-awesome.vercel.app/badge.svg)](https://nsh-awesome.vercel.app/) [![nshm count](https://img.shields.io/endpoint?url=https%3A%2F%2Fnsh-awesome.vercel.app%2Fcount.json)](https://nsh-awesome.vercel.app/) [![CI](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml/badge.svg)](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml)
 
 English | [中文](README.zh.md)
 
@@ -8,7 +8,7 @@ English | [中文](README.zh.md)
 
 Native Shell is a Rust-first native UI framework: build once in TSX or Rust for iOS, Android, macOS, Windows, Linux, GPUI, TUI, and the web, and extend apps with installable packages called **nshm** via `nsh add`.
 
-> 🌐 **Interactive directory:** [https://akarachen.github.io/nsh-awesome/](https://akarachen.github.io/nsh-awesome/) (13 installable `nshm` verified on `nsh 0.7.1`) · 📡 **Machine-readable index:** [`index.json`](https://akarachen.github.io/nsh-awesome/index.json) · 🔍 **Discovery methodology:** [`docs/DISCOVERY.md`](docs/DISCOVERY.md)
+> 🌐 **Interactive directory:** [https://nsh-awesome.vercel.app/](https://nsh-awesome.vercel.app/) (13 installable `nshm` verified on `nsh 0.7.1`) · 📡 **Machine-readable index:** [`index.json`](https://nsh-awesome.vercel.app/index.json) · 🔍 **Discovery methodology:** [`docs/DISCOVERY.md`](docs/DISCOVERY.md)
 
 > [!WARNING]
 > Installing a Rust or TSX `nshm` runs its build scripts (`build.rs`), procedural macros, and runtime code with your app's full permissions, and crates can contribute platform permissions/entitlements via `[package.metadata.nsh]`. Inspect source repositories and `nsh.lock` changes before shipping.

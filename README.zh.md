@@ -1,6 +1,6 @@
 <!-- GENERATED FILE — DO NOT EDIT DIRECTLY. Edit data/entries.json and run `node scripts/generate.mjs`. -->
 
-# Awesome NSH [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![awesome · nsh](https://akarachen.github.io/nsh-awesome/badge.svg)](https://akarachen.github.io/nsh-awesome/) [![nshm count](https://img.shields.io/endpoint?url=https%3A%2F%2Fakarachen.github.io%2Fnsh-awesome%2Fcount.json)](https://akarachen.github.io/nsh-awesome/) [![CI](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml/badge.svg)](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml)
+# Awesome NSH [![Awesome](https://awesome.re/badge.svg)](https://awesome.re) [![awesome · nsh](https://nsh-awesome.vercel.app/badge.svg)](https://nsh-awesome.vercel.app/) [![nshm count](https://img.shields.io/endpoint?url=https%3A%2F%2Fnsh-awesome.vercel.app%2Fcount.json)](https://nsh-awesome.vercel.app/) [![CI](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml/badge.svg)](https://github.com/AkaraChen/nsh-awesome/actions/workflows/ci.yml)
 
 [English](README.md) | 中文
 
@@ -8,7 +8,7 @@
 
 Native Shell 是一个以 Rust 为核心的原生跨平台 UI 框架：使用 TSX 或 Rust 构建一次，即可在 iOS、Android、macOS、Windows、Linux、GPUI、终端与 Web 上以原生控件渲染，并通过 `nsh add` 安装 **nshm** 扩展模块。
 
-> 🌐 **交互式网页目录：** [https://akarachen.github.io/nsh-awesome/](https://akarachen.github.io/nsh-awesome/)（已在 `nsh 0.7.1` 实测通过 13 个可安装 `nshm`） · 📡 **机器可读索引：** [`index.json`](https://akarachen.github.io/nsh-awesome/index.json) · 🔍 **发现机制调研报告：** [`docs/DISCOVERY.md`](docs/DISCOVERY.md)
+> 🌐 **交互式网页目录：** [https://nsh-awesome.vercel.app/](https://nsh-awesome.vercel.app/)（已在 `nsh 0.7.1` 实测通过 13 个可安装 `nshm`） · 📡 **机器可读索引：** [`index.json`](https://nsh-awesome.vercel.app/index.json) · 🔍 **发现机制调研报告：** [`docs/DISCOVERY.md`](docs/DISCOVERY.md)
 
 > [!WARNING]
 > 安装 Rust 或 TSX `nshm` 时，其构建脚本（`build.rs`）、过程宏及代码会以应用的完整权限运行，且 crate 可通过 `[package.metadata.nsh]` 声明系统权限与 Entitlements。集成前请先审阅源码仓库与 `nsh.lock` 变更。
