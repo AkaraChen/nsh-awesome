@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>Awesome NSH</title>
+  <style>
+    .bg { fill: #0e1016; stroke: #282c35; }
+    .arch-outer { stroke: #55800c; }
+    .arch-inner { stroke: #a9d63f; }
+    .dot { fill: #f3f5f8; }
+    @media (prefers-color-scheme: light) {
+      .bg { fill: #f6faee; stroke: #c8d8a8; }
+      .arch-outer { stroke: #3b6b08; }
+      .arch-inner { stroke: #6fb216; }
+      .dot { fill: #14171f; }
+    }
+  </style>
+  <rect class="bg" x="2" y="2" width="60" height="60" rx="15" stroke-width="2"/>
+  <path class="arch-outer" d="M16 47 V32 a16 16 0 0 1 32 0 V47" fill="none" stroke-width="10" stroke-linecap="round"/>
+  <path class="arch-inner" d="M16 47 V32 a16 16 0 0 1 32 0 V47" fill="none" stroke-width="6.8" stroke-linecap="round"/>
+  <circle class="dot" cx="32" cy="39" r="5"/>
+</svg>
