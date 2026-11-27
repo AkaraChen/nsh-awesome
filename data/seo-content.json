@@ -307,7 +307,7 @@
             "nsh add github:<owner>/<repo>",
             "5",
             "git+https://github.com/<owner>/<repo>",
-            "Modules with publish = false in Cargo.toml (nsh-webgpu, nsh-skia), unpublished repos (nsh-shadcn, pure-TSX nsh-query), or newer GitHub heads ahead of stale crates.io tags (nsh-platform-harmonyos 0.1.1)."
+            "Modules with publish = false in Cargo.toml (nsh-webgpu, nsh-skia), repos verified on GitHub ahead of or without crates.io adoption (pure-TSX nsh-query; early 0.1.0 nsh-shadcn was verified via GitHub on 2026-11-26 prior to its initial 2026-11-27 crates.io upload), or newer GitHub heads ahead of stale crates.io tags (nsh-platform-harmonyos 0.1.1)."
           ],
           [
             "Git URL with --rev",
@@ -357,7 +357,7 @@
           },
           {
             "question": "Why do 6 of the 13 verified nshm packages install from GitHub or a Git URL instead of crates.io?",
-            "answer": "Several maintainers keep fast-moving 0.7 packages off crates.io temporarily: nsh-webgpu and nsh-skia explicitly set publish = false in Cargo.toml, nsh-shadcn and nsh-query have not published releases to crates.io, nsh-platform-harmonyos 0.1.0 on crates.io predated the \"platform\" manifest field required by nsh add (fixed in GitHub 0.1.1), and nsh-widgets 0.4.1 on crates.io and tag v0.4.1 still pins nsh: ^0.6 while its master branch updates to ^0.7.1."
+            "answer": "Several fast-moving 0.7 packages remain pinned to GitHub or Git URLs in this catalog: nsh-webgpu and nsh-skia explicitly set publish = false in Cargo.toml, pure-TSX nsh-query has no Cargo.toml, early-stage 0.1.0 nsh-shadcn was verified via github:caoxing9/nsh-shadcn on 2026-11-26 prior to its initial 2026-11-27 crates.io upload, nsh-platform-harmonyos 0.1.0 on crates.io predated the \"platform\" manifest field required by nsh add (fixed in GitHub 0.1.1), and nsh-widgets 0.4.1 on crates.io and tag v0.4.1 still pins nsh: ^0.6 while its master branch updates to ^0.7.1."
           },
           {
             "question": "Do all nshm packages require a Rust toolchain during app builds?",
@@ -441,7 +441,7 @@
             "nsh add github:<owner>/<repo>",
             "5",
             "git+https://github.com/<owner>/<repo>",
-            "Cargo.toml 显式标注 publish = false（nsh-webgpu、nsh-skia）、尚未发布 crates.io（nsh-shadcn、纯 TSX 的 nsh-query），或 crates.io 旧版缺失字段而 GitHub 已修复（nsh-platform-harmonyos 0.1.1）。"
+            "Cargo.toml 显式标注 publish = false（nsh-webgpu、nsh-skia）、经 GitHub 实测验证的早期或纯 TSX 包（纯 TSX 的 nsh-query；早期 0.1.0 的 nsh-shadcn 于 2026-11-26 通过 GitHub 验证，早于其 2026-11-27 crates.io 初始上传），或 crates.io 旧版缺失字段而 GitHub 已修复（nsh-platform-harmonyos 0.1.1）。"
           ],
           [
             "Git URL + --rev",
@@ -490,8 +490,8 @@
             "answer": "nsh 0.7.1 的命令行聚焦于从明确标识安装模块：crates.io crate 名、github:owner/repo 简写、带分支/修订号的 Git URL 或本地 --path，暂未提供中央包搜索接口。因此本站点通过自动化脚本汇总六大渠道并开放 index.json 供人与 AI 工具检索。"
           },
           {
-            "question": "为何 13 个已验证模块中有 6 个必须通过 GitHub 或 Git URL 安装？",
-            "answer": "0.7 生态尚处快速迭代阶段：nsh-webgpu 与 nsh-skia 在 Cargo.toml 中标明了 publish = false；nsh-shadcn 与 nsh-query 暂未上架 crates.io；nsh-platform-harmonyos 在 crates.io 的 0.1.0 缺少 \"platform\" 字段导致 nsh add 报错，必须装 GitHub 0.1.1；nsh-widgets 的 crates.io 0.4.1 与 tag v0.4.1 仍锁定 nsh: ^0.6，需要用 --rev master 安装。"
+            "question": "为何 13 个已验证模块中有 6 个通过 GitHub 或 Git URL 安装？",
+            "answer": "0.7 生态尚处快速迭代阶段：nsh-webgpu 与 nsh-skia 在 Cargo.toml 中标明了 publish = false；纯 TSX 的 nsh-query 不含 Cargo.toml；早期 0.1.0 版本的 nsh-shadcn 于 2026-11-26 验证时尚未发布至 crates.io（初始 0.1.0 于 2026-11-27 上传），当前目录仍保留已验证的 github:caoxing9/nsh-shadcn 安装指令；nsh-platform-harmonyos 在 crates.io 的 0.1.0 缺少 \"platform\" 字段导致 nsh add 报错，必须装 GitHub 0.1.1；nsh-widgets 的 crates.io 0.4.1 与 tag v0.4.1 仍锁定 nsh: ^0.6，需要用 --rev master 安装。"
           },
           {
             "question": "所有 nshm 模块在打包应用时都需要安装 Rust 工具链吗？",
@@ -592,7 +592,7 @@
               "UI Components & Themes",
               "rust-nshm",
               "github:",
-              "Port of shadcn/ui new-york-v4 primitives (including Chat components) styled via Tailwind classes."
+              "Early 0.1.0 port of shadcn/ui new-york-v4 primitives (including Chat components) with documented Navigation Menu/Sidebar gaps."
             ],
             [
               "nsh-widgets",
@@ -671,7 +671,7 @@
           "items": [
             {
               "title": "UI Kits: nsh-omarchy vs nsh-shadcn",
-              "body": "Pick `nsh-omarchy` when you want zero-config crates.io installs, Omarchy desktop theme synchronization, and Tokyo Night or Flexoki Light defaults. Pick `nsh-shadcn` if your team already relies on shadcn/ui new-york-v4 semantics, Chat UI primitives, or `.app_class(...)` overrides and does not mind tracking GitHub head."
+              "body": "Pick `nsh-omarchy` (`0.2.0`) when you want an established crates.io release with Omarchy desktop theme synchronization, Tokyo Night or Flexoki Light defaults, and built-in charts. Consider `nsh-shadcn` as an early `0.1.0` option if your team specifically wants `new-york-v4` styling, Chat UI primitives, or `.app_class(...)` overrides while accepting its partial `Navigation Menu` and `Sidebar` caveats."
             },
             {
               "title": "Icons: nsh-icon vs supernsh-icons",
@@ -744,7 +744,7 @@
               "UI 组件与主题",
               "rust-nshm",
               "github:",
-              "Rust 原生实现的 shadcn/ui new-york-v4 组件集（含聊天界面组件），支持 `.app_class` 样式覆盖。"
+              "Rust 原生实现的 shadcn/ui new-york-v4 早期 0.1.0 移植版（含聊天界面组件，Navigation Menu 与 Sidebar 存在部分实现缺口）。"
             ],
             [
               "nsh-widgets",
@@ -823,7 +823,7 @@
           "items": [
             {
               "title": "UI 组件库选型：nsh-omarchy vs nsh-shadcn",
-              "body": "若追求开箱即用的 crates.io 发布版、系统主题自动切换与图表组件内置，`nsh-omarchy` 更直接；若偏好 shadcn/ui new-york-v4 的类名习惯或需要内置 Chat 聊天气泡与消息滚动条组件，可选用 GitHub 安装的 `nsh-shadcn`。"
+              "body": "若追求已有 `0.2.0` 发布与使用积累、系统主题自动切换与图表组件内置，`nsh-omarchy` 更稳妥；`nsh-shadcn` 仍处于早期 `0.1.0` 阶段（`Navigation Menu` 与 `Sidebar` 尚有部分缺口），仅在明确偏好 `new-york-v4` 类名习惯或需要内置 Chat 对话组件时作为早期尝鲜对比选项。"
             },
             {
               "title": "图标方案选型：nsh-icon vs supernsh-icons",
@@ -1784,7 +1784,7 @@
           "heading": "Component Scope & Comparing with nsh-shadcn",
           "paragraphs": [
             "Nine families cover Actions (`Button`, `Toggle`), Choices (`Checkbox`, `Switch`, `Slider`), Fields (`Input`, `NumberInput`, `OtpInput`, `Calendar`, `DatePicker`, `ColorPicker`), Navigation (`Tabs`, `Sidebar`, `Accordion`, `Menu`, `TitleBar`), Overlays (`Dialog`, `Sheet`, `Toaster`), Data (`DataTable`, `Tree`, `ResizablePanelGroup`), Display (`Markdown`, `Code`, `Keycap`), Charts (`LineChart`, `AreaChart`, `BarChart`, `PieChart` via `nsh-base/plot`), and Theme utilities.",
-            "Compared with `nsh-shadcn`, `nsh-omarchy` is already published on crates.io (`0.2.0`), embeds `nsh-base/plot` charts under default features, and natively mirrors Omarchy theme files. However, if your interface strictly requires shadcn/ui `new-york-v4` styling or prebuilt Chat message primitives, `nsh-shadcn` is closer to that design language."
+            "Compared with `nsh-shadcn`, `nsh-omarchy` is at `0.2.0` on crates.io with `nsh-base/plot` charts enabled by default and Omarchy theme file watching, whereas `nsh-shadcn` is an early `0.1.0` port (with `0` crates.io downloads on initial upload and documented `Navigation Menu` and `Sidebar` caveats) aimed at developers who specifically want shadcn/ui `new-york-v4` styling or built-in Chat primitives."
           ],
           "scenarios": [
             "Desktop settings panels, developer utilities, and keyboard-centric tools built with `Sidebar`, `DataTable`, `Tree`, and `Keycap`.",
@@ -1902,7 +1902,7 @@
           "heading": "9 大组件家族与同品类选型比较",
           "paragraphs": [
             "组件覆盖 Actions（按钮、Toggle）、Choices（开关、滑块、单选框）、Fields（输入、数字/OTP、日历、颜色选择）、Navigation（标签页、侧边栏、手风琴、标题栏）、Overlays（对话框、Toast）、Data（表格、`DataTable`、树形视图、可调分栏）、Display（Markdown、代码块、快捷键徽章）与 Charts（折线、面积、柱状、饼图）。",
-            "相较同分类的 `nsh-shadcn`，`nsh-omarchy` 已正式发布到 crates.io（`0.2.0`）且默认开启 `nsh-base/plot` 图表支持，整体偏桌面高密度效率工具风格；如果团队更倾向 Tailwind 类名习惯或需要内置 Chat 对话组件，则可对比考量 `nsh-shadcn`。"
+            "相较同分类仍处于早期 `0.1.0` 阶段（初期上架 crates.io 下载量为 `0`，且 `Navigation Menu` 与 `Sidebar` 仍有部分缺口）的 `nsh-shadcn`，`nsh-omarchy`（`0.2.0`）已稳定发布在 crates.io 并默认开启 `nsh-base/plot` 图表支持，整体偏桌面高密度效率工具风格；仅当项目明确需要 `new-york-v4` 类名习惯或内置 Chat 对话组件时再评估 `nsh-shadcn`。"
           ],
           "scenarios": [
             "需要键盘友好、高密度表格（`DataTable`）与可拖拽分栏（`ResizablePanelGroup`）的跨端效率应用。",
@@ -2040,21 +2040,21 @@
           ]
         },
         "useCasesAndTradeoffs": {
-          "heading": "Restyling, Partial Component Caveats & Choosing vs nsh-omarchy",
+          "heading": "Early 0.1.0 Status, Caveats & Comparing with nsh-omarchy",
           "paragraphs": [
-            "Teams coming from React and shadcn/ui gain familiar variants, `.app_class(...)` tail-override customization on Rust elements, and built-in Chat UI elements (`Bubble`, `Message Scroller`, `Attachment`) without writing custom list virtualization or toast queues.",
+            "As an early `0.1.0` release (just published initially on crates.io on `2026-11-27` with `0` downloads at check time, following the `2026-11-26` GitHub audit), `nsh-shadcn` targets adopters testing shadcn/ui `new-york-v4` variants, `.app_class(...)` tail-override customization on Rust elements, and Chat UI elements (`Bubble`, `Message Scroller`, `Attachment`). For established desktop/mobile production use with built-in charts, `nsh-omarchy` (`0.2.0`) is further along.",
             "Note two explicit upstream caveats documented in the README: `Navigation Menu` opens on press rather than hover and omits shared viewports/indicators, and `Sidebar` omits mobile sheets, collapsed-state tooltips, sub-menus, badges/actions, and icon rails. Additionally, `Calendar` re-exports `chrono::NaiveDate` directly."
           ],
           "scenarios": [
-            "AI assistant or chat applications utilizing `Bubble`, `Message`, `Message Scroller`, `Attachment`, and `Command` across desktop and mobile.",
-            "Web-originating teams wanting `new-york-v4` proportions and Tailwind class overrides inside native macOS, iOS, Android, Windows, or Linux hosts.",
-            "Mixed Rust/TSX codebases that appreciate an interactive browser gallery (`caoxing9.github.io/nsh-shadcn/`) compiled via NSH's Web target."
+            "Early prototyping of AI assistant or chat interfaces using `Bubble`, `Message`, `Message Scroller`, `Attachment`, and `Command`.",
+            "Teams experimenting with `new-york-v4` proportions and Tailwind class overrides inside native macOS, iOS, Android, Windows, or Linux hosts.",
+            "Mixed Rust/TSX evaluation against the live browser gallery (`caoxing9.github.io/nsh-shadcn/`) compiled via NSH's Web target."
           ]
         },
         "installationAndSource": {
-          "heading": "Why You Must Install nsh-shadcn via GitHub Right Now",
+          "heading": "Verified GitHub Install Command & Initial crates.io Timeline",
           "command": "nsh add github:caoxing9/nsh-shadcn",
-          "sourceRationale": "Although the upstream README mentions `nsh add nsh-shadcn`, the crate returns HTTP 404 on crates.io as of `2026-11-26` (it has not been published to the Cargo registry yet). Install directly from GitHub using `nsh add github:caoxing9/nsh-shadcn`.",
+          "sourceRationale": "On `2026-11-26`, when `nsh-awesome` ran scratch-app verification, `nsh-shadcn` had not yet appeared on crates.io, so `data/entries.json` records and locks the verified `nsh add github:caoxing9/nsh-shadcn` command. An initial `0.1.0` crate was subsequently uploaded to crates.io on `2026-11-27` (`0` downloads observed at check time); keep using the verified GitHub command until a future catalog sweep validates the crates.io tarball directly.",
           "prerequisites": [
             "Requires `nsh >= 0.7.1` (`Cargo.toml` explicitly pins `nsh-core = \"0.7.1\"` and `nsh-base = \"0.7.1\"`).",
             "Building the web gallery or targeting `--target web` requires LLVM with `wasm32` support on `PATH` (such as `brew install llvm` on macOS)."
@@ -2152,21 +2152,21 @@
           ]
         },
         "useCasesAndTradeoffs": {
-          "heading": "样式定制能力、已知差异与选型权衡",
+          "heading": "早期 0.1.0 定位、已知差异及与 nsh-omarchy 的对比",
           "paragraphs": [
-            "如果开发者熟悉 React 生态的 shadcn/ui 变体命名，通过 `.app_class(...)` 把自定义类追加在末尾即可沿用相同的覆盖心智，同时直接获得开箱可用的聊天界面组件（`Bubble`、`Message Scroller`、`Attachment`）。",
+            "`nsh-shadcn` 仍处于早期 `0.1.0` 阶段（`2026-11-26` 仅以 GitHub 形式存在，初始 `0.1.0` 于 `2026-11-27` 才刚上传 crates.io 且核查时下载量为 `0`），主要适合偏好 shadcn/ui `new-york-v4` 变体、`.app_class(...)` 覆盖写法及自带 Chat 组件（`Bubble`、`Message Scroller`、`Attachment`）的早期试用场景；若需更成熟的组件沉淀与内置图表，优先考虑 `nsh-omarchy`（`0.2.0`）。",
             "需要留意上游 README 明确列出的两处部分实现限制：`Navigation Menu` 仅支持点击展开（不支持悬停打开、共享视口与指示器）；`Sidebar` 尚不支持移动端 Sheet 抽屉、折叠态提示、子菜单、操作角标及 icon rail。此外库内直接重导出了 `chrono::NaiveDate` 供日历使用。"
           ],
           "scenarios": [
-            "面向 AI 对话或客服消息界面，直接复用内置的 `Bubble`、`Message`、`Message Scroller` 与 `Command` 面板。",
-            "从 Web / Tailwind / shadcn 迁移而来的团队，在桌面与移动端获得原生组件性能与一致的视觉尺度。",
-            "希望借助 NSH Web 后端对照在线实时画廊（`caoxing9.github.io/nsh-shadcn/`）逐个核对交互效果的项目。"
+            "早期原型验证 AI 对话或消息列表界面，试用内置的 `Bubble`、`Message`、`Message Scroller` 与 `Command` 面板。",
+            "熟悉 Tailwind / shadcn 的团队试验 `new-york-v4` 类名与原生宿主样式对齐效果。",
+            "结合 NSH Web 后端的在线演示画廊（`caoxing9.github.io/nsh-shadcn/`）逐个核对现有组件的交互完成度。"
           ]
         },
         "installationAndSource": {
-          "heading": "为什么现阶段必须通过 GitHub 安装",
+          "heading": "已验证的 GitHub 安装方式与 crates.io 发布时间线",
           "command": "nsh add github:caoxing9/nsh-shadcn",
-          "sourceRationale": "虽然上游仓库 README 示例中写了 `nsh add nsh-shadcn`，但截至 `2026-11-26` 该包名在 crates.io 查询仍返回 404（尚未推送发布到 Cargo 仓库）。请使用 `nsh add github:caoxing9/nsh-shadcn` 从 GitHub 安装。",
+          "sourceRationale": "在 `2026-11-26` 执行目录实测时 `nsh-shadcn` 尚未上架 crates.io，因此 `data/entries.json` 收录并验证的是 `nsh add github:caoxing9/nsh-shadcn`。其初始 `0.1.0` crate 随后于 `2026-11-27` 上传至 crates.io（核查时下载量为 `0`）；在后续目录全量重测 crates.io 归档包之前，请继续以已实测通过的 GitHub 命令为准。",
           "prerequisites": [
             "要求 `nsh >= 0.7.1`（`Cargo.toml` 显式依赖 `nsh-core = \"0.7.1\"` 与 `nsh-base = \"0.7.1\"`）。",
             "若本地编译 `--target web` 静态站点或运行组件文档构建脚本，需在 `PATH` 中安装支持 `wasm32` 的 LLVM 工具链。"
