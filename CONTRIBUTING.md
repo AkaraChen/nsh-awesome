@@ -6,6 +6,9 @@ Thank you for helping grow the [Native Shell (NSH)](https://nsh.dev) ecosystem!
 
 All lists (`README.md`, `README.zh.md`), the static website (`site/`), and the machine-readable catalog (`site/index.json`, `site/count.json`) are generated from [`data/entries.json`](data/entries.json). **Do not edit the generated files by hand** — CI checks byte-for-byte consistency via `node scripts/generate.mjs --check`.
 
+> [!NOTE]
+> Production deployments on Vercel (`vercel.json`: `"buildCommand": ""`, `"outputDirectory": "site"`) publish the committed `site/` directory directly on every push to `main` without a build step. Always run `node scripts/generate.mjs` and commit the updated `site/` files together with `data/entries.json` — CI checks parity, but does not block Vercel from deploying a stale `site/`.
+
 ## Requirements for Installable `nshm` Submissions
 
 1. **Must install cleanly via `nsh add`** on the current stable `nsh` release (`nsh 0.7.1`) in a fresh scratch app (using `crates.io`, `github:owner/repo`, or a Git URL).

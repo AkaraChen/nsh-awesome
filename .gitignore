@@ -4,4 +4,4 @@ node_modules/
 /tmp/
 *.log
 .vercel
-.env*
+.env.local
