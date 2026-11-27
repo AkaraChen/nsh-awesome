@@ -4,7 +4,7 @@
  * regression gate for every built HTML, XML, JSON, TXT, and MD file in `dist/`.
  *
  * Usage:
- *   node scripts/seo-check.mjs [--dir dist]
+ *   node scripts/seo-check.mjs [--dir dist] [--base /]
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -124,15 +124,24 @@ function readPngDimensions(filePath) {
   };
 }
 
+export function normalizeBasePath(rawBase = '/') {
+  const trimmed = String(rawBase ?? '/')
+    .trim()
+    .replace(/^\/+|\/+$/g, '');
+  return trimmed ? `/${trimmed}/` : '/';
+}
+
 function normalizeSiteUrl(rawSiteUrl) {
   const raw = String(rawSiteUrl || DEFAULT_SITE_URL).trim();
   return raw.endsWith('/') ? raw : `${raw}/`;
 }
 
-function makeSiteResolver(siteDir, siteUrl) {
+function makeSiteResolver(siteDir, siteUrl, basePath = '/') {
   const siteOrigin = new URL(siteUrl).origin;
+  const normalizedBase = normalizeBasePath(basePath);
+  const baseNoTrail = normalizedBase === '/' ? '' : normalizedBase.slice(0, -1);
 
-  function toLocalRelativePath(rawUrlOrPath) {
+  function toLocalRelativePath(rawUrlOrPath, { requireBasePrefix = false } = {}) {
     if (!rawUrlOrPath || typeof rawUrlOrPath !== 'string') return null;
     const trimmed = rawUrlOrPath.trim();
     if (!trimmed || trimmed.startsWith('#') || /^(?:mailto|tel|javascript|data):/i.test(trimmed)) {
@@ -141,7 +150,15 @@ function makeSiteResolver(siteDir, siteUrl) {
 
     let pathname = null;
     if (trimmed.startsWith('/')) {
+      if (trimmed.startsWith('//')) return null;
       pathname = trimmed.split('#')[0].split('?')[0];
+      if (normalizedBase !== '/') {
+        const hasPrefix = pathname === baseNoTrail || pathname.startsWith(normalizedBase);
+        if (!hasPrefix) {
+          return requireBasePrefix ? '__MISSING_BASE_PREFIX__' : null;
+        }
+        pathname = pathname === baseNoTrail ? '/' : `/${pathname.slice(normalizedBase.length)}`;
+      }
     } else if (/^https?:\/\//i.test(trimmed)) {
       try {
         const parsed = new URL(trimmed);
@@ -182,7 +199,7 @@ function makeSiteResolver(siteDir, siteUrl) {
     return `${siteUrl}${rel}`;
   }
 
-  return { siteOrigin, toLocalRelativePath, fileToRouteUrl };
+  return { siteOrigin, normalizedBase, toLocalRelativePath, fileToRouteUrl };
 }
 
 function jaccardSimilarity(tokensA, tokensB) {
@@ -618,11 +635,16 @@ export function validateAiCatalogObject(doc, relPath, { siteUrl, toLocalRelative
 export function runSeoCheck({
   siteDir = 'dist',
   siteUrl: rawSiteUrl = DEFAULT_SITE_URL,
+  basePath = '/',
   dataPath = 'data/entries.json',
 } = {}) {
   const errors = [];
   const siteUrl = normalizeSiteUrl(rawSiteUrl);
-  const { siteOrigin, toLocalRelativePath, fileToRouteUrl } = makeSiteResolver(siteDir, siteUrl);
+  const { siteOrigin, normalizedBase, toLocalRelativePath, fileToRouteUrl } = makeSiteResolver(
+    siteDir,
+    siteUrl,
+    basePath,
+  );
 
   const allFiles = walkFiles(siteDir);
   if (allFiles.length === 0) {
@@ -678,6 +700,7 @@ export function runSeoCheck({
     const scripts = extractTags(html, 'script');
     const imgs = extractTags(html, 'img');
     const anchors = extractTags(html, 'a');
+    const forms = extractTags(html, 'form');
 
     const viewport = metas.find((m) => (m.get('name') || '').toLowerCase() === 'viewport')?.get('content') || '';
     if (!viewport.includes('width=device-width') || !viewport.includes('initial-scale=1')) {
@@ -698,17 +721,22 @@ export function runSeoCheck({
       ...anchors.map((a) => a.get('href')),
       ...scripts.map((s) => s.get('src')),
       ...imgs.map((img) => img.get('src')),
+      ...forms.map((f) => f.get('action')),
     ].filter(Boolean);
 
     for (const ref of internalLinksToCheck) {
       const trimmed = ref.trim();
       const isInternal =
-        trimmed.startsWith('/') ||
+        (trimmed.startsWith('/') && !trimmed.startsWith('//')) ||
         trimmed.startsWith(siteOrigin) ||
         (!/^[a-z][a-z0-9+.-]*:/i.test(trimmed) && !trimmed.startsWith('#'));
       if (isInternal) {
-        const resolved = toLocalRelativePath(trimmed);
-        if (!resolved || resolved === '__INVALID_URL__') {
+        const resolved = toLocalRelativePath(trimmed, { requireBasePrefix: true });
+        if (resolved === '__MISSING_BASE_PREFIX__') {
+          errors.push(
+            `${relPath}: internal reference "${trimmed}" missing required base prefix "${normalizedBase}"`,
+          );
+        } else if (!resolved || resolved === '__INVALID_URL__') {
           errors.push(`${relPath}: broken internal link/asset reference "${trimmed}"`);
         }
       }
@@ -947,8 +975,15 @@ export function runSeoCheck({
     for (const a of page.anchors) {
       const href = a.get('href');
       if (!href) continue;
-      const resolved = toLocalRelativePath(href);
-      if (!resolved || !resolved.endsWith('.html')) continue;
+      const resolved = toLocalRelativePath(href, { requireBasePrefix: true });
+      if (
+        !resolved ||
+        resolved === '__MISSING_BASE_PREFIX__' ||
+        resolved === '__INVALID_URL__' ||
+        !resolved.endsWith('.html')
+      ) {
+        continue;
+      }
       const targetUrl = fileToRouteUrl(resolved);
       if (targetUrl !== page.url && inboundCounts.has(targetUrl) && !seenTargetsFromPage.has(targetUrl)) {
         seenTargetsFromPage.add(targetUrl);
@@ -1021,11 +1056,28 @@ export function runSeoCheck({
         errors.push(`${relPath}: invalid Shields.io count.json schema`);
       }
     } else if (siteRel === 'site.webmanifest') {
-      if (!doc.name || !doc.short_name || !doc.start_url || !Array.isArray(doc.icons) || doc.icons.length === 0) {
+      if (!doc.name || !doc.short_name || !doc.start_url || !doc.scope || !Array.isArray(doc.icons) || doc.icons.length === 0) {
         errors.push(`${relPath}: missing required webmanifest fields`);
       } else {
+        for (const navField of ['id', 'start_url', 'scope']) {
+          if (doc[navField]) {
+            const resolvedField = toLocalRelativePath(doc[navField], { requireBasePrefix: true });
+            if (resolvedField === '__MISSING_BASE_PREFIX__') {
+              errors.push(
+                `${relPath}: ${navField} "${doc[navField]}" missing required base prefix "${normalizedBase}"`,
+              );
+            } else if (!resolvedField || resolvedField === '__INVALID_URL__') {
+              errors.push(`${relPath}: ${navField} does not resolve locally: ${doc[navField]}`);
+            }
+          }
+        }
         for (const icon of doc.icons) {
-          if (!icon?.src || !toLocalRelativePath(icon.src)) {
+          const resolvedIcon = icon?.src ? toLocalRelativePath(icon.src, { requireBasePrefix: true }) : null;
+          if (resolvedIcon === '__MISSING_BASE_PREFIX__') {
+            errors.push(
+              `${relPath}: icon src "${icon.src}" missing required base prefix "${normalizedBase}"`,
+            );
+          } else if (!resolvedIcon || resolvedIcon === '__INVALID_URL__') {
             errors.push(`${relPath}: icon src missing locally: ${icon?.src}`);
           }
         }
@@ -1075,16 +1127,35 @@ export function runSeoCheck({
   };
 }
 
-function resolveSiteDirFromArgv(argv) {
-  const dirIdx = argv.indexOf('--dir');
-  if (dirIdx >= 0 && argv[dirIdx + 1]) return argv[dirIdx + 1];
-  const positional = argv.find((a) => !a.startsWith('-'));
-  return positional || 'dist';
+function resolveCliOptions(argv) {
+  let siteDir = null;
+  let basePath = process.env.ASTRO_BASE || '/';
+  const positionals = [];
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+    if (arg === '--dir' && argv[i + 1]) {
+      siteDir = argv[i + 1];
+      i += 1;
+    } else if (arg.startsWith('--dir=')) {
+      siteDir = arg.slice('--dir='.length);
+    } else if (arg === '--base' && argv[i + 1]) {
+      basePath = argv[i + 1];
+      i += 1;
+    } else if (arg.startsWith('--base=')) {
+      basePath = arg.slice('--base='.length);
+    } else if (!arg.startsWith('-')) {
+      positionals.push(arg);
+    }
+  }
+  return {
+    siteDir: siteDir || positionals[0] || 'dist',
+    basePath,
+  };
 }
 
 function main() {
-  const siteDir = resolveSiteDirFromArgv(process.argv.slice(2));
-  const result = runSeoCheck({ siteDir });
+  const { siteDir, basePath } = resolveCliOptions(process.argv.slice(2));
+  const result = runSeoCheck({ siteDir, basePath });
   if (!result.ok) {
     console.error(`seo-check: FAILED with ${result.errors.length} error(s):`);
     for (const err of result.errors) {

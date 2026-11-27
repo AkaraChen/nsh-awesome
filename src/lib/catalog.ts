@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { getCollection, getEntry } from 'astro:content';
+import { getLocalePath } from '../i18n/ui';
 import {
   SECTION_HUB_DEFS,
   SECTION_SLUG_FOR_ID,
@@ -79,11 +80,10 @@ export async function getModuleContentEntry(lang: 'en' | 'zh', moduleId: string)
 }
 
 export function buildInstallableLinkMap(entries: any[], lang: 'en' | 'zh'): Map<string, string> {
-  const prefix = lang === 'zh' ? '/zh' : '';
   const map = new Map<string, string>();
   for (const e of entries) {
     if (e.installable) {
-      map.set(e.name, `${prefix}/nshm/${e.id}/`);
+      map.set(e.name, getLocalePath(lang, `nshm/${e.id}`));
     }
   }
   return map;

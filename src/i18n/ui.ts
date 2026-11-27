@@ -15,6 +15,35 @@ export function toHtmlLang(lang: Locale): 'en' | 'zh-Hans' {
   return lang === 'zh' ? 'zh-Hans' : 'en';
 }
 
+export function getBasePrefix(rawBase = import.meta.env.BASE_URL || '/'): string {
+  const trimmed = String(rawBase || '/')
+    .trim()
+    .replace(/^\/+|\/+$/g, '');
+  return trimmed ? `/${trimmed}/` : '/';
+}
+
+export function withBase(subPath: string, rawBase = import.meta.env.BASE_URL || '/'): string {
+  const raw = String(subPath ?? '');
+  if (
+    !raw ||
+    raw.startsWith('#') ||
+    raw.startsWith('//') ||
+    /^[a-z][a-z0-9+.-]*:/i.test(raw)
+  ) {
+    return raw;
+  }
+  const basePrefix = getBasePrefix(rawBase);
+  if (basePrefix === '/') {
+    return raw.startsWith('/') ? raw : `/${raw}`;
+  }
+  const baseNoTrail = basePrefix.slice(0, -1);
+  if (raw === baseNoTrail || raw.startsWith(basePrefix)) {
+    return raw;
+  }
+  const clean = raw.replace(/^\/+/, '');
+  return clean ? `${basePrefix}${clean}` : basePrefix;
+}
+
 export function getLocalePath(lang: Locale, subPath = ''): string {
   const clean = subPath.replace(/^\/+|\/+$/g, '');
   const rel = getRelativeLocaleUrl(lang, clean);
@@ -30,10 +59,10 @@ export function getLocaleAbsUrl(lang: Locale, subPath = ''): string {
 export function getMdPath(lang: Locale, routeSlug: string): string {
   const prefix = lang === 'zh' ? '/zh' : '';
   if (routeSlug === 'home' || routeSlug === '') {
-    return `${prefix}/index.md`;
+    return withBase(`${prefix}/index.md`);
   }
   const clean = routeSlug.replace(/^\/+|\/+$/g, '');
-  return `${prefix}/${clean}.md`;
+  return withBase(`${prefix}/${clean}.md`);
 }
 
 export const UI = {

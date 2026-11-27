@@ -1,5 +1,5 @@
 ---
-import { UI, type Locale } from '../i18n/ui';
+import { UI, withBase, type Locale } from '../i18n/ui';
 
 interface Props {
   lang: Locale;
@@ -28,12 +28,12 @@ const t = UI[lang];
       }
     </p>
     <nav class="footer__links" aria-label={t.footerNav}>
-      <a href="/index.json">index.json</a>
-      <a href="/count.json">count.json</a>
-      <a href="/badge.svg">badge.svg</a>
-      <a href="/llms.txt">llms.txt</a>
-      <a href="/sitemap.xml">sitemap.xml</a>
-      <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+      <a href={withBase('/index.json')}>index.json</a>
+      <a href={withBase('/count.json')}>count.json</a>
+      <a href={withBase('/badge.svg')}>badge.svg</a>
+      <a href={withBase('/llms.txt')}>llms.txt</a>
+      <a href={withBase('/sitemap.xml')}>sitemap.xml</a>
+      <a href={withBase('/.well-known/ai-catalog.json')}>ai-catalog.json</a>
       <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
       <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
     </nav>

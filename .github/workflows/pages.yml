@@ -30,11 +30,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build Astro static site into dist/
+        env:
+          ASTRO_BASE: /nsh-awesome
         run: npm run build
       - name: Verify README parity and SEO gates
         run: |
           node scripts/generate.mjs --check
-          node scripts/seo-check.mjs
+          node scripts/seo-check.mjs --base /nsh-awesome
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

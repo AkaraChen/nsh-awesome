@@ -1,5 +1,5 @@
 ---
-import { UI, type Locale } from '../i18n/ui';
+import { UI, withBase, type Locale } from '../i18n/ui';
 
 export interface BreadcrumbItem {
   label: string;
@@ -29,7 +29,7 @@ const t = UI[lang];
         }
         return (
           <li class="breadcrumbs__item">
-            <a class="breadcrumbs__link" href={item.href}>
+            <a class="breadcrumbs__link" href={withBase(item.href)}>
               {item.label}
             </a>
           </li>

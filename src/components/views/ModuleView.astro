@@ -6,7 +6,7 @@ import InlineCode from '../InlineCode.astro';
 import DataTable from '../DataTable.astro';
 import Callout from '../Callout.astro';
 import RelatedLinks from '../RelatedLinks.astro';
-import { UI, getLocalePath, type Locale } from '../../i18n/ui';
+import { UI, getLocalePath, withBase, type Locale } from '../../i18n/ui';
 import {
   buildFallbackModuleMeta,
   getCatalogBundle,
@@ -108,7 +108,7 @@ const jsonLdGraph = buildModuleSchema({
             </a>
           )
         }
-        <a class="pill-link" href={route.mdPath}>
+        <a class="pill-link" href={withBase(route.mdPath)}>
           {t.markdown}
         </a>
       </div>
@@ -209,7 +209,7 @@ const jsonLdGraph = buildModuleSchema({
           <h2>{t.parentHubsHeading}</h2>
           <div class="pill-links">
             {modMeta.parentLinks.map((p) => (
-              <a class="pill-link" href={p.path}>
+              <a class="pill-link" href={withBase(p.path)}>
                 <InlineCode text={p.label} />
               </a>
             ))}

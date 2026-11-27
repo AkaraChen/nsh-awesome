@@ -17,7 +17,7 @@ Thank you for helping grow the [Native Shell (NSH)](https://nsh.dev) ecosystem!
 > Raster brand icons and OG social images (`public/favicon.ico`, `public/apple-touch-icon.png`, `public/og-image.png`, `public/og-image-zh.png`) are generated on demand by running `node scripts/build-seo-assets.mjs` manually. That asset script is intentionally excluded from `scripts/generate.mjs`, `npm run build`, and CI.
 
 > [!NOTE]
-> Production deployments on Vercel (`vercel.json`: `"framework": "astro"`, `"buildCommand": "npm run build"`, `"outputDirectory": "dist"`) and GitHub Pages (`.github/workflows/pages.yml`) build `dist/` from committed sources on every push to `main` with locked `package-lock.json` dependencies.
+> Production deployments on Vercel (`vercel.json`: `"framework": "astro"`, `"buildCommand": "npm run build"`, `"outputDirectory": "dist"`) and GitHub Pages (`.github/workflows/pages.yml`, built with `ASTRO_BASE=/nsh-awesome` while keeping canonical and JSON-LD URLs pointing to `https://nsh-awesome.vercel.app/`) build `dist/` from committed sources on every push to `main` with locked `package-lock.json` dependencies.
 
 ## Requirements for Installable `nshm` Submissions
 

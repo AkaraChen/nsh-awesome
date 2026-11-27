@@ -1,5 +1,6 @@
 ---
 import InlineCode from './InlineCode.astro';
+import { withBase } from '../i18n/ui';
 
 export interface RelatedItem {
   path: string;
@@ -26,13 +27,13 @@ const { items = [], heading, headingLevel = 2 } = Astro.props;
         <article class="subcard">
           {headingLevel >= 3 ? (
             <h4 class="card__title">
-              <a href={item.path}>
+              <a href={withBase(item.path)}>
                 <InlineCode text={item.label || item.title || ''} />
               </a>
             </h4>
           ) : (
             <h3 class="card__title">
-              <a href={item.path}>
+              <a href={withBase(item.path)}>
                 <InlineCode text={item.label || item.title || ''} />
               </a>
             </h3>

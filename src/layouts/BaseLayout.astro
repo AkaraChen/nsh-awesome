@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { UI, toHtmlLang, type Locale } from '../i18n/ui';
+import { UI, getBasePrefix, toHtmlLang, type Locale } from '../i18n/ui';
 import { renderHeadIconsAndManifest, renderSocialMeta } from '../../scripts/lib/seo-assets.mjs';
 import { renderHreflangTags } from '../../scripts/lib/seo-sitemap.mjs';
 import { renderJsonLdScript } from '../../scripts/lib/seo-schema.mjs';
@@ -87,7 +87,7 @@ function escapeAttr(value: string): string {
 }
 
 const descriptionMetaHtml = `<meta name="description" content="${escapeAttr(description)}">`;
-const headIconsHtml = renderHeadIconsAndManifest('/');
+const headIconsHtml = renderHeadIconsAndManifest(getBasePrefix());
 const headSeoTags = noindex
   ? '<meta name="robots" content="noindex">'
   : [

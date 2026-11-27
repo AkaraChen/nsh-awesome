@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -361,4 +362,51 @@ test('runSeoCheck rejects retired JSON-LD types, http:// URLs, bad sitemap, bad 
     assert.ok(res.errors.some((e) => e.includes('at least 50 non-whitespace characters')));
     assert.ok(res.errors.some((e) => e.includes('ARD specVersion must be "1.0"')));
   });
+});
+
+test('subpath ASTRO_BASE=/nsh-awesome build prefixes all internal links and assets while keeping Vercel canonicals and passing seo-check', () => {
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'nsh-subpath-build-'));
+  const tmpDist = path.join(tmpRoot, 'dist-pages');
+  try {
+    execFileSync(
+      process.execPath,
+      [path.resolve('node_modules/astro/bin/astro.mjs'), 'build', '--outDir', tmpDist],
+      {
+        cwd: process.cwd(),
+        env: { ...process.env, ASTRO_BASE: '/nsh-awesome' },
+        stdio: 'pipe',
+      },
+    );
+
+    const okRes = runSeoCheck({ siteDir: tmpDist, basePath: '/nsh-awesome' });
+    assert.equal(okRes.ok, true, `Unexpected subpath SEO errors:\n${okRes.errors.join('\n')}`);
+    assert.equal(okRes.stats.indexableHtml, 40);
+
+    const manifest = JSON.parse(fs.readFileSync(path.join(tmpDist, 'site.webmanifest'), 'utf8'));
+    assert.equal(manifest.id, '/nsh-awesome/');
+    assert.equal(manifest.start_url, '/nsh-awesome/');
+    assert.equal(manifest.scope, '/nsh-awesome/');
+    assert.equal(manifest.icons[0].src, '/nsh-awesome/apple-touch-icon.png');
+    assert.equal(manifest.icons[1].src, '/nsh-awesome/favicon.svg');
+
+    const indexHtml = fs.readFileSync(path.join(tmpDist, 'index.html'), 'utf8');
+    assert.ok(indexHtml.includes('href="/nsh-awesome/favicon.ico"'));
+    assert.ok(indexHtml.includes('href="/nsh-awesome/site.webmanifest"'));
+    assert.ok(indexHtml.includes('/nsh-awesome/_astro/'));
+    assert.ok(indexHtml.includes('href="/nsh-awesome/nshm/"'));
+    assert.ok(indexHtml.includes('href="/nsh-awesome/zh/"'));
+    assert.ok(indexHtml.includes('<link rel="canonical" href="https://nsh-awesome.vercel.app/">'));
+
+    // Negative control: unprefixed root-relative links/assets must fail subpath seo-check
+    const mutatedHtml = indexHtml
+      .replace('href="/nsh-awesome/favicon.ico"', 'href="/favicon.ico"')
+      .replace('href="/nsh-awesome/nshm/"', 'href="/nshm/"');
+    fs.writeFileSync(path.join(tmpDist, 'index.html'), mutatedHtml);
+
+    const badRes = runSeoCheck({ siteDir: tmpDist, basePath: '/nsh-awesome' });
+    assert.equal(badRes.ok, false);
+    assert.ok(badRes.errors.some((e) => e.includes('missing required base prefix "/nsh-awesome/"')));
+  } finally {
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  }
 });

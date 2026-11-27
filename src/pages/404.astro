@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { UI } from '../i18n/ui';
+import { UI, getLocalePath, withBase } from '../i18n/ui';
 import { readCatalogData } from '../lib/catalog';
 
 const data = readCatalogData();
@@ -15,7 +15,7 @@ const t = UI.en;
   nshmCount={nshmCount}
   nshVerifiedVersion={data.nshVerifiedVersion || '0.7.1'}
   siteUrl={data.siteUrl || 'https://nsh-awesome.vercel.app/'}
-  altPath="/zh/"
+  altPath={getLocalePath('zh', '')}
   noindex={true}
 >
   <section class="hero">
@@ -30,15 +30,15 @@ const t = UI.en;
     <section class="content-band">
       <h2>{t.notFoundHeading}</h2>
       <div class="pill-links">
-        <a class="pill-link" href="/">English Home Directory</a>
-        <a class="pill-link" href="/zh/">中文目录首页</a>
-        <a class="pill-link" href="/nshm/">Installable nshm ({nshmCount})</a>
-        <a class="pill-link" href="/framework/">Framework Crates</a>
-        <a class="pill-link" href="/templates/">Templates &amp; Examples</a>
-        <a class="pill-link" href="/guides/">Guides &amp; Docs</a>
-        <a class="pill-link" href="/discovery/">Discovery Methodology</a>
-        <a class="pill-link" href="/about/">About &amp; Criteria</a>
-        <a class="pill-link" href="/index.json">index.json</a>
+        <a class="pill-link" href={getLocalePath('en', '')}>English Home Directory</a>
+        <a class="pill-link" href={getLocalePath('zh', '')}>中文目录首页</a>
+        <a class="pill-link" href={getLocalePath('en', 'nshm')}>Installable nshm ({nshmCount})</a>
+        <a class="pill-link" href={getLocalePath('en', 'framework')}>Framework Crates</a>
+        <a class="pill-link" href={getLocalePath('en', 'templates')}>Templates &amp; Examples</a>
+        <a class="pill-link" href={getLocalePath('en', 'guides')}>Guides &amp; Docs</a>
+        <a class="pill-link" href={getLocalePath('en', 'discovery')}>Discovery Methodology</a>
+        <a class="pill-link" href={getLocalePath('en', 'about')}>About &amp; Criteria</a>
+        <a class="pill-link" href={withBase('/index.json')}>index.json</a>
       </div>
     </section>
   </div>

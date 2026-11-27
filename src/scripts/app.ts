@@ -324,7 +324,8 @@ if (catalogRoot && searchInput && sourceSelect) {
       }
     }
     if (typeof fetch === 'function') {
-      return fetch('/index.json', { cache: 'default' })
+      const basePrefix = (import.meta.env.BASE_URL || '/').replace(/\/?$/, '/');
+      return fetch(`${basePrefix}index.json`, { cache: 'default' })
         .then((res) => (res && res.ok ? res.json() : null))
         .then((data) => {
           if (data && Array.isArray(data.entries)) {

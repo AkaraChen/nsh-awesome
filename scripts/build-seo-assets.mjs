@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
- * Deterministically generate brand favicons, Web App Manifest, and
- * bilingual Open Graph social preview images in `public/` from `data/entries.json`.
+ * Deterministically generate brand favicons and bilingual Open Graph social
+ * preview images in `public/` from `data/entries.json`. (`site.webmanifest`
+ * is emitted dynamically by `src/pages/site.webmanifest.ts` to honor `ASTRO_BASE`.)
  *
  * Usage:
  *   node scripts/build-seo-assets.mjs
@@ -237,38 +238,6 @@ function buildAppleTouchIconSvg() {
 `;
 }
 
-function buildWebManifest() {
-  return `${JSON.stringify(
-    {
-      name: 'Awesome NSH',
-      short_name: 'Awesome NSH',
-      description: 'Curated Native Shell (nsh) modules (nshm), framework crates, templates, and guides.',
-      id: '/',
-      start_url: '/',
-      scope: '/',
-      display: 'standalone',
-      background_color: '#0e1016',
-      theme_color: '#0e1016',
-      icons: [
-        {
-          src: '/apple-touch-icon.png',
-          sizes: '180x180',
-          type: 'image/png',
-          purpose: 'any',
-        },
-        {
-          src: '/favicon.svg',
-          sizes: 'any',
-          type: 'image/svg+xml',
-          purpose: 'any',
-        },
-      ],
-    },
-    null,
-    2,
-  )}\n`;
-}
-
 /**
  * Build bilingual 1200x630 Open Graph SVG master artwork.
  * Uses hex colors + explicit opacity attributes (no `rgba(...)` or CSS filters)
@@ -465,12 +434,10 @@ function main() {
   const faviconSvgPath = path.join(SITE_DIR, 'favicon.svg');
   const faviconIcoPath = path.join(SITE_DIR, 'favicon.ico');
   const appleIconPath = path.join(SITE_DIR, 'apple-touch-icon.png');
-  const manifestPath = path.join(SITE_DIR, 'site.webmanifest');
   const ogEnPath = path.join(SITE_DIR, 'og-image.png');
   const ogZhPath = path.join(SITE_DIR, 'og-image-zh.png');
 
   fs.writeFileSync(faviconSvgPath, buildFaviconSvg(), 'utf8');
-  fs.writeFileSync(manifestPath, buildWebManifest(), 'utf8');
 
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'nsh-seo-assets-'));
   try {
@@ -502,7 +469,6 @@ function main() {
     faviconSvgPath,
     faviconIcoPath,
     appleIconPath,
-    manifestPath,
     ogEnPath,
     ogZhPath,
   ];

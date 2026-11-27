@@ -1,5 +1,5 @@
 ---
-import { NAV_ITEMS, UI, getLocalePath, type Locale } from '../i18n/ui';
+import { NAV_ITEMS, UI, getLocalePath, withBase, type Locale } from '../i18n/ui';
 
 interface Props {
   lang: Locale;
@@ -52,11 +52,11 @@ const homeHref = getLocalePath(lang, '');
           );
         })
       }
-      <a class="nav__link" href="/index.json">index.json</a>
+      <a class="nav__link" href={withBase('/index.json')}>index.json</a>
       <a
         class="ctrl-btn"
         id="lang-toggle"
-        href={altPath}
+        href={withBase(altPath)}
         hreflang={t.langSwitchAttr}
         lang={t.langSwitchAttr}
       >

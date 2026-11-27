@@ -5,7 +5,7 @@ import Breadcrumbs from '../Breadcrumbs.astro';
 import InlineCode from '../InlineCode.astro';
 import DataTable from '../DataTable.astro';
 import RelatedLinks from '../RelatedLinks.astro';
-import { UI, getLocalePath, type Locale } from '../../i18n/ui';
+import { UI, getLocalePath, withBase, type Locale } from '../../i18n/ui';
 import {
   buildInstallableLinkMap,
   getCatalogBundle,
@@ -75,7 +75,7 @@ const jsonLdGraph = buildArticleSchema({
         <InlineCode text={pageData.lead} />
       </p>
       <div class="action-row">
-        <a class="pill-link" href={route.mdPath}>
+        <a class="pill-link" href={withBase(route.mdPath)}>
           {t.markdownEdition}
         </a>
         <a
