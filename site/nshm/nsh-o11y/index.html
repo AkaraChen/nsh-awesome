@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nsh-o11y: Observability Charts for Native Shell</title>
+  <meta name="description" content="Render TimeSeriesChart, LogView, TraceWaterfall, and FlameGraph panels with M4 min/max pyramid decimation, createChartSync, and an optional Rust store.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/nshm/nsh-o11y/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/nshm/nsh-o11y/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-o11y/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/nshm/nsh-o11y/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="nsh-o11y: Observability Charts for Native Shell">
+<meta property="og:description" content="Render TimeSeriesChart, LogView, TraceWaterfall, and FlameGraph panels with M4 min/max pyramid decimation, createChartSync, and an optional Rust store.">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/nshm/nsh-o11y/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — 43 curated Native Shell entries and 13 verified nshm modules for nsh 0.7.1">
+<meta property="og:updated_time" content="2026-11-25">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="nsh-o11y: Observability Charts for Native Shell">
+<meta name="twitter:description" content="Render TimeSeriesChart, LogView, TraceWaterfall, and FlameGraph panels with M4 min/max pyramid decimation, createChartSync, and an optional Rust store.">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image.png">
+<meta name="twitter:image:alt" content="Awesome NSH — 43 curated Native Shell entries and 13 verified nshm modules for nsh 0.7.1">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/nshm/nsh-o11y.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"A curated list, searchable directory, and machine-readable index of Native Shell (nsh) modules (nshm), framework crates, templates, and guides.","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"WebPage","@id":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/#webpage","url":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/","name":"nsh-o11y: Observability Charts for Native Shell","description":"Render TimeSeriesChart, LogView, TraceWaterfall, and FlameGraph panels with M4 min/max pyramid decimation, createChartSync, and an optional Rust store.","inLanguage":"en","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"breadcrumb":{"@id":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/#breadcrumb"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/#software"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image.png","width":1200,"height":630,"caption":"Awesome NSH — Curated Native Shell Modules & Directory"},"dateModified":"2026-11-25"},{"@type":"SoftwareSourceCode","@id":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/#software","name":"nsh-o11y","description":"Render TimeSeriesChart, LogView, TraceWaterfall, and FlameGraph panels with M4 min/max pyramid decimation, createChartSync, and an optional Rust store.","url":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/","codeRepository":"https://github.com/JetSquirrel/nsh-o11y","license":"https://spdx.org/licenses/Apache-2.0","version":"0.1.0","programmingLanguage":["Rust","TypeScript"],"runtimePlatform":"Native Shell >=0.7","targetProduct":{"@type":"SoftwareApplication","name":"Native Shell (nsh)","url":"https://nsh.dev","applicationCategory":"DeveloperApplication","softwareVersion":">=0.7","operatingSystem":["iOS","Android","macOS","Windows","Linux","GPUI","Web"]},"dateModified":"2026-11-25","isAccessibleForFree":true,"inLanguage":"en","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"mainEntityOfPage":{"@id":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/#webpage"},"sameAs":["https://crates.io/crates/nsh-o11y","https://jetsquirrel.github.io/nsh-o11y/"]},{"@type":"BreadcrumbList","@id":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nsh-awesome.vercel.app/"},{"@type":"ListItem","position":2,"name":"Installable nshm","item":"https://nsh-awesome.vercel.app/nshm/"},{"@type":"ListItem","position":3,"name":"nsh-o11y","item":"https://nsh-awesome.vercel.app/nshm/nsh-o11y/"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="Primary">
+        <a class="nav__link is-current" href="/nshm/" aria-current="page">nshm</a>
+        <a class="nav__link" href="/framework/">Framework</a>
+        <a class="nav__link" href="/templates/">Templates</a>
+        <a class="nav__link" href="/guides/">Guides</a>
+        <a class="nav__link" href="/discovery/">Discovery</a>
+        <a class="nav__link" href="/about/">About</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/zh/nshm/nsh-o11y/" hreflang="zh-Hans" lang="zh-Hans">中文</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>Light mode</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><ol class="breadcrumbs__list"><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/">Home</a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/nshm/">Installable nshm</a></li><li class="breadcrumbs__item" aria-current="page"><span>nsh-o11y</span></li></ol></nav>
+      <h1>nsh-o11y: High-Throughput Observability Charts for NSH</h1>
+      <p class="hero__desc">Hybrid TSX + optional Rust telemetry visualization suite by JetSquirrel delivering TimeSeriesChart, LogView, TraceWaterfall, FlameGraph, SandwichView, ServiceMap, and Heatmap.</p>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">Install command:</span>
+        <code class="install-cmd">nsh add nsh-o11y</code>
+        <button type="button" class="copy-btn" data-copy="nsh add nsh-o11y"><span data-copy-label>Copy</span><span class="sr-only"> — nsh add nsh-o11y</span></button>
+      </div>
+      <div class="action-row"><a class="pill-link" href="https://github.com/JetSquirrel/nsh-o11y" target="_blank" rel="noopener">Source Repository</a>
+        <a class="pill-link" href="https://crates.io/crates/nsh-o11y" target="_blank" rel="noopener">crates.io</a>
+        <a class="pill-link" href="https://jetsquirrel.github.io/nsh-o11y/" target="_blank" rel="noopener">Docs / Demo</a>
+        <a class="pill-link" href="/nshm/nsh-o11y.md">Markdown</a></div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+  <h2>Module Facts</h2>
+  <dl class="facts-grid">
+    <div class="fact-item"><dt>Category</dt><dd>Charts, Graphs &amp; GPU Canvas</dd></div>
+    <div class="fact-item"><dt>Kind</dt><dd><code>hybrid-nshm</code></dd></div>
+    <div class="fact-item"><dt>Source Type</dt><dd><code>crates.io</code></dd></div>
+    <div class="fact-item"><dt>Version</dt><dd><code>0.1.0</code></dd></div>
+    <div class="fact-item"><dt>NSH Target</dt><dd><code>&gt;=0.7</code></dd></div>
+    <div class="fact-item"><dt>License</dt><dd>Apache-2.0</dd></div>
+    <div class="fact-item"><dt>Updated</dt><dd>2026-11-25</dd></div>
+    <div class="fact-item"><dt>Platforms</dt><dd>iOS, Android, macOS, Windows, Linux, GPUI, Web</dd></div>
+  </dl>
+</section>
+    <section class="content-band">
+      <h2>M4 Pyramid Decimation &amp; Two-Layer Native Canvas Architecture</h2>
+      <p>Built specifically for observability dashboards rather than generic business charts, <code>nsh-o11y</code> stores columnar time-series samples inside a min/max pyramid (blocks of 8, 64, 512, ...) and renders each pixel column via M4 decimation (first, min, max, and last values). As a result, rendering work scales with screen width rather than raw sample count while never hiding single-sample spikes or dropouts.</p>
+      <p>Charts separate static grids, axes, and paths onto one <code>&lt;Canvas&gt;</code> layer and cursor crosshairs, dots, and zoom boxes onto an overlay <code>&lt;Canvas&gt;</code>, so pointer tracking never redraws series data. Beyond <code>TimeSeriesChart</code>, the package includes <code>LogView</code> (with live running level histograms), <code>TraceWaterfall</code> (<code>TraceComparison</code>), <code>ServiceMap</code>, <code>FlameGraph</code> (<code>SandwichView</code>, <code>diffProfiles</code>), and bucketed <code>Heatmap</code>.</p>
+    </section>
+    <section class="content-band">
+      <h2>TypeScript Store vs Opt-In Rust Store (`SeriesBuffer`)</h2>
+      <p>On QuickJS—which runs NSH TSX logic outside the browser—JavaScript heap memory caps at 256 MB and interpreted loops cost roughly 7× more than V8. Upstream README measurements note that the pure TypeScript store holds roughly 2 million samples comfortably, whereas registering <code>nsh-o11y/native</code> (<code>SeriesBuffer</code> + <code>lod.rs</code>) keeps samples in Rust, scales past the 256 MB JS heap limit (tested to 10M+ samples upstream), and traces identical SVG path commands back to JS in integer tenths of a point.</p>
+      <p>Apps targeting only small or moderate datasets in TSX can skip calling <code>setNativeBackend</code> while still benefiting from synchronized cross-panel crosshairs and zoom (<code>createChartSync</code>), SLO threshold markers, deploy annotations, dual Y axes, and screen-reader/keyboard navigation.</p>
+      <ul class="prose-list"><li>Live infrastructure, APM, or telemetry consoles correlating metrics (<code>TimeSeriesChart</code>), logs (<code>LogView</code>), traces (<code>TraceWaterfall</code>), and CPU profiles (<code>FlameGraph</code>) via <code>createChartSync</code>.</li><li>Streaming dashboards (<code>append</code>, sliding <code>window</code>, <code>maxPoints</code>) that avoid rebuilding decimation trees on every incoming sample batch.</li><li>Heavy multi-million-point analysis tools that offload storage from QuickJS&#39;s 256 MB heap into Rust <code>SeriesBuffer</code>.</li></ul>
+    </section>
+    <section class="content-band">
+      <h2>crates.io Installation &amp; Native Store Configuration</h2>
+      <p><code>nsh-o11y@0.1.0</code> targets <code>nsh &gt;= 0.7</code> (<code>nsh-core = &quot;0.7.0&quot;</code> in <code>Cargo.toml</code>) and installs straight from crates.io via <code>nsh add nsh-o11y</code>.</p>
+      <ul class="prose-list"><li>Requires <code>nsh &gt;= 0.7</code> and a local Rust toolchain (<code>wasm32-unknown-unknown</code> for Web builds).</li><li>Works immediately with TypeScript stores; import <code>* as native from &quot;nsh-o11y/native&quot;</code> and call <code>setNativeBackend(...)</code> before creating stores to enable Rust-backed <code>SeriesBuffer</code>.</li><li>When testing from a local <code>--path</code> checkout, copy upstream <code>.cargo/config.toml</code> optimization settings so Rust <code>lod.rs</code> builds do not run unoptimized.</li></ul>
+    </section>
+    <section class="content-band">
+  <h2>Cross-Platform `&lt;Canvas&gt;` Support &amp; Demo Site</h2>
+  <p>Follows the same <code>&lt;Canvas&gt;</code> rendering layout as <code>nsh-graph</code> across desktop, mobile, GPUI, and Web targets.</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Cross-Platform `&lt;Canvas&gt;` Support &amp; Demo Site">
+    <table class="data-table">
+      <thead>
+        <tr><th scope="col">Platform</th><th scope="col">Status</th><th scope="col">Technical Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>macOS, Windows, Linux</td><td>Supported</td><td>Upstream tests cover store vs brute-force parity, screenshot/dark mode checks (<code>nsh test example/screenshot.test.tsx</code>), and Rust vs TS path equality.</td></tr>
+          <tr><td>iOS &amp; Android</td><td>Supported</td><td>Touch pan and pinch-zoom supported on native <code>&lt;Canvas&gt;</code> views.</td></tr>
+          <tr><td>GPUI</td><td>Supported</td><td>Compatible with GPUI embedding through standard NSH canvas bindings.</td></tr>
+          <tr><td>Web</td><td>Supported (live demo)</td><td>Example dashboard compiled with <code>nsh package --target web</code> is live at <code>jetsquirrel.github.io/nsh-o11y/</code>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>Included Panel Components &amp; Exports</h2>
+  <p>Ships seven specialized telemetry visualization components and headless data engines inside one <code>nsh-o11y</code> package.</p>
+  <ul class="prose-list">
+    <li><strong>TimeSeriesChart &amp; createChartSync:</strong> M4 pyramid line/step/fill charts with dual Y axes, SLO thresholds, annotations, and shared crosshairs/zoom.</li>
+    <li><strong>LogView, TraceWaterfall &amp; ServiceMap:</strong> Virtualized log streams with volume histograms, span trees (<code>compareTraces</code> diffing), and service dependency maps.</li>
+    <li><strong>FlameGraph, SandwichView &amp; Heatmap:</strong> Folded-stack flame graphs (<code>profileFromFoldedAsync</code> sliced for QuickJS 2s guard), caller/callee sandwich views, and latency heatmaps.</li>
+  </ul>
+</section>
+    <section class="content-band">
+      <h2>nsh 0.7.1 Verification Record</h2>
+      <p>Verified cleanly on <code>nsh 0.7.1 (f78eace)</code> with <code>nsh add nsh-o11y</code>, resolving <code>0.1.0</code> (<code>Apache-2.0</code>, updated <code>2026-11-25</code>) from <code>crates.io</code>.</p>
+      <p>Scope boundary: Awesome NSH CI validates clean <code>nsh add</code> installation and lockfile generation only. All benchmark comparisons against uPlot, ECharts, Chart.js, Plotly, and Dygraphs, plus QuickJS/Rust frame timings, are upstream results reported in <code>JetSquirrel/nsh-o11y</code> and not independently re-executed by Awesome NSH.</p>
+    </section>
+    <section class="callout callout--warn">
+  <h2>QuickJS Guard &amp; Rust Crate Build Notice</h2>
+  <p>Large folded flame-graph profiles should use <code>profileFromFoldedAsync(..., { onProgress })</code> so parsing yields in slices rather than hitting NSH&#39;s 2-second single-JS-call guard. Installing <code>nsh-o11y</code> also compiles <code>native/src/lib.rs</code> via Cargo (<code>[profile.dev] opt-level = 2</code>).</p>
+</section>
+    <section class="content-band">
+  <h2>Related nshm Modules</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/nshm/nsh-graph/">nsh-graph</a></h3>
+  <p class="card__desc">Sibling JetSquirrel visualization package sharing <code>&lt;Canvas&gt;</code> conventions and color-blind-safe palettes.</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/nshm/nsh-skia/">nsh-skia</a></h3>
+  <p class="card__desc">Use <code>nsh-skia</code> when building custom non-O11y 2D drawings or GLSL/SkSL shaders.</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/nshm/nsmetry/">nsmetry</a></h3>
+  <p class="card__desc">Collect client app telemetry events and screen transitions while <code>nsh-o11y</code> plots metrics/traces inside desktop tools.</p>
+</article>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>Parent Hubs & Cross-Links</h2>
+  <div class="pill-links">
+    <a class="pill-link" href="/nshm/">Back to Installable nshm Catalog</a>
+    <a class="pill-link" href="/guides/">Read <code>nshm</code> &amp; <code>Building with Rust</code> Docs</a>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>Generated from <code>data/entries.json</code> &amp; <code>data/seo-content.json</code> · Verified on <code>nsh 0.7.1</code>.</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>

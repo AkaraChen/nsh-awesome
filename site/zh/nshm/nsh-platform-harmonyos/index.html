@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="zh-Hans" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nsh-platform-harmonyos：NSH 鸿蒙 ArkUI 社区后端</title>
+  <meta name="description" content="安装后可用 --target harmonyos 运行与打包 Native Shell 鸿蒙应用；须从 GitHub 装 0.1.1，避开 crates.io 0.1.0 缺 platform 字段报错。">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/nshm/nsh-platform-harmonyos/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/nshm/nsh-platform-harmonyos/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="nsh-platform-harmonyos：NSH 鸿蒙 ArkUI 社区后端">
+<meta property="og:description" content="安装后可用 --target harmonyos 运行与打包 Native Shell 鸿蒙应用；须从 GitHub 装 0.1.1，避开 crates.io 0.1.0 缺 platform 字段报错。">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+<meta property="og:updated_time" content="2026-11-26">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="nsh-platform-harmonyos：NSH 鸿蒙 ArkUI 社区后端">
+<meta name="twitter:description" content="安装后可用 --target harmonyos 运行与打包 Native Shell 鸿蒙应用；须从 GitHub 装 0.1.1，避开 crates.io 0.1.0 缺 platform 字段报错。">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta name="twitter:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/zh/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"WebPage","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/#webpage","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/","name":"nsh-platform-harmonyos：NSH 鸿蒙 ArkUI 社区后端","description":"安装后可用 --target harmonyos 运行与打包 Native Shell 鸿蒙应用；须从 GitHub 装 0.1.1，避开 crates.io 0.1.0 缺 platform 字段报错。","inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"breadcrumb":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/#breadcrumb"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/#software"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image-zh.png","width":1200,"height":630,"caption":"Awesome NSH — Native Shell 模块与 Crate 中文目录"},"dateModified":"2026-11-26"},{"@type":"SoftwareSourceCode","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/#software","name":"nsh-platform-harmonyos","description":"安装后可用 --target harmonyos 运行与打包 Native Shell 鸿蒙应用；须从 GitHub 装 0.1.1，避开 crates.io 0.1.0 缺 platform 字段报错。","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/","codeRepository":"https://github.com/huacnlee/nsh-platform-harmonyos","license":"https://spdx.org/licenses/Apache-2.0","version":"0.1.1","programmingLanguage":"Rust","runtimePlatform":"Native Shell >=0.7","targetProduct":{"@type":"SoftwareApplication","name":"Native Shell (nsh)","url":"https://nsh.dev","applicationCategory":"DeveloperApplication","softwareVersion":">=0.7","operatingSystem":["HarmonyOS","OpenHarmony"]},"dateModified":"2026-11-26","isAccessibleForFree":true,"inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"mainEntityOfPage":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/#webpage"},"sameAs":["https://crates.io/crates/nsh-platform-harmonyos"]},{"@type":"BreadcrumbList","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://nsh-awesome.vercel.app/zh/"},{"@type":"ListItem","position":2,"name":"可安装 nshm","item":"https://nsh-awesome.vercel.app/zh/nshm/"},{"@type":"ListItem","position":3,"name":"nsh-platform-harmonyos","item":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/zh/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="主导航">
+        <a class="nav__link is-current" href="/zh/nshm/" aria-current="page">nshm 模块</a>
+        <a class="nav__link" href="/zh/framework/">框架 Crate</a>
+        <a class="nav__link" href="/zh/templates/">示例模板</a>
+        <a class="nav__link" href="/zh/guides/">指南文档</a>
+        <a class="nav__link" href="/zh/discovery/">发现机制</a>
+        <a class="nav__link" href="/zh/about/">关于</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/nshm/nsh-platform-harmonyos/" hreflang="en" lang="en">English</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>浅色模式</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <nav class="breadcrumbs" aria-label="面包屑导航"><ol class="breadcrumbs__list"><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/">首页</a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/nshm/">可安装 nshm</a></li><li class="breadcrumbs__item" aria-current="page"><span>nsh-platform-harmonyos</span></li></ol></nav>
+      <h1>nsh-platform-harmonyos：面向鸿蒙与 OpenHarmony 的 ArkUI 平台后端</h1>
+      <p class="hero__desc">由 huacnlee 基于公共平台扩展点维护的社区平台 nshm（ArkUI 实现最初由 @richerfu 贡献），为 Native Shell 增加 <code>--target harmonyos</code> 运行、测试与 HAP 打包能力。</p>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">安装命令：</span>
+        <code class="install-cmd">nsh add github:huacnlee/nsh-platform-harmonyos</code>
+        <button type="button" class="copy-btn" data-copy="nsh add github:huacnlee/nsh-platform-harmonyos"><span data-copy-label>复制</span><span class="sr-only"> — nsh add github:huacnlee/nsh-platform-harmonyos</span></button>
+      </div>
+      <div class="action-row"><a class="pill-link" href="https://github.com/huacnlee/nsh-platform-harmonyos" target="_blank" rel="noopener">源码仓库</a>
+        <a class="pill-link" href="https://crates.io/crates/nsh-platform-harmonyos" target="_blank" rel="noopener">crates.io</a>
+        <a class="pill-link" href="/zh/nshm/nsh-platform-harmonyos.md">Markdown 版本</a></div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+  <h2>模块档案</h2>
+  <dl class="facts-grid">
+    <div class="fact-item"><dt>分类</dt><dd>社区平台后端</dd></div>
+    <div class="fact-item"><dt>模块形态</dt><dd><code>platform-nshm</code></dd></div>
+    <div class="fact-item"><dt>安装来源</dt><dd><code>github</code></dd></div>
+    <div class="fact-item"><dt>版本</dt><dd><code>0.1.1</code></dd></div>
+    <div class="fact-item"><dt>兼容 NSH</dt><dd><code>&gt;=0.7</code></dd></div>
+    <div class="fact-item"><dt>许可证</dt><dd>Apache-2.0</dd></div>
+    <div class="fact-item"><dt>最近核验</dt><dd>2026-11-26</dd></div>
+    <div class="fact-item"><dt>声明平台</dt><dd>HarmonyOS、OpenHarmony</dd></div>
+  </dl>
+</section>
+    <section class="content-band">
+      <h2>基于 NSH 公共平台扩展点对接 ArkUI 原生节点</h2>
+      <p><code>nsh-platform-harmonyos</code> 并非内置于官方主仓，而是通过 <code>nsh.json</code> 声明 <code>&quot;platform&quot;: &quot;harmonyos&quot;</code> 实现的独立外部平台扩展。包内同时包含桌面宿主机调用的二进制 CLI（<code>[[bin]] nsh-platform-harmonyos</code>）和基于 <code>OH_ArkUI_*</code>、<code>OH_Drawing_Typography</code> 与 N-API 构建的 <code>libnsh_platform_harmonyos.so</code> 渲染后端，支持纯 Rust、纯 TSX 及混合应用在鸿蒙 Stage 模型 <code>EntryAbility</code> 的 <code>NshSurface</code> 中原生绘制。</p>
+      <p>在业务代码判断中，<code>platform.name === &quot;harmonyos&quot;</code> 且 <code>platform.os === &quot;android&quot;</code>，因此系统返回手势、<code>android={{...}}</code> 属性以及 <code>platform.select({ android })</code> 均可复用。构建器还会读取各依赖 crate 中的 <code>[package.metadata.nsh.harmonyos]</code> 与按特性分组的权限、<code>abilities</code>、<code>.har</code> 依赖和字符串资源并合并进 DevEco 工程。</p>
+    </section>
+    <section class="content-band">
+      <h2>社区维护边界与设备实测说明</h2>
+      <p>仓库明确声明鸿蒙后端属于 <code>longbridge/nsh</code> 之外的社区平台扩展，NSH 官方不负责内置分发与支持，相关问题需提交至 <code>huacnlee/nsh-platform-harmonyos</code>。上游已在 OpenHarmony 7.0（API 26）模拟器中跑通 NSH TSX 画廊与 Rust counter 示例的编译、调试签名与安装；华为 HarmonyOS NEXT（5.0+ 与 OpenHarmony 共享 ArkUI C API、NDK 及 <code>aarch64-unknown-linux-ohos</code> ABI）真机安装则需在 DevEco Studio 配置华为开发者签名。</p>
+      <p>若应用涉及动态下发模块，需提前核对 AppGallery 上架审核规范；此外若升级到包含新挂载指令的未来版 NSH，需等待本后端同步适配（未识别指令在同步前会被跳过）。</p>
+      <ul class="prose-list"><li>将现有基于 NSH 0.7 的 Rust 或 TSX 应用一键交叉编译并打包发布到鸿蒙 NEXT 手机与 OpenHarmony 设备。</li><li>使用 <code>nsh test --target harmonyos --device &lt;ID&gt;</code> 在已连接设备或模拟器上执行 UI 自动化测试并输出 JUnit XML 报告。</li><li>通过 <code>@nsh/harmonyos</code> 在现有 ArkTS 鸿蒙工程中按需嵌入 <code>NshSurface</code> 页面组件（详见仓库 <code>docs/embedding.md</code>）。</li></ul>
+    </section>
+    <section class="content-band">
+      <h2>为何必须装 GitHub 0.1.1（而非 crates.io 0.1.0）</h2>
+      <p>crates.io 上当前的 <code>0.1.0</code> 发布于 NSH 引入 <code>&quot;platform&quot;</code> 清单规范之前，缺少 <code>&quot;platform&quot;: &quot;harmonyos&quot;</code> 字段，执行 <code>nsh add nsh-platform-harmonyos</code> 会报 <code>no #[native_module(&quot;...&quot;)]</code> 错误。改用 <code>nsh add github:huacnlee/nsh-platform-harmonyos</code> 拉取仓库 <code>0.1.1</code> 即可识别为合法平台 nshm。</p>
+      <ul class="prose-list"><li>需 <code>nsh 0.7+</code>、Rust 目标 <code>rustup target add aarch64-unknown-linux-ohos</code> 以及 OpenHarmony NDK API 20+（配置 <code>OHOS_NDK_HOME</code> 或 DevEco Studio）。</li><li>打包 HAP 需 DevEco Studio 命令行工具（<code>hvigorw</code>、<code>ohpm</code>、<code>hdc</code>），或独立配置 <code>OHOS_BASE_SDK_HOME</code> + npm <code>@ohos/hvigor</code>（<code>HVIGOR_HOME</code>）与 Java 运行时。</li><li>部署至华为真机需提前在生成的工程内通过 DevEco Studio Signing Configs 配置调试或发布证书。</li></ul>
+    </section>
+    <section class="content-band">
+  <h2>鸿蒙版本与指令集架构支持表</h2>
+  <p>专注于 HarmonyOS NEXT 与 OpenHarmony Stage 模型设备构建与真机调试。</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="鸿蒙版本与指令集架构支持表">
+    <table class="data-table">
+      <thead>
+        <tr><th scope="col">平台</th><th scope="col">支持状态</th><th scope="col">技术备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>OpenHarmony（<code>--runtime-os openharmony</code>）</td><td>已测 API 26 模拟器</td><td>支持免 DevEco 构建并使用 SDK 调试密钥签名安装，跑通 TSX 画廊与 Rust counter。</td></tr>
+          <tr><td>HarmonyOS NEXT（<code>--runtime-os harmonyos</code>）</td><td>支持（API 20+）</td><td>生成 <code>runtimeOS: &quot;HarmonyOS&quot;</code> 工程；早期版本曾在真机验证（longbridge/nsh#475）；需配置华为开发者签名。</td></tr>
+          <tr><td>CPU 架构（<code>--arch</code>）</td><td>arm64、armv7a、x86_64</td><td><code>package</code> 默认产 <code>arm64</code>，<code>run</code>/<code>dev</code>/<code>test</code> 自动匹配所连设备架构。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>后端特性与鸿蒙元数据合并能力</h2>
+  <p>桌面宿主 CLI 零默认特性编译，真机库开启全套 <code>backend</code> 能力集。</p>
+  <ul class="prose-list">
+    <li><strong>speech（可选特性）:</strong> 当应用开启 <code>nsh-extra</code> 的 <code>speech</code> 时，自动向鸿蒙端注册 HMS 语音识别器。</li>
+    <li><strong>api-23 / api-26 与 dev:</strong> 启用对应 API 级别的 ArkUI 无障碍支持与 <code>nsh dev</code> 热重载调试能力。</li>
+    <li><strong>[package.metadata.nsh.harmonyos]:</strong> 支持依赖库声明鸿蒙 <code>permissions</code>、<code>querySchemes</code>、<code>abilities</code>、<code>.har</code> 依赖与多语言 <code>strings</code>。</li>
+  </ul>
+</section>
+    <section class="content-band">
+      <h2>nsh 0.7.1 实测验证记录</h2>
+      <p>CI 已在 <code>nsh 0.7.1 (f78eace)</code> 临时应用中通过 <code>nsh add github:huacnlee/nsh-platform-harmonyos</code> 验证，锁定 <code>0.1.1</code>（<code>Apache-2.0</code>，更新于 <code>2026-11-26</code>）。</p>
+      <p>验证边界声明：本站 CI 仅确认 <code>nsh add</code> 在 <code>0.7.1</code> 下正确识别 <code>&quot;platform&quot;: &quot;harmonyos&quot;</code> 清单并生成 <code>nsh.lock</code>，未在 CI 环境配置 OpenHarmony NDK 交叉编译 HAP 或启动鸿蒙模拟器。</p>
+    </section>
+    <section class="callout callout--warn">
+  <h2>宿主程序编译与权限自动合并提示</h2>
+  <p>首次执行 <code>--target harmonyos</code> 会在项目 <code>.nsh/platforms/harmonyos</code> 编译后端宿主二进制，并将依赖的 Rust 模块全部链接进 <code>.so</code>；发布签名 HAP 前请审阅三方库通过 <code>[package.metadata.nsh.harmonyos]</code> 合并进 <code>module.json5</code> 的权限与 <code>.har</code> 依赖。</p>
+</section>
+    <section class="content-band">
+  <h2>同分类及关联 nshm 模块</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-extra/">nsh-extra</a></h3>
+  <p class="card__desc">与鸿蒙后端的 <code>speech</code> 特性联动接入系统级语音识别，也是元数据合并的典型上游模块。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-omarchy/">nsh-omarchy</a></h3>
+  <p class="card__desc">在鸿蒙 ArkUI 表面上渲染统一的桌面/移动端交互组件。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-widgets/">nsh-widgets</a></h3>
+  <p class="card__desc">对比另一款基于 NSH 扩展机制打破官方默认平台边界的跨系统模块。</p>
+</article>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>返回专题与关联目录</h2>
+  <div class="pill-links">
+    <a class="pill-link" href="/zh/nshm/">返回可安装 nshm 模块清单</a>
+    <a class="pill-link" href="/zh/framework/">对照 8 个官方内置平台后端 Crate</a>
+    <a class="pill-link" href="/zh/discovery/">查看为何 crates.io 0.1.0 无法通过 <code>nsh add</code></a>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>由单一数据源 <code>data/entries.json</code> 与 <code>data/seo-content.json</code> 生成 · 实测基准：<code>nsh 0.7.1</code>。</p>
+      <nav class="footer__links" aria-label="页脚导航">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>

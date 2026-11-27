@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Native Shell Documentation &amp; Authoring Guides</title>
+  <meta name="description" content="Follow official nsh.dev tutorials on Getting Started, nsh.json manifests, Rust #[native_module] exports, custom platform targets, and framework trade-offs.">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/guides/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/guides/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/guides/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/guides/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="Native Shell Documentation &amp; Authoring Guides">
+<meta property="og:description" content="Follow official nsh.dev tutorials on Getting Started, nsh.json manifests, Rust #[native_module] exports, custom platform targets, and framework trade-offs.">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/guides/">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — 43 curated Native Shell entries and 13 verified nshm modules for nsh 0.7.1">
+<meta property="og:updated_time" content="2026-11-26">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Native Shell Documentation &amp; Authoring Guides">
+<meta name="twitter:description" content="Follow official nsh.dev tutorials on Getting Started, nsh.json manifests, Rust #[native_module] exports, custom platform targets, and framework trade-offs.">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image.png">
+<meta name="twitter:image:alt" content="Awesome NSH — 43 curated Native Shell entries and 13 verified nshm modules for nsh 0.7.1">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/guides.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"A curated list, searchable directory, and machine-readable index of Native Shell (nsh) modules (nshm), framework crates, templates, and guides.","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"CollectionPage","@id":"https://nsh-awesome.vercel.app/guides/#webpage","url":"https://nsh-awesome.vercel.app/guides/","name":"Native Shell Documentation & Authoring Guides","description":"Follow official nsh.dev tutorials on Getting Started, nsh.json manifests, Rust #[native_module] exports, custom platform targets, and framework trade-offs.","inLanguage":"en","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"author":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"breadcrumb":{"@id":"https://nsh-awesome.vercel.app/guides/#breadcrumb"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/guides/#itemlist"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image.png","width":1200,"height":630,"caption":"Awesome NSH — Curated Native Shell Modules & Directory"},"dateModified":"2026-11-26"},{"@type":"ItemList","@id":"https://nsh-awesome.vercel.app/guides/#itemlist","name":"Articles & Tutorials","numberOfItems":7,"itemListOrder":"https://schema.org/ItemListOrderAscending","itemListElement":[{"@type":"ListItem","position":1,"name":"nshm Guide (Official Docs)","url":"https://nsh.dev/docs/nshm"},{"@type":"ListItem","position":2,"name":"Getting Started with Native Shell","url":"https://nsh.dev/docs/getting-started"},{"@type":"ListItem","position":3,"name":"Building with Rust","url":"https://nsh.dev/docs/rust"},{"@type":"ListItem","position":4,"name":"Platform Extensions Guide","url":"https://nsh.dev/docs/platform-extensions"},{"@type":"ListItem","position":5,"name":"Project Structure & nsh.json Reference","url":"https://nsh.dev/docs/project-structure"},{"@type":"ListItem","position":6,"name":"Comparing Approaches (Electron, Tauri, RN, Flutter, GPUI)","url":"https://nsh.dev/docs/comparison"},{"@type":"ListItem","position":7,"name":"Official NSH Directory","url":"https://nsh.dev/directory"}]},{"@type":"BreadcrumbList","@id":"https://nsh-awesome.vercel.app/guides/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://nsh-awesome.vercel.app/"},{"@type":"ListItem","position":2,"name":"Articles & Tutorials","item":"https://nsh-awesome.vercel.app/guides/"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="Primary">
+        <a class="nav__link" href="/nshm/">nshm</a>
+        <a class="nav__link" href="/framework/">Framework</a>
+        <a class="nav__link" href="/templates/">Templates</a>
+        <a class="nav__link is-current" href="/guides/" aria-current="page">Guides</a>
+        <a class="nav__link" href="/discovery/">Discovery</a>
+        <a class="nav__link" href="/about/">About</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/zh/guides/" hreflang="zh-Hans" lang="zh-Hans">中文</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>Light mode</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb"><ol class="breadcrumbs__list"><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/">Home</a></li><li class="breadcrumbs__item" aria-current="page"><span>Articles &amp; Tutorials</span></li></ol></nav>
+      <h1>Native Shell Documentation, Tutorials &amp; Architecture Guides</h1>
+      <p class="hero__desc">Seven official <code>nsh.dev</code> specifications and guides organized into three practical learning tracks—from creating your first TSX or Rust app to authoring <code>nshm</code> crates, custom platforms, and framework comparisons.</p>
+      <div class="action-row">
+        <a class="pill-link" href="/guides.md">Markdown Edition</a>
+        <a class="pill-link" href="/">Back to Home Directory</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+      <h2>Section Overview</h2>
+      <p>Official documentation hosted on <code>nsh.dev</code> defines the authoritative API contracts for <code>nsh 0.7.1</code>, while Awesome NSH complements those specs with automated six-channel discovery across <code>crates.io</code> (<code>119</code> crates) and <code>GitHub</code> (<code>89</code> repos), clean scratch-app <code>nsh add</code> install verification, and side-by-side trade-off notes across community modules.</p>
+      <p>Rather than presenting seven external links in flat alphabetical order, this hub organizes them into three sequential tracks matching how developers adopt Native Shell: project setup and <code>nsh.json</code> anatomy first, then <code>nshm</code> and Rust <code>#[native_module]</code> extension authoring, and finally framework architecture comparisons alongside the official <code>longbridge/nsh-showcases</code> directory.</p>
+    </section>
+    <section class="callout">
+  <h2>How Official `nsh.dev` Docs and Awesome NSH Complement Each Other</h2>
+  <p><code>nsh.dev/docs/*</code> (CC-BY-4.0) documents the core runtime, <code>nsh.json</code> schema, and <code>#[native_module]</code> macro conventions, while <code>nsh.dev/directory</code> highlights <code>10</code> curated manifests submitted via <code>longbridge/nsh-showcases</code>. Awesome NSH bridges the discovery gap by testing all <code>nshm</code> candidates empirically on <code>nsh 0.7.1</code>, isolating the <code>19</code> non-installable official framework crates (<code>NOT nshm</code>), documenting why <code>6</code> verified packages require GitHub or Git <code>--rev</code> coordinates, and publishing <code>index.json</code> for automated tooling.</p>
+</section>
+    <section class="content-band">
+  <h2>Structured Reading Roadmap Across All 7 Official Docs</h2>
+  <p>Follow the track aligned with your current milestone—onboarding on <code>0.7.1</code>, extending apps with Rust or platform binaries, or comparing Native Shell against Electron, Tauri, React Native, Flutter, GPUI, Qt, and Slint.</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Structured Reading Roadmap Across All 7 Official Docs">
+    <table class="data-table">
+      <thead>
+        <tr><th scope="col">Track</th><th scope="col">Guide Entry</th><th scope="col">Key Topics Covered</th><th scope="col">Audience</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Track 1: Foundations</td><td>Getting Started with Native Shell</td><td>Creating, running, type-checking (<code>nsh check</code>), headless testing (<code>nsh test</code>), and packaging your first TSX or Rust application.</td><td>Newcomers</td></tr>
+          <tr><td>Track 1: Foundations</td><td>Project Structure &amp; nsh.json Reference</td><td>All <code>nsh.json</code> manifest keys, <code>.nsh/types</code> declaration generation, asset macros, and local vs remote module resolution rules.</td><td>App developers</td></tr>
+          <tr><td>Track 2: Extending NSH</td><td>nshm Guide (Official Docs)</td><td><code>nsh add</code>, <code>nsh.lock</code>, official <code>nsh-extra</code> Cargo features, local <code>ext/</code> crates, <code>&quot;platform&quot;</code> nshms, and crates.io publishing rules.</td><td>App &amp; module authors</td></tr>
+          <tr><td>Track 2: Extending NSH</td><td>Building with Rust</td><td>Writing Rust-first UI components and extending TSX apps via <code>#[native_module]</code> crates with generated TypeScript <code>.d.ts</code> declarations.</td><td>Rust &amp; hybrid authors</td></tr>
+          <tr><td>Track 2: Extending NSH</td><td>Platform Extensions Guide</td><td>Implementing custom target backends as external executables or installable <code>&quot;platform&quot;</code> nshm packages outside <code>longbridge/nsh</code>.</td><td>Backend authors</td></tr>
+          <tr><td>Track 3: Evaluation</td><td>Comparing Approaches</td><td>Architecture and measured benchmark trade-offs vs Electron, Tauri, React Native, Flutter, GPUI, Qt, and Slint.</td><td>Tech leads &amp; evaluators</td></tr>
+          <tr><td>Track 3: Evaluation</td><td>Official NSH Directory</td><td>Official community showcase directory rendering curated components, libraries, and platforms from <code>longbridge/nsh-showcases</code>.</td><td>All NSH users</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+    <section class="section-block" id="cat-guides">
+  <div class="section-head">
+    <h2>Documentation &amp; Guides</h2>
+    <span class="section-count">7</span>
+  </div>
+  <div class="grid">
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-nshm nshm guide (official docs) documentation web  authoritative nsh modules specification covering `nsh add`, `nsh.lock`, `nsh-extra`, `ext/` crates, platform nshms, and publishing. 官方 nshm 模块规范指南，详述 `nsh add`、`nsh.lock`、`nsh-extra`、`ext/` 本地扩展、平台 nshm 与模块发布方式。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/nshm" target="_blank" rel="noopener">nshm Guide (Official Docs)</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">documentation</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Authoritative NSH modules specification covering <code>nsh add</code>, <code>nsh.lock</code>, <code>nsh-extra</code>, <code>ext/</code> crates, platform nshms, and publishing.</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/nshm" target="_blank" rel="noopener">Source<span class="sr-only"> — nshm Guide (Official Docs)</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-getting-started getting started with native shell tutorial web  step-by-step walkthrough for creating, running, checking, testing, and packaging your first tsx or rust nsh application. 手把手入门教程：使用 `nsh` 创建、运行、类型检查、测试与打包第一个 tsx 或 rust 原生应用。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/getting-started" target="_blank" rel="noopener">Getting Started with Native Shell</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">tutorial</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Step-by-step walkthrough for creating, running, checking, testing, and packaging your first TSX or Rust NSH application.</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/getting-started" target="_blank" rel="noopener">Source<span class="sr-only"> — Getting Started with Native Shell</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-rust building with rust tutorial web  guide to writing rust-first apps and extending tsx apps with `#[native_module]` crates and generated typescript declarations. 讲解纯 rust 应用开发以及如何通过 `#[native_module]` 与自动生成的 typescript 声明在 tsx 应用中扩展 rust 能力。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/rust" target="_blank" rel="noopener">Building with Rust</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">tutorial</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Guide to writing Rust-first apps and extending TSX apps with <code>#[native_module]</code> crates and generated TypeScript declarations.</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/rust" target="_blank" rel="noopener">Source<span class="sr-only"> — Building with Rust</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-platform-extensions platform extensions guide documentation web  specification for implementing custom target backends as external executables or installable `&quot;platform&quot;` nshms. 阐述如何基于 nsh 公共平台扩展点实现自定义目标平台后端并打包为 `&quot;platform&quot;` nshm。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/platform-extensions" target="_blank" rel="noopener">Platform Extensions Guide</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">documentation</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Specification for implementing custom target backends as external executables or installable <code>&quot;platform&quot;</code> nshms.</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/platform-extensions" target="_blank" rel="noopener">Source<span class="sr-only"> — Platform Extensions Guide</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-project-structure project structure &amp; nsh.json reference documentation web  complete reference for `nsh.json` manifest keys, `.nsh/types`, asset macros, and module resolution rules. 全面解析 `nsh.json` 配置字段、`.nsh/types` 类型生成、静态资源引用与模块解析规则。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/project-structure" target="_blank" rel="noopener">Project Structure &amp; nsh.json Reference</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">documentation</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Complete reference for <code>nsh.json</code> manifest keys, <code>.nsh/types</code>, asset macros, and module resolution rules.</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/project-structure" target="_blank" rel="noopener">Source<span class="sr-only"> — Project Structure &amp; nsh.json Reference</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-comparison comparing approaches (electron, tauri, rn, flutter, gpui) article web  architecture and measured benchmark comparison between native shell and electron, tauri, react native, flutter, gpui, qt, and slint. 从架构原理与实测指标出发，对比 native shell 与 electron、tauri、react native、flutter、gpui、qt 及 slint 的取舍。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/comparison" target="_blank" rel="noopener">Comparing Approaches (Electron, Tauri, RN, Flutter, GPUI)</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">article</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Architecture and measured benchmark comparison between Native Shell and Electron, Tauri, React Native, Flutter, GPUI, Qt, and Slint.</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/comparison" target="_blank" rel="noopener">Source<span class="sr-only"> — Comparing Approaches (Electron, Tauri, RN, Flutter, GPUI)</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-official-directory official nsh directory directory web  official native shell community showcase directory listing curated components, libraries, and platforms from `longbridge/nsh-showcases`. native shell 官方社区项目目录页，展示经 `longbridge/nsh-showcases` pr 审核收录的组件、库与平台项目。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/directory" target="_blank" rel="noopener">Official NSH Directory</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">directory</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Official Native Shell community showcase directory listing curated components, libraries, and platforms from <code>longbridge/nsh-showcases</code>.</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-26</span><a href="https://nsh.dev/directory" target="_blank" rel="noopener">Source<span class="sr-only"> — Official NSH Directory</span></a></div>
+  </div>
+</article>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>Connecting Documentation Tracks to Verified Directory Pages</h2>
+  <div class="two-col">
+    <article class="subcard">
+      <h3 class="card__title">Before publishing a new <code>nshm</code>, cross-check the <code>nshm Guide</code> with <code>/discovery/</code></h3>
+      <p class="card__desc">Read <code>nsh.dev/docs/nshm</code> for official publishing conventions, then inspect Awesome NSH&#39;s Discovery page to avoid real-world traps verified in <code>nsh-cli 0.7.1</code>: Cargo virtual workspace roots failing with missing <code>[package] name</code>, omitted <code>&quot;exports&quot;</code> in <code>nsh.json</code>, or <code>0.6</code>-era <code>Cargo.toml</code> dependencies slipping past <code>cargo publish</code> table normalization.</p>
+    </article>
+    <article class="subcard">
+      <h3 class="card__title">Before building a custom target backend, inspect <code>nsh-platform-harmonyos</code></h3>
+      <p class="card__desc">Pair the official <code>Platform Extensions Guide</code> with the live <code>nsh-platform-harmonyos</code> (<code>0.1.1</code>) entry on GitHub to see how <code>&quot;platform&quot;: &quot;harmonyos&quot;</code> in <code>nsh.json</code>, binary target <code>[[bin]] nsh-platform-harmonyos</code>, and <code>[package.metadata.nsh.harmonyos]</code> permissions/HAR merging operate end to end.</p>
+    </article>
+    <article class="subcard">
+      <h3 class="card__title">Evaluating Native Shell for production? Combine <code>Comparing Approaches</code> with <code>/about/</code></h3>
+      <p class="card__desc">Use <code>nsh.dev/docs/comparison</code> for framework benchmarks, then review Awesome NSH&#39;s <code>/nshm/</code> catalog (<code>13</code> verified <code>0.7.1</code> modules) and <code>/about/</code> security and verification-boundary disclosures before adopting third-party crates.</p>
+    </article>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>Related Directory Hubs &amp; Guides</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/discovery/">Read Awesome NSH empirical <code>nsh 0.7.1</code> discovery findings</a></h3>
+  <p class="card__desc">Inspect concrete manifest rules verified directly against <code>crates/nsh-cli/src/nshm/manifest.rs</code>.</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/templates/">Jump to <code>longbridge/nsh Examples</code> and <code>SuperNSH/starter</code></a></h3>
+  <p class="card__desc">Run working reference code alongside the <code>Getting Started</code> and <code>Building with Rust</code> tutorials.</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/nshm/">Explore all 13 verified <code>nshm</code> modules</a></h3>
+  <p class="card__desc">See live <code>nsh.json</code> and <code>#[native_module]</code> patterns across published ecosystem packages.</p>
+</article>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>Generated from <code>data/entries.json</code> &amp; <code>data/seo-content.json</code> · Verified on <code>nsh 0.7.1</code>.</p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>

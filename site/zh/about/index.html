@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-Hans" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>关于 Awesome NSH：收录标准、验证边界与安全提示</title>
+  <meta name="description" content="了解项目维护者 AkaraChen、nsh 0.7.1 临时应用实测范围、build.rs 与过程宏供应链安全警示，以及向目录提交模块的方式。">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/zh/about/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/about/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/about/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/about/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="关于 Awesome NSH：收录标准、验证边界与安全提示">
+<meta property="og:description" content="了解项目维护者 AkaraChen、nsh 0.7.1 临时应用实测范围、build.rs 与过程宏供应链安全警示，以及向目录提交模块的方式。">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/zh/about/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+<meta property="og:updated_time" content="2026-11-27">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="关于 Awesome NSH：收录标准、验证边界与安全提示">
+<meta name="twitter:description" content="了解项目维护者 AkaraChen、nsh 0.7.1 临时应用实测范围、build.rs 与过程宏供应链安全警示，以及向目录提交模块的方式。">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta name="twitter:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/zh/about.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/zh/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"AboutPage","@id":"https://nsh-awesome.vercel.app/zh/about/#webpage","url":"https://nsh-awesome.vercel.app/zh/about/","name":"关于 Awesome NSH：收录标准、验证边界与安全提示","description":"了解项目维护者 AkaraChen、nsh 0.7.1 临时应用实测范围、build.rs 与过程宏供应链安全警示，以及向目录提交模块的方式。","inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"author":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image-zh.png","width":1200,"height":630,"caption":"Awesome NSH — Native Shell 模块与 Crate 中文目录"},"breadcrumb":{"@id":"https://nsh-awesome.vercel.app/zh/about/#breadcrumb"},"datePublished":"2026-11-26","dateModified":"2026-11-27"},{"@type":"BreadcrumbList","@id":"https://nsh-awesome.vercel.app/zh/about/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://nsh-awesome.vercel.app/zh/"},{"@type":"ListItem","position":2,"name":"关于","item":"https://nsh-awesome.vercel.app/zh/about/"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/zh/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="主导航">
+        <a class="nav__link" href="/zh/nshm/">nshm 模块</a>
+        <a class="nav__link" href="/zh/framework/">框架 Crate</a>
+        <a class="nav__link" href="/zh/templates/">示例模板</a>
+        <a class="nav__link" href="/zh/guides/">指南文档</a>
+        <a class="nav__link" href="/zh/discovery/">发现机制</a>
+        <a class="nav__link is-current" href="/zh/about/" aria-current="page">关于</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/about/" hreflang="en" lang="en">English</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>浅色模式</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <nav class="breadcrumbs" aria-label="面包屑导航"><ol class="breadcrumbs__list"><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/">首页</a></li><li class="breadcrumbs__item" aria-current="page"><span>关于与标准</span></li></ol></nav>
+      <h1>关于 Awesome NSH：维护者、验证范围边界与安全说明</h1>
+      <p class="hero__desc">透明说明由谁维护 Awesome NSH、目录数据如何通过自动化脚本发现与验证，以及“已通过 nsh 0.7.1 验证”具体涵盖与未涵盖哪些测试环节。</p>
+      <div class="action-row">
+        <a class="pill-link" href="/zh/about.md">Markdown 版本</a>
+        <a class="pill-link" href="https://github.com/AkaraChen/nsh-awesome/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">CONTRIBUTING.md</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+      <h2>维护者信息（Who）</h2>
+      <p>Awesome NSH（<code>github.com/AkaraChen/nsh-awesome</code>）由独立开发者 <code>AkaraChen</code> 维护，定位为 Native Shell（<code>nsh</code>）生态的社区精选清单、交互式网页目录与机器可读索引站点。站内信息核验自 <code>longbridge/nsh</code>、<code>longbridge/nsh-showcases</code>、crates.io 与各公开 GitHub 仓库，但不代表 <code>nsh.dev</code> 官方发布渠道。</p>
+      <p>全部双语页面、README 文档、<code>index.json</code> 与 <code>count.json</code> 均由仓库内的 <code>data/entries.json</code> 与 <code>data/seo-content.json</code> 唯一数据源确定性构建，每一次收录、剔除与版本更新均有公开 Git 提交记录可循。</p>
+    </section>
+    <section class="content-band">
+      <h2>发现、校验与自动化构建流程（How）</h2>
+      <p>目录维护不靠手工拼凑信息，而是依靠 <code>scripts/</code> 目录下可复现的脚本流水线：<code>discover.mjs</code> 扫描 6 条外部数据源、<code>lint.mjs</code> 核验字段格式与中英文结尾规范、<code>generate.mjs</code> 同步生成 Markdown 与静态网页、<code>check-links.mjs</code> 探测在线链接状态，并由 <code>verify-install.mjs</code> 在干净临时应用中用真实 <code>nsh 0.7.1</code> CLI 执行每一条 <code>nsh add</code> 命令。</p>
+      <p>每当 <code>nsh</code> 发布新版本时，重跑这套工具链即可第一时间发现旧版 tag 锁死或解析规则变动带来的安装断裂。</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="发现、校验与自动化构建流程（How）">
+        <table class="data-table">
+          <thead><tr><th scope="col">自动化脚本</th><th scope="col">职责</th></tr></thead>
+          <tbody><tr><td><code>scripts/discover.mjs</code></td><td>横跨 6 条渠道扫描 crates.io（119 个）与 GitHub（89 个）并核对清单规则。</td></tr><tr><td><code>scripts/verify-install.mjs</code></td><td>在干净临时 <code>nsh.json</code> 目录执行 <code>nsh add ...</code>，检验依赖写入与 <code>nsh.lock</code> 生成。</td></tr><tr><td><code>scripts/lint.mjs</code></td><td>检查必填字段、中英文格式规范、标题层级与各生成文件条目数一致性。</td></tr><tr><td><code>scripts/check-links.mjs</code></td><td>批量校验 <code>sourceUrl</code>、<code>cratesUrl</code> 与 <code>homepage</code> 链接可访问性。</td></tr><tr><td><code>scripts/generate.mjs --check</code></td><td>确保手改生成物无法通过 CI，守住单一数据源与生成物字节级一致。</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section class="content-band">
+      <h2>项目创立初衷（Why）</h2>
+      <p><code>nsh 0.7.1</code> 命令行专注于根据精确地址安装依赖，未内置 <code>nsh search</code> 功能；而在 crates.io 与 GitHub 盲搜又经常踩中不可 <code>nsh add</code> 的 19 个官方框架 crate、40 个重复图标子包、带 <code>#[native_module]</code> 的完整用户应用，以及利用 Cargo 规范化漏洞绕过检查的 <code>0.6</code> 旧包。</p>
+      <p>Awesome NSH 希望为人类开发者与 AI 编程助手提供一份诚实、结构化且可直接复核源码出处的 <code>nsh 0.7.1</code> 生态导航。</p>
+    </section>
+    <section class="content-band">
+      <h2>纳入与拒收标准</h2>
+      <div class="two-col">
+        <article class="subcard">
+          <h3>准入条件</h3>
+          <ul class="prose-list"><li>必须在当前验证版本（<code>nsh 0.7.1</code>）的干净临时应用目录中通过 crates.io、<code>github:owner/repo</code> 或显式 Git URL 成功执行 <code>nsh add</code>。</li><li>必须满足四种合法清单形态之一，且真实依赖 <code>nsh 0.7</code>（剔除仅靠 Cargo <code>[dependencies.nsh-core]</code> 规范化 quirk 绕过的 <code>0.6</code> 包）。</li><li>19 个官方框架 crate、4 个应用脚手架与 7 篇官方文档分流到对应独立专栏，并加注醒目“非 nshm”警告，避免误导安装。</li></ul>
+        </article>
+        <article class="subcard">
+          <h3>拒收与合并条件</h3>
+          <ul class="prose-list"><li>锁定 <code>nsh-core 0.6</code> / <code>0.6.0</code> 或严格锁定 <code>=0.7.0</code> 导致在 <code>0.7.1</code> 报错或仅靠 parser quirk 蒙混过关的包。</li><li>不含 <code>#[native_module]</code> 与 <code>nsh.json</code> <code>&quot;exports&quot;</code> 的普通 Rust 工具 crate、独立 CLI，或标注 <code>publish = false</code> 与 <code>&quot;root&quot;</code>/<code>&quot;id&quot;</code> 的端到端应用。</li><li>40 个图标集配套子 crate 与 3 个内部画廊数据包统一收纳到 <code>nsh-icon</code> 与 <code>supernsh-icons</code> 详情页中说明，不刷屏平铺。</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="content-band">
+      <h2>诚实声明：验证范围与未测边界</h2>
+      <p>为避免让读者误以为本站担保全平台编译运行无误，特此明确列出“已测项”与“未测项”边界：</p>
+      <div class="two-col">
+        <article class="subcard">
+          <h3>已实测验证范围</h3>
+          <ul class="prose-list"><li>在 <code>nsh 0.7.1</code> 环境下新建只含 <code>nsh.json</code> 与 <code>App.tsx</code> 的空白目录，完整执行每条条目的 <code>installCommand</code>（<code>nsh add ...</code>）。</li><li>检查 <code>nsh.json</code> <code>&quot;dependencies&quot;</code> 与 <code>nsh.lock</code> 是否如实记录目标包名、版本号与锁定的源码地址。</li><li>逐一核查各模块上游 <code>Cargo.toml</code>、<code>nsh.json</code>、<code>src/lib.rs</code> 与 <code>README.md</code>，确保特性名称与平台限制忠实于源码。</li></ul>
+        </article>
+        <article class="subcard">
+          <h3>未声称范围</h3>
+          <ul class="prose-list"><li>未在 macOS、iOS、Android、Windows、Linux、Web 或鸿蒙目标环境上执行完整的 Rust/Swift/Kotlin/WASM/ArkUI 原生编译。</li><li>未在真机硬件上运行界面渲染测试、手势验证或重跑性能压测（各详情页提及的测试或性能数字均明确标明来自上游仓自身报告）。</li><li>未对第三方 crate、预编译二进制产物或 GitHub 提交历史逐行进行安全审计。</li></ul>
+        </article>
+      </div>
+    </section>
+    <section class="callout callout--warn">
+  <h2>`build.rs` 构建脚本、过程宏与供应链安全提示</h2>
+  <p>安装任意 Rust、混合型或平台型 <code>nshm</code> 模块，均意味着在本地编译阶段以当前用户完整权限执行其 <code>build.rs</code> 构建脚本与过程宏，并在运行时赋予模块同等于宿主应用的系统能力。模块还可通过 <code>[package.metadata.nsh]</code> 自动往应用注入 Apple <code>Info.plist</code> 隐私说明、macOS 沙盒 entitlements、Android 清单权限/<code>aar</code> 库及鸿蒙 <code>module.json5</code> 权限条目。交付前请务必审阅上游仓库与 <code>nsh.lock</code> 变动。</p>
+</section>
+    <section class="content-band">
+      <h2>参与贡献、纠错与新模块提交流程</h2>
+      <p>若你发布了新的 <code>nsh 0.7.1</code> 兼容模块、发现暂缓清单中的 <code>0.6</code> 包已升级，或需要修正平台兼容细节，欢迎前往 <code>github.com/AkaraChen/nsh-awesome</code> 修改 <code>data/entries.json</code> 与 <code>data/seo-content.json</code>，在本地运行 <code>node scripts/generate.mjs</code>、<code>node scripts/lint.mjs</code>、<code>node --test scripts/verify.test.mjs</code> 与 <code>node scripts/verify-install.mjs</code> 后提交 PR 或 Issue。</p>
+      <div class="pill-links"><a class="pill-link" href="https://github.com/AkaraChen/nsh-awesome/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">阅读 CONTRIBUTING.md</a></div>
+    </section>
+    <section class="content-band">
+  <h2>关联目录与方法论</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/zh/discovery/">查看完整发现方法论与拒收账本</a></h3>
+  <p class="card__desc">查阅 6 渠道实测数据、Cargo 0.6 parser quirk 与 11 类排除原因。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/">浏览 13 个已验证可安装 nshm 模块</a></h3>
+  <p class="card__desc">按分类对比已通过 <code>nsh 0.7.1</code> 安装检测的模块。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/">返回交互式 Awesome NSH 首页目录</a></h3>
+  <p class="card__desc">实时检索全部 43 条目或下载 <code>index.json</code>。</p>
+</article>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>由单一数据源 <code>data/entries.json</code> 与 <code>data/seo-content.json</code> 生成 · 实测基准：<code>nsh 0.7.1</code>。</p>
+      <nav class="footer__links" aria-label="页脚导航">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>

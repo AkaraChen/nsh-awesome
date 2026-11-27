@@ -1,0 +1,883 @@
+<!doctype html>
+<html lang="zh-Hans" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Awesome NSH: Native Shell 模块与 Crate 目录</title>
+  <meta name="description" content="收录 13 个通过 nsh 0.7.1 实测的可安装 Native Shell (nshm) 模块、19 个官方框架 crate、脚手架模板与文档指南，提供 index.json 机器索引。">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/zh/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="Awesome NSH: Native Shell 模块与 Crate 目录">
+<meta property="og:description" content="收录 13 个通过 nsh 0.7.1 实测的可安装 Native Shell (nshm) 模块、19 个官方框架 crate、脚手架模板与文档指南，提供 index.json 机器索引。">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/zh/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+<meta property="og:updated_time" content="2026-11-27">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Awesome NSH: Native Shell 模块与 Crate 目录">
+<meta name="twitter:description" content="收录 13 个通过 nsh 0.7.1 实测的可安装 Native Shell (nshm) 模块、19 个官方框架 crate、脚手架模板与文档指南，提供 index.json 机器索引。">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta name="twitter:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/zh/index.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/zh/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"CollectionPage","@id":"https://nsh-awesome.vercel.app/zh/#webpage","url":"https://nsh-awesome.vercel.app/zh/","name":"Awesome NSH: Native Shell 模块与 Crate 目录","description":"收录 13 个通过 nsh 0.7.1 实测的可安装 Native Shell (nshm) 模块、19 个官方框架 crate、脚手架模板与文档指南，提供 index.json 机器索引。","inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"about":{"@id":"https://nsh-awesome.vercel.app/#website"},"author":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/zh/#itemlist"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image-zh.png","width":1200,"height":630,"caption":"Awesome NSH — Native Shell 模块与 Crate 中文目录"},"dateModified":"2026-11-27"},{"@type":"ItemList","@id":"https://nsh-awesome.vercel.app/zh/#itemlist","name":"Awesome NSH: Native Shell 模块与 Crate 目录","numberOfItems":43,"itemListOrder":"https://schema.org/ItemListOrderAscending","itemListElement":[{"@type":"ListItem","position":1,"name":"nsh-extra","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-extra/"},{"@type":"ListItem","position":2,"name":"nsh-omarchy","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-omarchy/"},{"@type":"ListItem","position":3,"name":"nsh-shadcn","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-shadcn/"},{"@type":"ListItem","position":4,"name":"nsh-widgets","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-widgets/"},{"@type":"ListItem","position":5,"name":"nsh-icon","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/"},{"@type":"ListItem","position":6,"name":"supernsh-icons","url":"https://nsh-awesome.vercel.app/zh/nshm/supernsh-icons/"},{"@type":"ListItem","position":7,"name":"nsh-graph","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-graph/"},{"@type":"ListItem","position":8,"name":"nsh-o11y","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-o11y/"},{"@type":"ListItem","position":9,"name":"nsh-webgpu","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-webgpu/"},{"@type":"ListItem","position":10,"name":"nsh-skia","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-skia/"},{"@type":"ListItem","position":11,"name":"nsh-query","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/"},{"@type":"ListItem","position":12,"name":"nsmetry","url":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/"},{"@type":"ListItem","position":13,"name":"nsh-platform-harmonyos","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-platform-harmonyos/"},{"@type":"ListItem","position":14,"name":"nsh-cli","url":"https://crates.io/crates/nsh-cli"},{"@type":"ListItem","position":15,"name":"nsh-core","url":"https://crates.io/crates/nsh-core"},{"@type":"ListItem","position":16,"name":"nsh-base","url":"https://crates.io/crates/nsh-base"},{"@type":"ListItem","position":17,"name":"nsh-engine","url":"https://crates.io/crates/nsh-engine"},{"@type":"ListItem","position":18,"name":"nsh-macros","url":"https://crates.io/crates/nsh-macros"},{"@type":"ListItem","position":19,"name":"nsh-js","url":"https://crates.io/crates/nsh-js"},{"@type":"ListItem","position":20,"name":"nsh-bundler","url":"https://crates.io/crates/nsh-bundler"},{"@type":"ListItem","position":21,"name":"nsh-testing","url":"https://crates.io/crates/nsh-testing"},{"@type":"ListItem","position":22,"name":"nsh-updater","url":"https://crates.io/crates/nsh-updater"},{"@type":"ListItem","position":23,"name":"nsh-package","url":"https://crates.io/crates/nsh-package"},{"@type":"ListItem","position":24,"name":"nsh-i18n","url":"https://crates.io/crates/nsh-i18n"},{"@type":"ListItem","position":25,"name":"nsh-platform-macos","url":"https://crates.io/crates/nsh-platform-macos"},{"@type":"ListItem","position":26,"name":"nsh-platform-ios","url":"https://crates.io/crates/nsh-platform-ios"},{"@type":"ListItem","position":27,"name":"nsh-platform-android","url":"https://crates.io/crates/nsh-platform-android"},{"@type":"ListItem","position":28,"name":"nsh-platform-windows","url":"https://crates.io/crates/nsh-platform-windows"},{"@type":"ListItem","position":29,"name":"nsh-platform-linux","url":"https://crates.io/crates/nsh-platform-linux"},{"@type":"ListItem","position":30,"name":"nsh-platform-web","url":"https://crates.io/crates/nsh-platform-web"},{"@type":"ListItem","position":31,"name":"nsh-platform-gpui","url":"https://crates.io/crates/nsh-platform-gpui"},{"@type":"ListItem","position":32,"name":"nsh-platform-tui","url":"https://crates.io/crates/nsh-platform-tui"},{"@type":"ListItem","position":33,"name":"longbridge/nsh Examples","url":"https://github.com/longbridge/nsh/tree/main/examples"},{"@type":"ListItem","position":34,"name":"SuperNSH/starter","url":"https://github.com/SuperNSH/starter"},{"@type":"ListItem","position":35,"name":"longbridge/nsh-showcases","url":"https://github.com/longbridge/nsh-showcases"},{"@type":"ListItem","position":36,"name":"huacnlee/disktree","url":"https://github.com/huacnlee/disktree"},{"@type":"ListItem","position":37,"name":"nshm Guide (Official Docs)","url":"https://nsh.dev/docs/nshm"},{"@type":"ListItem","position":38,"name":"Getting Started with Native Shell","url":"https://nsh.dev/docs/getting-started"},{"@type":"ListItem","position":39,"name":"Building with Rust","url":"https://nsh.dev/docs/rust"},{"@type":"ListItem","position":40,"name":"Platform Extensions Guide","url":"https://nsh.dev/docs/platform-extensions"},{"@type":"ListItem","position":41,"name":"Project Structure & nsh.json Reference","url":"https://nsh.dev/docs/project-structure"},{"@type":"ListItem","position":42,"name":"Comparing Approaches (Electron, Tauri, RN, Flutter, GPUI)","url":"https://nsh.dev/docs/comparison"},{"@type":"ListItem","position":43,"name":"Official NSH Directory","url":"https://nsh.dev/directory"}]},{"@type":"Dataset","@id":"https://nsh-awesome.vercel.app/index.json#dataset","name":"Awesome NSH 机器可读目录索引（index.json）","description":"Awesome NSH 机器可读 JSON 目录索引，收录 43 个生态条目（其中 13 个为已验证可通过 nsh 0.7.1 的 nsh add 安装的模块），包含安装命令、平台矩阵、SPDX 许可证与更新时间。","url":"https://nsh-awesome.vercel.app/index.json","identifier":"https://nsh-awesome.vercel.app/index.json","inLanguage":["en","zh-Hans"],"license":"https://spdx.org/licenses/MIT","isAccessibleForFree":true,"creator":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"dateModified":"2026-11-27","version":"0.7.1","distribution":[{"@type":"DataDownload","encodingFormat":"application/json","contentUrl":"https://nsh-awesome.vercel.app/index.json"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/zh/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="主导航">
+        <a class="nav__link" href="/zh/nshm/">nshm 模块</a>
+        <a class="nav__link" href="/zh/framework/">框架 Crate</a>
+        <a class="nav__link" href="/zh/templates/">示例模板</a>
+        <a class="nav__link" href="/zh/guides/">指南文档</a>
+        <a class="nav__link" href="/zh/discovery/">发现机制</a>
+        <a class="nav__link" href="/zh/about/">关于</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/" hreflang="en" lang="en">English</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>浅色模式</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero">
+    <div class="container hero__copy">
+      <h1>Awesome Native Shell 模块（nshm）与 Crate 目录</h1>
+      <p class="hero__desc">面向 Native Shell（nsh 0.7.1）的精选目录与机器可读索引：覆盖实测可安装的 nshm 扩展包、官方核心框架 crate、工程模板与文档指南。</p>
+      <div class="hero__stats"><span class="stat-pill stat-pill--accent">13 个可安装 nshm</span>
+        <span class="stat-pill">19 个框架 Crate</span>
+        <span class="stat-pill">4 个示例模板</span>
+        <span class="stat-pill">7 篇文档教程</span>
+        <span class="stat-pill">实测兼容 nsh 0.7.1</span></div>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">索引 JSON 地址：</span>
+        <span class="endpoint-box__url">https://nsh-awesome.vercel.app/index.json</span>
+        <button type="button" class="copy-btn" data-copy="https://nsh-awesome.vercel.app/index.json" id="copy-index-btn"><span data-copy-label>复制</span><span class="sr-only"> — https://nsh-awesome.vercel.app/index.json</span></button>
+      </div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+      <h2>什么是 Native Shell（nsh）与 nshm 模块？</h2>
+      <p>Native Shell（nsh）是以 Rust 为核心的跨平台原生 UI 框架，开发者用 TSX 或 Rust 编写界面，即可在桌面、移动端、GPUI、终端与 Web 上挂载原生视图。可通过 nsh add 安装的扩展包称为 nshm。Awesome NSH 基于 nsh 0.7.1 实测收录 13 个 nshm、19 个框架 crate、模板与教程，并提供 index.json。</p>
+    </section>
+    <section class="content-band">
+  <h2>nsh 0.7.1 三种远程安装来源对比</h2>
+  <p>nsh 0.7.1 命令行支持 crates.io、github:owner/repo 与 Git URL 三种远程来源及本地 --path 路径。不同来源对应的锁文件格式与维护背景各有差异。</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="nsh 0.7.1 三种远程安装来源对比">
+    <table class="data-table">
+      <thead>
+        <tr><th scope="col">来源类型</th><th scope="col">CLI 命令格式</th><th scope="col">实测收录数</th><th scope="col">nsh.lock 解析目标</th><th scope="col">常见使用原因</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>crates.io</td><td>nsh add &lt;crate&gt; [--features ...]</td><td>7（另附 40 个图标子 crate）</td><td>&lt;version&gt; (crates.io)</td><td>已在 Cargo 官方仓库发布兼容 nsh-core 0.7.x 的稳定版本（nsh-extra、nsh-omarchy、nsh-icon、supernsh-icons、nsh-graph、nsh-o11y、nsmetry）。</td></tr>
+          <tr><td>github:owner/repo</td><td>nsh add github:&lt;owner&gt;/&lt;repo&gt;</td><td>5</td><td>git+https://github.com/&lt;owner&gt;/&lt;repo&gt;</td><td>Cargo.toml 显式标注 publish = false（nsh-webgpu、nsh-skia）、经 GitHub 实测验证的早期或纯 TSX 包（纯 TSX 的 nsh-query；早期 0.1.0 的 nsh-shadcn 于 2026-11-26 通过 GitHub 验证，早于其 2026-11-27 crates.io 初始上传），或 crates.io 旧版缺失字段而 GitHub 已修复（nsh-platform-harmonyos 0.1.1）。</td></tr>
+          <tr><td>Git URL + --rev</td><td>nsh add &lt;https-git-url&gt; --rev &lt;branch&gt;</td><td>1</td><td>git+https://github.com/SuperNSH/widgets.git?rev=master</td><td>crates.io 发行版与版本 tag 仍锁定旧版 nsh ^0.6，而仓库默认分支已升级 ^0.7.1（例如 nsh-widgets 需加 --rev master）。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>浏览目录分区与技术支柱页面</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/">可安装 nshm 模块清单（13）</a></h3>
+  <p class="card__desc">按 UI、图标、图表画布、数据请求与鸿蒙平台对比 13 个已验证可安装模块。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/framework/">框架与官方平台后端 Crate（19）</a></h3>
+  <p class="card__desc">完整梳理 longbridge/nsh 下的 11 个核心运行时 crate 与 8 个平台后端，厘清不可 nsh add 的原因。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/templates/">脚手架模板与参考应用（4）</a></h3>
+  <p class="card__desc">对比官方示例、SuperNSH/starter 工程模板、nsh-showcases 与 huacnlee/disktree。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/guides/">官方文档与学习路线（7）</a></h3>
+  <p class="card__desc">按快速上手、原生扩展开发与跨框架对比三条路线组织 nsh.dev 权威文档。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/discovery/">nshm 发现机制与验证实录</a></h3>
+  <p class="card__desc">深入解读 4 种合法清单格式、Cargo 0.6 规范化 parser quirk、6 渠道命中数与排除账本。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/about/">关于站点、验证边界与安全策略</a></h3>
+  <p class="card__desc">了解维护者 AkaraChen、CI 验证范围限制、供应链安全提示与贡献指南。</p>
+</article>
+  </div>
+</section>
+    <section class="content-band" id="directory-catalog">
+      <h2>全量目录（43 条资源）</h2>
+      <section class="controls" aria-label="搜索并筛选目录">
+  <form id="catalog-search-form" class="controls__form" role="search" action="/zh/" method="get" toolname="filter_catalog_entries" tooldescription="按关键词和分发来源筛选 Awesome NSH 收录的可安装 nshm 模块、框架 crate、模板与文档。">
+    <div class="search-wrap">
+      <label id="search-input-label" class="sr-only" for="search-input">按关键词搜索模块、Crate、平台或许可证</label>
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+      </svg>
+      <input id="search-input" name="q" class="search-input" type="search" aria-labelledby="search-input-label" placeholder="搜索 nshm、crate、平台、许可证..." autocomplete="off" toolparamtitle="Search Query" toolparamdescription="用于匹配模块名称、ID、描述、支持平台、许可证或安装命令的关键词。">
+      <span class="search-kbd" aria-hidden="true">/</span>
+    </div>
+    <label class="sr-only" for="source-filter">按安装来源筛选</label>
+    <select id="source-filter" name="source" class="select-filter" toolparamtitle="Distribution Source" toolparamdescription="按分发来源筛选条目：all、crates.io、github、git 或 web。">
+      <option value="all">全部来源</option>
+      <option value="crates.io">crates.io</option>
+      <option value="github">github:</option>
+      <option value="git">Git URL</option>
+      <option value="web">网页 / 文档</option>
+    </select>
+    <button type="submit" class="ctrl-btn ctrl-btn--primary">筛选</button>
+  </form>
+  <div class="chips" id="section-chips" role="group" aria-label="按板块筛选">
+    <button type="button" class="chip is-active" data-section="all" aria-pressed="true">全部 (43)</button>
+        <button type="button" class="chip" data-section="nshm" aria-pressed="false">可安装 nshm (13)</button>
+        <button type="button" class="chip" data-section="framework" aria-pressed="false">框架与官方 Crate (19)</button>
+        <button type="button" class="chip" data-section="templates" aria-pressed="false">示例与模板 (4)</button>
+        <button type="button" class="chip" data-section="articles" aria-pressed="false">文章与教程 (7)</button>
+  </div>
+  <div class="chips chips--sub" id="category-chips" role="group" aria-label="按分类筛选">
+    <button type="button" class="chip chip--sub is-active" data-category="all" data-owner-section="all" aria-pressed="true">全部分类</button>
+        <button type="button" class="chip chip--sub" data-category="official" data-owner-section="nshm" aria-pressed="false">官方扩展模块</button>
+        <button type="button" class="chip chip--sub" data-category="ui" data-owner-section="nshm" aria-pressed="false">UI 组件与主题</button>
+        <button type="button" class="chip chip--sub" data-category="icons" data-owner-section="nshm" aria-pressed="false">图标库</button>
+        <button type="button" class="chip chip--sub" data-category="visualization" data-owner-section="nshm" aria-pressed="false">图表、图谱与 GPU 画布</button>
+        <button type="button" class="chip chip--sub" data-category="data" data-owner-section="nshm" aria-pressed="false">数据请求与分析</button>
+        <button type="button" class="chip chip--sub" data-category="platforms" data-owner-section="nshm" aria-pressed="false">社区平台后端</button>
+        <button type="button" class="chip chip--sub" data-category="core" data-owner-section="framework" aria-pressed="false">核心运行时与工具链</button>
+        <button type="button" class="chip chip--sub" data-category="backend" data-owner-section="framework" aria-pressed="false">官方平台后端</button>
+        <button type="button" class="chip chip--sub" data-category="starters" data-owner-section="templates" aria-pressed="false">脚手架与参考应用</button>
+        <button type="button" class="chip chip--sub" data-category="guides" data-owner-section="articles" aria-pressed="false">官方文档与指南</button>
+  </div>
+</section>
+      <div class="results-meta">
+        <span id="results-summary" aria-live="polite">当前展示 43 / 43 个条目</span>
+        <button type="button" class="ctrl-btn" id="clear-filters" hidden>重置筛选</button>
+      </div>
+      <div class="empty-state" id="empty-state" hidden>没有符合当前搜索或筛选条件的条目。</div>
+      <div id="catalog-root">
+        <section class="section-block" id="sec-nshm">
+  <div class="section-head">
+    <h2><a class="section-head__link" href="/zh/nshm/">可安装 nshm</a></h2>
+    <span class="section-count">13</span>
+  </div>
+  <p class="section-note">以下模块均已在 nsh 0.7.1 全新临时应用中实测通过 <code>nsh add</code> 安装验证（涵盖 crates.io、<code>github:owner/repo</code> 与 Git URL）。</p>
+  <div class="grid">
+    <article class="card" data-section="nshm" data-category="official" data-source="crates.io" data-installable="true" data-search="nsh-extra nsh-extra rust-nshm crates.io nsh add nsh-extra --features camera official optional device modules for nsh apps gated by cargo features: camera, location, photos, push, and speech. nsh 官方按 cargo feature 按需开启的设备能力模块集合，涵盖 camera、location、photos、push 与 speech。 per-feature platform availability: camera (ios, android), location (macos, ios, web), photos (ios), push (ios, android), speech (macos, ios, android, windows, web). 各 feature 平台支持不同：camera（ios、android）、location（macos、ios、web）、photos（ios）、push（ios、android）、speech（macos、ios、android、windows、web）。 ios android macos windows web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-extra/">nsh-extra</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">rust-nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">NSH 官方按 Cargo feature 按需开启的设备能力模块集合，涵盖 camera、location、photos、push 与 speech。</p>
+  <div class="install-row"><code class="install-cmd">nsh add nsh-extra --features camera</code><button type="button" class="copy-btn" data-copy="nsh add nsh-extra --features camera"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsh-extra --features camera</span></button></div>
+  <p class="card__note">各 feature 平台支持不同：camera（iOS、Android）、location（macOS、iOS、Web）、photos（iOS）、push（iOS、Android）、speech（macOS、iOS、Android、Windows、Web）。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">macOS</span><span class="plat-tag">Windows</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="/zh/nshm/nsh-extra/">详情<span class="sr-only"> — nsh-extra</span></a><a href="https://github.com/longbridge/nsh/tree/main/crates/nsh-extra" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-extra</span></a><a href="https://crates.io/crates/nsh-extra" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsh-extra</span></a><a href="https://nsh.dev/docs/nshm#nsh-extra" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-extra</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="ui" data-source="crates.io" data-installable="true" data-search="nsh-omarchy nsh-omarchy rust-nshm crates.io nsh add nsh-omarchy omarchy-themed ui component set built on nsh-base with live system theme following, forms, overlays, tables, and charts for rust and tsx. 基于 nsh-base 的 omarchy 风格原生 ui 组件库，支持自动跟随系统主题切换，在 rust 与 tsx 中提供表单、浮层、表格与图表。 falls back to tokyo night (dark) or flexoki light when omarchy theme files are absent. 未检测到 omarchy 主题配置时自动回退为 tokyo night（深色）或 flexoki light（浅色）。 macos linux windows ios android web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-omarchy/">nsh-omarchy</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">rust-nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.2.0</span></div>
+  </div>
+  <p class="card__desc">基于 nsh-base 的 Omarchy 风格原生 UI 组件库，支持自动跟随系统主题切换，在 Rust 与 TSX 中提供表单、浮层、表格与图表。</p>
+  <div class="install-row"><code class="install-cmd">nsh add nsh-omarchy</code><button type="button" class="copy-btn" data-copy="nsh add nsh-omarchy"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsh-omarchy</span></button></div>
+  <p class="card__note">未检测到 Omarchy 主题配置时自动回退为 Tokyo Night（深色）或 Flexoki Light（浅色）。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Linux</span><span class="plat-tag">Windows</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-25</span><a href="/zh/nshm/nsh-omarchy/">详情<span class="sr-only"> — nsh-omarchy</span></a><a href="https://github.com/huacnlee/nsh-omarchy" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-omarchy</span></a><a href="https://crates.io/crates/nsh-omarchy" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsh-omarchy</span></a><a href="https://huacnlee.github.io/nsh-omarchy/" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-omarchy</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="ui" data-source="github" data-installable="true" data-search="nsh-shadcn nsh-shadcn rust-nshm github nsh add github:caoxing9/nsh-shadcn rust-backed shadcn/ui new-york-v4 component port drawn with native views across desktop, mobile, and web for both rust and tsx. 使用 rust 实现的 shadcn/ui new-york-v4 原生组件库，在桌面、移动与 web 端以原生视图渲染，同时支持 rust 与 tsx 调用。 github-only; not published on crates.io yet. 仅托管于 github，尚未发布到 crates.io。 macos ios android windows linux web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-shadcn/">nsh-shadcn</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">rust-nshm</span><span class="badge badge--sky">github</span><span class="badge">v0.1.0</span></div>
+  </div>
+  <p class="card__desc">使用 Rust 实现的 shadcn/ui new-york-v4 原生组件库，在桌面、移动与 Web 端以原生视图渲染，同时支持 Rust 与 TSX 调用。</p>
+  <div class="install-row"><code class="install-cmd">nsh add github:caoxing9/nsh-shadcn</code><button type="button" class="copy-btn" data-copy="nsh add github:caoxing9/nsh-shadcn"><span data-copy-label>复制</span><span class="sr-only"> — nsh add github:caoxing9/nsh-shadcn</span></button></div>
+  <p class="card__note">仅托管于 GitHub，尚未发布到 crates.io。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-26</span><a href="/zh/nshm/nsh-shadcn/">详情<span class="sr-only"> — nsh-shadcn</span></a><a href="https://github.com/caoxing9/nsh-shadcn" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-shadcn</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="ui" data-source="git" data-installable="true" data-search="nsh-widgets nsh-widgets hybrid-nshm git nsh add https://github.com/supernsh/widgets.git --rev master cross-platform home-screen widgets and live activities using one shared widget tree ir rendered natively via widgetkit, remoteviews, plasma, and gnome. 跨平台桌面/锁屏小组件与 live activities 模块，通过统一 widget tree ir 在 widgetkit、android remoteviews、kde plasma 与 gnome 原生渲染。 use the git url `--rev master` on nsh 0.7.1; crates.io 0.4.1 and tag v0.4.1 still pin `nsh: ^0.6`. nsh 0.7.1 需通过 git url `--rev master` 安装；crates.io 0.4.1 与 v0.4.1 tag 仍锁定 `nsh: ^0.6`。 ios macos android linux mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-widgets/">nsh-widgets</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">hybrid-nshm</span><span class="badge badge--sky">git</span><span class="badge">v0.4.1</span></div>
+  </div>
+  <p class="card__desc">跨平台桌面/锁屏小组件与 Live Activities 模块，通过统一 Widget Tree IR 在 WidgetKit、Android RemoteViews、KDE Plasma 与 GNOME 原生渲染。</p>
+  <div class="install-row"><code class="install-cmd">nsh add https://github.com/SuperNSH/widgets.git --rev master</code><button type="button" class="copy-btn" data-copy="nsh add https://github.com/SuperNSH/widgets.git --rev master"><span data-copy-label>复制</span><span class="sr-only"> — nsh add https://github.com/SuperNSH/widgets.git --rev master</span></button></div>
+  <p class="card__note">NSH 0.7.1 需通过 Git URL <code>--rev master</code> 安装；crates.io 0.4.1 与 v0.4.1 tag 仍锁定 <code>nsh: ^0.6</code>。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">iOS</span><span class="plat-tag">macOS</span><span class="plat-tag">Android</span><span class="plat-tag">Linux</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-26</span><a href="/zh/nshm/nsh-widgets/">详情<span class="sr-only"> — nsh-widgets</span></a><a href="https://github.com/SuperNSH/widgets" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-widgets</span></a><a href="https://crates.io/crates/nsh-widgets" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsh-widgets</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="icons" data-source="crates.io" data-installable="true" data-search="nsh-icon nsh-icon rust-nshm crates.io nsh add nsh-icon tree-shaken vector icon renderer (`&lt;icon&gt;` and `icon()`) paired with five installable icon-set crates (lucide, heroicons, tabler, phosphor, remix). 支持按需裁剪的矢量图标渲染器（`&lt;icon&gt;` 与 `icon()`），配套 5 个可单独安装的图标集 crate（lucide、heroicons、tabler、phosphor、remix）。 install companion icon packs alongside it, e.g. `nsh add nsh-icon-lucide`, `nsh-icon-heroicons`, `nsh-icon-tabler`, `nsh-icon-phosphor`, `nsh-icon-remix`. 配合具体图标包使用，例如 `nsh add nsh-icon-lucide`（另有 heroicons、tabler、phosphor、remix 共 5 个子包）。 macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-icon/">nsh-icon</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">rust-nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.2.2</span></div>
+  </div>
+  <p class="card__desc">支持按需裁剪的矢量图标渲染器（<code>&lt;Icon&gt;</code> 与 <code>icon()</code>），配套 5 个可单独安装的图标集 crate（Lucide、Heroicons、Tabler、Phosphor、Remix）。</p>
+  <div class="install-row"><code class="install-cmd">nsh add nsh-icon</code><button type="button" class="copy-btn" data-copy="nsh add nsh-icon"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsh-icon</span></button></div>
+  <p class="card__note">配合具体图标包使用，例如 <code>nsh add nsh-icon-lucide</code>（另有 heroicons、tabler、phosphor、remix 共 5 个子包）。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="/zh/nshm/nsh-icon/">详情<span class="sr-only"> — nsh-icon</span></a><a href="https://github.com/huacnlee/nsh-icon" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-icon</span></a><a href="https://crates.io/crates/nsh-icon" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsh-icon</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="icons" data-source="crates.io" data-installable="true" data-search="supernsh-icons supernsh-icons hybrid-nshm crates.io nsh add supernsh-icons typed svg and font-glyph icon library covering 260 iconify sets (~465,000 icons) with 35 installable companion set crates. 基于 iconify 的强类型 svg 与字体图标库，覆盖 260 套（约 46.5 万个）图标，并拆分为 35 个可按需安装的 `supernsh-icons-*` 子 crate。 companion crates `supernsh-icons-lucide`, `supernsh-icons-mdi`, `supernsh-icons-ph`, etc. are grouped under this entry rather than listed 35 times. 35 个 `supernsh-icons-*` 图标集子 crate 均归并在此条目下，避免清单被重复子包刷屏。 macos ios android windows linux web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/supernsh-icons/">supernsh-icons</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">hybrid-nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.2.0</span></div>
+  </div>
+  <p class="card__desc">基于 Iconify 的强类型 SVG 与字体图标库，覆盖 260 套（约 46.5 万个）图标，并拆分为 35 个可按需安装的 <code>supernsh-icons-*</code> 子 crate。</p>
+  <div class="install-row"><code class="install-cmd">nsh add supernsh-icons</code><button type="button" class="copy-btn" data-copy="nsh add supernsh-icons"><span data-copy-label>复制</span><span class="sr-only"> — nsh add supernsh-icons</span></button></div>
+  <p class="card__note">35 个 <code>supernsh-icons-*</code> 图标集子 crate 均归并在此条目下，避免清单被重复子包刷屏。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-25</span><a href="/zh/nshm/supernsh-icons/">详情<span class="sr-only"> — supernsh-icons</span></a><a href="https://github.com/SuperNSH/icons" target="_blank" rel="noopener">源码<span class="sr-only"> — supernsh-icons</span></a><a href="https://crates.io/crates/supernsh-icons" target="_blank" rel="noopener">crates.io<span class="sr-only"> — supernsh-icons</span></a><a href="https://supernsh.github.io/icons/" target="_blank" rel="noopener">文档<span class="sr-only"> — supernsh-icons</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="visualization" data-source="crates.io" data-installable="true" data-search="nsh-graph nsh-graph hybrid-nshm crates.io nsh add nsh-graph interactive network graph component on native `&lt;canvas&gt;` with force, hierarchical, circular, and grid layouts plus an opt-in rust backend. 基于原生 `&lt;canvas&gt;` 的交互式网络图谱组件，内置力导向、分层、环形与网格布局，并支持可选的 rust 加速后端。 includes community collapsing, png export via `offscreencanvas`, and color-blind-safe palettes. 支持社区折叠、通过 `offscreencanvas` 导出 png 与色盲友好配色方案。 ios android macos windows linux gpui web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-graph/">nsh-graph</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">hybrid-nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.3.0</span></div>
+  </div>
+  <p class="card__desc">基于原生 <code>&lt;Canvas&gt;</code> 的交互式网络图谱组件，内置力导向、分层、环形与网格布局，并支持可选的 Rust 加速后端。</p>
+  <div class="install-row"><code class="install-cmd">nsh add nsh-graph</code><button type="button" class="copy-btn" data-copy="nsh add nsh-graph"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsh-graph</span></button></div>
+  <p class="card__note">支持社区折叠、通过 <code>OffscreenCanvas</code> 导出 PNG 与色盲友好配色方案。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">macOS</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">GPUI</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="/zh/nshm/nsh-graph/">详情<span class="sr-only"> — nsh-graph</span></a><a href="https://github.com/JetSquirrel/nsh-graph" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-graph</span></a><a href="https://crates.io/crates/nsh-graph" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsh-graph</span></a><a href="https://jetsquirrel.github.io/nsh-graph/" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-graph</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="visualization" data-source="crates.io" data-installable="true" data-search="nsh-o11y nsh-o11y hybrid-nshm crates.io nsh add nsh-o11y high-throughput observability charts (`timeserieschart`, `logview`, `tracewaterfall`, `flamegraph`) using m4 pyramid decimation and an optional rust store. 高性能可观测性可视化图表套件（时序折线、日志直方图、trace 瀑布图与火焰图），采用 m4 金字塔降采样与可选 rust 存储。 supports synchronized crosshairs across panels (`createchartsync`) and live streaming appends. 支持多面板联动十字准星（`createchartsync`）与实时流式数据追加。 ios android macos windows linux gpui web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-o11y/">nsh-o11y</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">hybrid-nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.1.0</span></div>
+  </div>
+  <p class="card__desc">高性能可观测性可视化图表套件（时序折线、日志直方图、Trace 瀑布图与火焰图），采用 M4 金字塔降采样与可选 Rust 存储。</p>
+  <div class="install-row"><code class="install-cmd">nsh add nsh-o11y</code><button type="button" class="copy-btn" data-copy="nsh add nsh-o11y"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsh-o11y</span></button></div>
+  <p class="card__note">支持多面板联动十字准星（<code>createChartSync</code>）与实时流式数据追加。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">macOS</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">GPUI</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="/zh/nshm/nsh-o11y/">详情<span class="sr-only"> — nsh-o11y</span></a><a href="https://github.com/JetSquirrel/nsh-o11y" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-o11y</span></a><a href="https://crates.io/crates/nsh-o11y" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsh-o11y</span></a><a href="https://jetsquirrel.github.io/nsh-o11y/" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-o11y</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="visualization" data-source="github" data-installable="true" data-search="nsh-webgpu nsh-webgpu hybrid-nshm github nsh add github:supernsh/webgpu webgpu (`navigator.gpu`, `gpudevice`, `&lt;canvas getcontext(&quot;webgpu&quot;)&gt;`) for nsh apps ported from react-native-webgpu onto wgpu 29. 基于 wgpu 29 移植自 react-native-webgpu 的 nsh webgpu 模块，提供 `navigator.gpu` 与 `&lt;canvas&gt;` 原生 gpu 渲染。 github-only (`publish = false` in cargo.toml). 仅托管于 github（`cargo.toml` 标注 `publish = false`，未发布至 crates.io）。 macos ios android windows linux web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-webgpu/">nsh-webgpu</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">hybrid-nshm</span><span class="badge badge--sky">github</span><span class="badge">v0.1.0</span></div>
+  </div>
+  <p class="card__desc">基于 wgpu 29 移植自 react-native-webgpu 的 NSH WebGPU 模块，提供 <code>navigator.gpu</code> 与 <code>&lt;Canvas&gt;</code> 原生 GPU 渲染。</p>
+  <div class="install-row"><code class="install-cmd">nsh add github:SuperNSH/webgpu</code><button type="button" class="copy-btn" data-copy="nsh add github:SuperNSH/webgpu"><span data-copy-label>复制</span><span class="sr-only"> — nsh add github:SuperNSH/webgpu</span></button></div>
+  <p class="card__note">仅托管于 GitHub（<code>Cargo.toml</code> 标注 <code>publish = false</code>，未发布至 crates.io）。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-25</span><a href="/zh/nshm/nsh-webgpu/">详情<span class="sr-only"> — nsh-webgpu</span></a><a href="https://github.com/SuperNSH/webgpu" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-webgpu</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="visualization" data-source="github" data-installable="true" data-search="nsh-skia nsh-skia hybrid-nshm github nsh add github:supernsh/skia skia 2d canvas and drawing primitives (`&lt;canvas&gt;`, `&lt;circle&gt;`, `&lt;path&gt;`, `skia.runtimeeffect`) backed by `skia-safe` for macos and linux. 基于 `skia-safe` 实现的 skia 2d 绘图与着色器模块（兼容 react-native-skia api），支持 macos metal 与 linux opengl。 github-only; hardware gpu views verified on macos and linux (web unsupported; mobile/windows fall back to in-memory images). 仅托管于 github；已在 macos 与 linux 验证 gpu 视图（不支持 web，移动端与 windows 仅提供内存图像回退）。 macos linux mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-skia/">nsh-skia</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">hybrid-nshm</span><span class="badge badge--sky">github</span><span class="badge">v0.1.0</span></div>
+  </div>
+  <p class="card__desc">基于 <code>skia-safe</code> 实现的 Skia 2D 绘图与着色器模块（兼容 react-native-skia API），支持 macOS Metal 与 Linux OpenGL。</p>
+  <div class="install-row"><code class="install-cmd">nsh add github:SuperNSH/skia</code><button type="button" class="copy-btn" data-copy="nsh add github:SuperNSH/skia"><span data-copy-label>复制</span><span class="sr-only"> — nsh add github:SuperNSH/skia</span></button></div>
+  <p class="card__note">仅托管于 GitHub；已在 macOS 与 Linux 验证 GPU 视图（不支持 Web，移动端与 Windows 仅提供内存图像回退）。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Linux</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-25</span><a href="/zh/nshm/nsh-skia/">详情<span class="sr-only"> — nsh-skia</span></a><a href="https://github.com/SuperNSH/skia" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-skia</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="data" data-source="github" data-installable="true" data-search="nsh-query nsh-query tsx-nshm github nsh add github:dearest/nsh-query pure-tsx tanstack query adapter (`usequery`, `usemutation`, persistence) wired to nsh app lifecycle, network status, and `storage`. 纯 tsx 实现的 tanstack query 适配模块（`usequery`、`usemutation` 与持久化缓存），已接入 nsh 应用生命周期与存储。 pure tsx nshm (requires no rust toolchain); github-only. 纯 tsx nshm（无需 rust 工具链即可打包）；仅托管于 github。 ios android macos windows linux web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-query/">nsh-query</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">tsx-nshm</span><span class="badge badge--sky">github</span><span class="badge">v0.1.0</span></div>
+  </div>
+  <p class="card__desc">纯 TSX 实现的 TanStack Query 适配模块（<code>useQuery</code>、<code>useMutation</code> 与持久化缓存），已接入 NSH 应用生命周期与存储。</p>
+  <div class="install-row"><code class="install-cmd">nsh add github:Dearest/nsh-query</code><button type="button" class="copy-btn" data-copy="nsh add github:Dearest/nsh-query"><span data-copy-label>复制</span><span class="sr-only"> — nsh add github:Dearest/nsh-query</span></button></div>
+  <p class="card__note">纯 TSX nshm（无需 Rust 工具链即可打包）；仅托管于 GitHub。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">macOS</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-25</span><a href="/zh/nshm/nsh-query/">详情<span class="sr-only"> — nsh-query</span></a><a href="https://github.com/Dearest/nsh-query" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-query</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="data" data-source="crates.io" data-installable="true" data-search="nsmetry nsmetry hybrid-nshm crates.io nsh add nsmetry privacy-first event analytics client sdk for nsh apps with batching and retries targeting a self-hosted nsmetry cloudflare worker. 面向 nsh 应用的隐私优先事件分析客户端 sdk，支持批量上报与重试，对接自托管 nsmetry cloudflare worker 服务。 monorepo contains both the cloudflare worker dashboard app and the root nshm sdk crate. 仓库同时包含服务端分析面板应用与根目录的 nshm 客户端 sdk。 macos windows linux android ios web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsmetry/">nsmetry</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">hybrid-nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.1.0</span></div>
+  </div>
+  <p class="card__desc">面向 NSH 应用的隐私优先事件分析客户端 SDK，支持批量上报与重试，对接自托管 NsMetry Cloudflare Worker 服务。</p>
+  <div class="install-row"><code class="install-cmd">nsh add nsmetry</code><button type="button" class="copy-btn" data-copy="nsh add nsmetry"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsmetry</span></button></div>
+  <p class="card__note">仓库同时包含服务端分析面板应用与根目录的 nshm 客户端 SDK。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Android</span><span class="plat-tag">iOS</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-26</span><a href="/zh/nshm/nsmetry/">详情<span class="sr-only"> — nsmetry</span></a><a href="https://github.com/huacnlee/nsmetry" target="_blank" rel="noopener">源码<span class="sr-only"> — nsmetry</span></a><a href="https://crates.io/crates/nsmetry" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsmetry</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="nshm" data-category="platforms" data-source="github" data-installable="true" data-search="nsh-platform-harmonyos nsh-platform-harmonyos platform-nshm github nsh add github:huacnlee/nsh-platform-harmonyos community platform nshm providing `--target harmonyos` to run and package nsh apps natively on harmonyos and openharmony with arkui. 社区维护的鸿蒙平台 nshm，安装后可使用 `--target harmonyos` 将 nsh 应用以 arkui 原生视图运行与打包至 harmonyos / openharmony。 install via `github:huacnlee/nsh-platform-harmonyos` (`0.1.1`); crates.io `0.1.0` predates `nsh.json` `&quot;platform&quot;` and fails `nsh add`. 需使用 `github:huacnlee/nsh-platform-harmonyos`（0.1.1）安装；crates.io 上的 0.1.0 缺少 `nsh.json` `&quot;platform&quot;` 字段会导致 `nsh add` 报错。 harmonyos openharmony apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="/zh/nshm/nsh-platform-harmonyos/">nsh-platform-harmonyos</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">platform-nshm</span><span class="badge badge--sky">github</span><span class="badge">v0.1.1</span></div>
+  </div>
+  <p class="card__desc">社区维护的鸿蒙平台 nshm，安装后可使用 <code>--target harmonyos</code> 将 NSH 应用以 ArkUI 原生视图运行与打包至 HarmonyOS / OpenHarmony。</p>
+  <div class="install-row"><code class="install-cmd">nsh add github:huacnlee/nsh-platform-harmonyos</code><button type="button" class="copy-btn" data-copy="nsh add github:huacnlee/nsh-platform-harmonyos"><span data-copy-label>复制</span><span class="sr-only"> — nsh add github:huacnlee/nsh-platform-harmonyos</span></button></div>
+  <p class="card__note">需使用 <code>github:huacnlee/nsh-platform-harmonyos</code>（0.1.1）安装；crates.io 上的 0.1.0 缺少 <code>nsh.json</code> <code>&quot;platform&quot;</code> 字段会导致 <code>nsh add</code> 报错。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">HarmonyOS</span><span class="plat-tag">OpenHarmony</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-26</span><a href="/zh/nshm/nsh-platform-harmonyos/">详情<span class="sr-only"> — nsh-platform-harmonyos</span></a><a href="https://github.com/huacnlee/nsh-platform-harmonyos" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-harmonyos</span></a><a href="https://crates.io/crates/nsh-platform-harmonyos" target="_blank" rel="noopener">crates.io<span class="sr-only"> — nsh-platform-harmonyos</span></a></div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="section-block" id="sec-framework">
+  <div class="section-head">
+    <h2><a class="section-head__link" href="/zh/framework/">框架与官方 Crate</a></h2>
+    <span class="section-count">19</span>
+  </div>
+  <p class="section-note section-note--warn">注意：本节 crate 并非 nshm，不可使用 <code>nsh add</code> 安装。它们是 <code>longbridge/nsh</code> 官方维护的核心框架、运行时、打包器与平台后端 crate（供 Rust <code>cargo add</code> 或由 <code>nsh</code> 自动构建链接）。</p>
+  <div class="grid">
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-cli nsh-cli framework-crate crates.io  not nshm (cannot `nsh add`) — official `nsh` cli tool for initializing, checking, running, packaging, and signing apps. 非 nshm（不可 `nsh add`）— 官方 `nsh` 命令行工具，负责项目初始化、类型检查、运行、打包与签名发布。   macos linux windows apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-cli" target="_blank" rel="noopener">nsh-cli</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 <code>nsh</code> 命令行工具，负责项目初始化、类型检查、运行、打包与签名发布。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Linux</span><span class="plat-tag">Windows</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-cli" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-cli</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-cli</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-core nsh-core framework-crate crates.io  not nshm (cannot `nsh add`) — platform-independent shadow tree, reactive signals, layout engine, and mount instructions. 非 nshm（不可 `nsh add`）— 与平台无关的核心 crate，包含影子树、响应式信号、布局引擎与挂载指令。   macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-core" target="_blank" rel="noopener">nsh-core</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 与平台无关的核心 crate，包含影子树、响应式信号、布局引擎与挂载指令。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-core" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-core</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-core</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-base nsh-base framework-crate crates.io  not nshm (cannot `nsh add`) — unstyled ui primitives (`nsh/base`) providing focus, navigation, dialogs, editor, and accessibility behavior. 非 nshm（不可 `nsh add`）— 无样式基础组件行为层（`nsh/base`），提供焦点管理、导航、对话框、代码编辑器与无障碍逻辑。   macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-base" target="_blank" rel="noopener">nsh-base</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 无样式基础组件行为层（<code>nsh/base</code>），提供焦点管理、导航、对话框、代码编辑器与无障碍逻辑。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-base" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-base</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-base</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-engine nsh-engine framework-crate crates.io  not nshm (cannot `nsh add`) — engine thread driving the js host and `nsh-core` while emitting native mount batches. 非 nshm（不可 `nsh add`）— 驱动 js 宿主与 `nsh-core` 并输出原生挂载批次的引擎线程 crate。   macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-engine" target="_blank" rel="noopener">nsh-engine</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 驱动 JS 宿主与 <code>nsh-core</code> 并输出原生挂载批次的引擎线程 crate。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-engine" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-engine</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-engine</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-macros nsh-macros framework-crate crates.io  not nshm (cannot `nsh add`) — procedural derive macros for nsh rust components, props, events, and `#[native_module]` exports. 非 nshm（不可 `nsh add`）— nsh rust 组件过程宏 crate，提供 props、事件与 `#[native_module]` 导出宏。   macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-macros" target="_blank" rel="noopener">nsh-macros</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— NSH Rust 组件过程宏 crate，提供 Props、事件与 <code>#[native_module]</code> 导出宏。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-macros" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-macros</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-macros</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-js nsh-js framework-crate crates.io  not nshm (cannot `nsh add`) — quickjs runtime host handling js evaluation, native bridge op decoding, and bytecode execution. 非 nshm（不可 `nsh add`）— quickjs 运行时宿主 crate，负责 js 执行、原生桥接操作解码与字节码加载。   macos ios android windows linux apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-js" target="_blank" rel="noopener">nsh-js</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— QuickJS 运行时宿主 crate，负责 JS 执行、原生桥接操作解码与字节码加载。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-js" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-js</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-js</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-bundler nsh-bundler framework-crate crates.io  not nshm (cannot `nsh add`) — rolldown-based js/tsx bundler and jsx compiler used by the nsh toolchain. 非 nshm（不可 `nsh add`）— nsh 工具链内置的 rolldown 打包器与 jsx 编译器。   macos linux windows apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-bundler" target="_blank" rel="noopener">nsh-bundler</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— NSH 工具链内置的 Rolldown 打包器与 JSX 编译器。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Linux</span><span class="plat-tag">Windows</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-bundler" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-bundler</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-bundler</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-testing nsh-testing framework-crate crates.io  not nshm (cannot `nsh add`) — headless testing driver that runs nsh apps without a window for `nsh test` and rust integration tests. 非 nshm（不可 `nsh add`）— 无头测试驱动，供 `nsh test` 与 rust 集成测试在无窗口环境下驱动应用。   macos linux windows apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-testing" target="_blank" rel="noopener">nsh-testing</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 无头测试驱动，供 <code>nsh test</code> 与 Rust 集成测试在无窗口环境下驱动应用。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Linux</span><span class="plat-tag">Windows</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-testing" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-testing</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-testing</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-updater nsh-updater framework-crate crates.io  not nshm (cannot `nsh add`) — self-update client supporting signed update manifests, verification, and binary replacement. 非 nshm（不可 `nsh add`）— 打包应用自更新客户端 crate，支持签名校验与下载替换。   macos windows linux apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-updater" target="_blank" rel="noopener">nsh-updater</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 打包应用自更新客户端 crate，支持签名校验与下载替换。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-updater" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-updater</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-updater</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-package nsh-package framework-crate crates.io  not nshm (cannot `nsh add`) — signed `.nshpkg` archive format, ed25519 key hierarchy, revocation lists, and trust store. 非 nshm（不可 `nsh add`）— `.nshpkg` 签名包格式、二级密钥体系、吊销列表与信任库实现。   macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-package" target="_blank" rel="noopener">nsh-package</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— <code>.nshpkg</code> 签名包格式、二级密钥体系、吊销列表与信任库实现。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-package" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-package</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-package</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="core" data-source="crates.io" data-installable="false" data-search="crate-nsh-i18n nsh-i18n framework-crate crates.io  not nshm (cannot `nsh add`) — locale formatting tables and `rust-i18n` translation loader for nsh apps. 非 nshm（不可 `nsh add`）— nsh 应用语言本地化数据与 `rust-i18n` 翻译加载支持库。   macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-i18n" target="_blank" rel="noopener">nsh-i18n</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— NSH 应用语言本地化数据与 <code>rust-i18n</code> 翻译加载支持库。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-i18n" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-i18n</span></a><a href="https://nsh.dev" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-i18n</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-macos nsh-platform-macos framework-crate crates.io  not nshm (cannot `nsh add`) — official macos appkit backend with coretext rendering, native view mounting, and window hosting. 非 nshm（不可 `nsh add`）— 官方 macos appkit 平台后端，提供 coretext 排版、原生控件挂载与窗口宿主。   macos apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-macos" target="_blank" rel="noopener">nsh-platform-macos</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 macOS AppKit 平台后端，提供 CoreText 排版、原生控件挂载与窗口宿主。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-macos" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-macos</span></a><a href="https://nsh.dev/docs/macos" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-macos</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-ios nsh-platform-ios framework-crate crates.io  not nshm (cannot `nsh add`) — official ios uikit backend and nativeshell swift embedding abi. 非 nshm（不可 `nsh add`）— 官方 ios uikit 平台后端及 nativeshell swift 嵌入接口。   ios apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-ios" target="_blank" rel="noopener">nsh-platform-ios</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 iOS UIKit 平台后端及 NativeShell Swift 嵌入接口。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">iOS</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-ios" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-ios</span></a><a href="https://nsh.dev/docs/ios" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-ios</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-android nsh-platform-android framework-crate crates.io  not nshm (cannot `nsh add`) — official android jni glue, staticlayout text measurement, and native animation driver. 非 nshm（不可 `nsh add`）— 官方 android 平台后端，包含 jni 胶水、staticlayout 文本测量与原生动画驱动。   android apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-android" target="_blank" rel="noopener">nsh-platform-android</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 Android 平台后端，包含 JNI 胶水、StaticLayout 文本测量与原生动画驱动。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">Android</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-android" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-android</span></a><a href="https://nsh.dev/docs/android" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-android</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-windows nsh-platform-windows framework-crate crates.io  not nshm (cannot `nsh add`) — official windows win32, direct2d, and directwrite native backend. 非 nshm（不可 `nsh add`）— 官方 windows win32、direct2d 与 directwrite 原生渲染后端。   windows apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-windows" target="_blank" rel="noopener">nsh-platform-windows</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 Windows Win32、Direct2D 与 DirectWrite 原生渲染后端。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">Windows</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-windows" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-windows</span></a><a href="https://nsh.dev/docs/windows" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-windows</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-linux nsh-platform-linux framework-crate crates.io  not nshm (cannot `nsh add`) — official linux gtk 4 and pango native widget mounting backend. 非 nshm（不可 `nsh add`）— 官方 linux gtk 4 与 pango 原生控件后端。   linux apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-linux" target="_blank" rel="noopener">nsh-platform-linux</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 Linux GTK 4 与 Pango 原生控件后端。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">Linux</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-linux" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-linux</span></a><a href="https://nsh.dev/docs/linux" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-linux</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-web nsh-platform-web framework-crate crates.io  not nshm (cannot `nsh add`) — official webassembly dom rendering backend for deploying nsh apps as static web sites. 非 nshm（不可 `nsh add`）— 官方 webassembly dom 后端，将 nsh 应用打包发布为静态网站。   web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-web" target="_blank" rel="noopener">nsh-platform-web</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 WebAssembly DOM 后端，将 NSH 应用打包发布为静态网站。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-web" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-web</span></a><a href="https://nsh.dev/docs/web" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-web</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-gpui nsh-platform-gpui framework-crate crates.io  not nshm (cannot `nsh add`) — official gpui rendering backend for embedding nsh surfaces inside gpui desktop apps. 非 nshm（不可 `nsh add`）— 官方 gpui 后端，支持将 nsh 界面嵌入 gpui 桌面应用。   macos windows linux apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-gpui" target="_blank" rel="noopener">nsh-platform-gpui</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方 GPUI 后端，支持将 NSH 界面嵌入 GPUI 桌面应用。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-gpui" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-gpui</span></a><a href="https://nsh.dev/docs/gpui" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-gpui</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="framework" data-category="backend" data-source="crates.io" data-installable="false" data-search="crate-nsh-platform-tui nsh-platform-tui framework-crate crates.io  not nshm (cannot `nsh add`) — official terminal ui backend rendering nsh views into a terminal cell grid. 非 nshm（不可 `nsh add`）— 官方终端（tui）渲染后端，在终端字符网格中绘制 nsh 界面。   macos linux windows apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://crates.io/crates/nsh-platform-tui" target="_blank" rel="noopener">nsh-platform-tui</a></h3>
+    <div class="card__badges"><span class="badge badge--warn">非 nshm</span><span class="badge badge--sky">crates.io</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">非 nshm（不可 <code>nsh add</code>）— 官方终端（TUI）渲染后端，在终端字符网格中绘制 NSH 界面。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Linux</span><span class="plat-tag">Windows</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-25</span><a href="https://crates.io/crates/nsh-platform-tui" target="_blank" rel="noopener">源码<span class="sr-only"> — nsh-platform-tui</span></a><a href="https://nsh.dev/docs/platforms" target="_blank" rel="noopener">文档<span class="sr-only"> — nsh-platform-tui</span></a></div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="section-block" id="sec-templates">
+  <div class="section-head">
+    <h2><a class="section-head__link" href="/zh/templates/">示例与模板</a></h2>
+    <span class="section-count">4</span>
+  </div>
+  <p class="section-note">使用 Native Shell 构建的官方示例、工程脚手架、Showcase 目录以及可参考的真实应用。</p>
+  <div class="grid">
+    <article class="card" data-section="templates" data-category="starters" data-source="github" data-installable="false" data-search="tpl-longbridge-examples longbridge/nsh examples examples github  official nsh example apps covering tsx, rust-only (`tasks-rs`), mixed `rust-exports`, tray, embedding, and `nsh-extra`. 官方示例集合，涵盖 tsx、纯 rust（`tasks-rs`）、混合导出 `rust-exports`、系统托盘、宿主嵌入与 `nsh-extra` 用法。   macos ios android windows linux web apache-2.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://github.com/longbridge/nsh/tree/main/examples" target="_blank" rel="noopener">longbridge/nsh Examples</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">examples</span><span class="badge badge--sky">github</span><span class="badge">v0.7.1</span></div>
+  </div>
+  <p class="card__desc">官方示例集合，涵盖 TSX、纯 Rust（<code>tasks-rs</code>）、混合导出 <code>rust-exports</code>、系统托盘、宿主嵌入与 <code>nsh-extra</code> 用法。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>Apache-2.0</span><span>2026-11-26</span><a href="https://github.com/longbridge/nsh/tree/main/examples" target="_blank" rel="noopener">源码<span class="sr-only"> — longbridge/nsh Examples</span></a><a href="https://nsh.dev/gallery" target="_blank" rel="noopener">文档<span class="sr-only"> — longbridge/nsh Examples</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="templates" data-category="starters" data-source="github" data-installable="false" data-search="tpl-supernsh-starter supernsh/starter template github  production-style nsh 0.7.1 application boilerplate demonstrating navigation, forms, virtualized lists, animations, and signed remote tsx packages. 基于 nsh 0.7.1 的生产级应用脚手架模板，完整演示导航、表单、虚拟列表、动画、与签名远程 tsx 包加载。 app boilerplate (`publish = false`, `nsh.json` `&quot;root&quot;: &quot;app&quot;`), not a library nshm. 属于应用工程模板（`publish = false` 且 `nsh.json` 含 `&quot;root&quot;: &quot;app&quot;`），非可复用库。 macos ios android web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://github.com/SuperNSH/starter" target="_blank" rel="noopener">SuperNSH/starter</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">template</span><span class="badge badge--sky">github</span><span class="badge">v0.1.0</span></div>
+  </div>
+  <p class="card__desc">基于 NSH 0.7.1 的生产级应用脚手架模板，完整演示导航、表单、虚拟列表、动画、与签名远程 TSX 包加载。</p>
+  
+  <p class="card__note">属于应用工程模板（<code>publish = false</code> 且 <code>nsh.json</code> 含 <code>&quot;root&quot;: &quot;App&quot;</code>），非可复用库。</p>
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-26</span><a href="https://github.com/SuperNSH/starter" target="_blank" rel="noopener">源码<span class="sr-only"> — SuperNSH/starter</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="templates" data-category="starters" data-source="github" data-installable="false" data-search="tpl-nsh-showcases longbridge/nsh-showcases directory github  official community showcase repository backing `nsh.dev/apps` and `nsh.dev/directory` with app stories and project manifests. 驱动 `nsh.dev/apps` 与 `nsh.dev/directory` 的官方社区展示仓库，收录真实应用案例与生态项目清单。   macos ios android windows linux web mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://github.com/longbridge/nsh-showcases" target="_blank" rel="noopener">longbridge/nsh-showcases</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">directory</span><span class="badge badge--sky">github</span></div>
+  </div>
+  <p class="card__desc">驱动 <code>nsh.dev/apps</code> 与 <code>nsh.dev/directory</code> 的官方社区展示仓库，收录真实应用案例与生态项目清单。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">iOS</span><span class="plat-tag">Android</span><span class="plat-tag">Windows</span><span class="plat-tag">Linux</span><span class="plat-tag">Web</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-26</span><a href="https://github.com/longbridge/nsh-showcases" target="_blank" rel="noopener">源码<span class="sr-only"> — longbridge/nsh-showcases</span></a><a href="https://nsh.dev/apps" target="_blank" rel="noopener">文档<span class="sr-only"> — longbridge/nsh-showcases</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="templates" data-category="starters" data-source="github" data-installable="false" data-search="tpl-disktree huacnlee/disktree reference-app github  native disk-space treemap explorer featured in nsh&#39;s official `ext/` rust-in-tsx tutorial. 原生磁盘空间分析应用，也是官方 `ext/` 混合模式（tsx ui + rust 扫描器）教程中的代表案例。   macos linux mit">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://github.com/huacnlee/disktree" target="_blank" rel="noopener">huacnlee/disktree</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">reference-app</span><span class="badge badge--sky">github</span></div>
+  </div>
+  <p class="card__desc">原生磁盘空间分析应用，也是官方 <code>ext/</code> 混合模式（TSX UI + Rust 扫描器）教程中的代表案例。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">macOS</span><span class="plat-tag">Linux</span></div>
+    <div class="card__links"><span>MIT</span><span>2026-11-25</span><a href="https://github.com/huacnlee/disktree" target="_blank" rel="noopener">源码<span class="sr-only"> — huacnlee/disktree</span></a><a href="https://huacnlee.github.io/disktree/" target="_blank" rel="noopener">文档<span class="sr-only"> — huacnlee/disktree</span></a></div>
+  </div>
+</article>
+  </div>
+</section>
+<section class="section-block" id="sec-articles">
+  <div class="section-head">
+    <h2><a class="section-head__link" href="/zh/guides/">文章与教程</a></h2>
+    <span class="section-count">7</span>
+  </div>
+  <p class="section-note">Native Shell 官方文档、架构指南与 nshm 模块开发参考。</p>
+  <div class="grid">
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-nshm nshm guide (official docs) documentation web  authoritative nsh modules specification covering `nsh add`, `nsh.lock`, `nsh-extra`, `ext/` crates, platform nshms, and publishing. 官方 nshm 模块规范指南，详述 `nsh add`、`nsh.lock`、`nsh-extra`、`ext/` 本地扩展、平台 nshm 与模块发布方式。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/nshm" target="_blank" rel="noopener">nshm Guide (Official Docs)</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">documentation</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">官方 nshm 模块规范指南，详述 <code>nsh add</code>、<code>nsh.lock</code>、<code>nsh-extra</code>、<code>ext/</code> 本地扩展、平台 nshm 与模块发布方式。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/nshm" target="_blank" rel="noopener">源码<span class="sr-only"> — nshm Guide (Official Docs)</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-getting-started getting started with native shell tutorial web  step-by-step walkthrough for creating, running, checking, testing, and packaging your first tsx or rust nsh application. 手把手入门教程：使用 `nsh` 创建、运行、类型检查、测试与打包第一个 tsx 或 rust 原生应用。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/getting-started" target="_blank" rel="noopener">Getting Started with Native Shell</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">tutorial</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">手把手入门教程：使用 <code>nsh</code> 创建、运行、类型检查、测试与打包第一个 TSX 或 Rust 原生应用。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/getting-started" target="_blank" rel="noopener">源码<span class="sr-only"> — Getting Started with Native Shell</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-rust building with rust tutorial web  guide to writing rust-first apps and extending tsx apps with `#[native_module]` crates and generated typescript declarations. 讲解纯 rust 应用开发以及如何通过 `#[native_module]` 与自动生成的 typescript 声明在 tsx 应用中扩展 rust 能力。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/rust" target="_blank" rel="noopener">Building with Rust</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">tutorial</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">讲解纯 Rust 应用开发以及如何通过 <code>#[native_module]</code> 与自动生成的 TypeScript 声明在 TSX 应用中扩展 Rust 能力。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/rust" target="_blank" rel="noopener">源码<span class="sr-only"> — Building with Rust</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-platform-extensions platform extensions guide documentation web  specification for implementing custom target backends as external executables or installable `&quot;platform&quot;` nshms. 阐述如何基于 nsh 公共平台扩展点实现自定义目标平台后端并打包为 `&quot;platform&quot;` nshm。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/platform-extensions" target="_blank" rel="noopener">Platform Extensions Guide</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">documentation</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">阐述如何基于 NSH 公共平台扩展点实现自定义目标平台后端并打包为 <code>&quot;platform&quot;</code> nshm。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/platform-extensions" target="_blank" rel="noopener">源码<span class="sr-only"> — Platform Extensions Guide</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-project-structure project structure &amp; nsh.json reference documentation web  complete reference for `nsh.json` manifest keys, `.nsh/types`, asset macros, and module resolution rules. 全面解析 `nsh.json` 配置字段、`.nsh/types` 类型生成、静态资源引用与模块解析规则。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/project-structure" target="_blank" rel="noopener">Project Structure &amp; nsh.json Reference</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">documentation</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">全面解析 <code>nsh.json</code> 配置字段、<code>.nsh/types</code> 类型生成、静态资源引用与模块解析规则。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/project-structure" target="_blank" rel="noopener">源码<span class="sr-only"> — Project Structure &amp; nsh.json Reference</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-comparison comparing approaches (electron, tauri, rn, flutter, gpui) article web  architecture and measured benchmark comparison between native shell and electron, tauri, react native, flutter, gpui, qt, and slint. 从架构原理与实测指标出发，对比 native shell 与 electron、tauri、react native、flutter、gpui、qt 及 slint 的取舍。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/docs/comparison" target="_blank" rel="noopener">Comparing Approaches (Electron, Tauri, RN, Flutter, GPUI)</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">article</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">从架构原理与实测指标出发，对比 Native Shell 与 Electron、Tauri、React Native、Flutter、GPUI、Qt 及 Slint 的取舍。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-25</span><a href="https://nsh.dev/docs/comparison" target="_blank" rel="noopener">源码<span class="sr-only"> — Comparing Approaches (Electron, Tauri, RN, Flutter, GPUI)</span></a></div>
+  </div>
+</article>
+    <article class="card" data-section="articles" data-category="guides" data-source="web" data-installable="false" data-search="doc-official-directory official nsh directory directory web  official native shell community showcase directory listing curated components, libraries, and platforms from `longbridge/nsh-showcases`. native shell 官方社区项目目录页，展示经 `longbridge/nsh-showcases` pr 审核收录的组件、库与平台项目。   all cc-by-4.0">
+  <div class="card__top">
+    <h3 class="card__title"><a href="https://nsh.dev/directory" target="_blank" rel="noopener">Official NSH Directory</a></h3>
+    <div class="card__badges"><span class="badge badge--citrus">directory</span><span class="badge badge--sky">web</span></div>
+  </div>
+  <p class="card__desc">Native Shell 官方社区项目目录页，展示经 <code>longbridge/nsh-showcases</code> PR 审核收录的组件、库与平台项目。</p>
+  
+  
+  <div class="card__meta">
+    <div class="card__platforms"><span class="plat-tag">All</span></div>
+    <div class="card__links"><span>CC-BY-4.0</span><span>2026-11-26</span><a href="https://nsh.dev/directory" target="_blank" rel="noopener">源码<span class="sr-only"> — Official NSH Directory</span></a></div>
+  </div>
+</article>
+  </div>
+</section>
+      </div>
+    </section>
+    <section class="content-band">
+  <h2>生态覆盖统计（基于 nsh 0.7.1 实测）</h2>
+  <p>由于 nsh 0.7.1 CLI 自身未内置搜索或模块列表命令，Awesome NSH 联合六条外部发现渠道（crates.io keyword=nshm、nsh-core 反向依赖、keyword=nsh/native-shell、longbridge/nsh-showcases、GitHub 主题/代码搜索与 GitHub 组织仓库枚举）持续扫描，并在干净临时应用中逐条运行 nsh add 验证。</p>
+  <dl class="metrics-grid">
+    <div class="subcard">
+      <dt class="fact-item__dt"><strong>目录收录总条目</strong></dt>
+      <dd class="metric-value">43</dd>
+      <dd class="card__desc">13 个可安装 nshm、19 个框架 crate、4 个模板示例、7 篇指南</dd>
+    </div>
+    <div class="subcard">
+      <dt class="fact-item__dt"><strong>实测 crates.io Crate</strong></dt>
+      <dd class="metric-value">119</dd>
+      <dd class="card__desc">7 个干净 0.7.1 nshm + 40 图标子包 + 3 数据包 + 18 个 0.6 规范化绕过包 + 19 官方 crate 等</dd>
+    </div>
+    <div class="subcard">
+      <dt class="fact-item__dt"><strong>实测 GitHub 仓库</strong></dt>
+      <dd class="metric-value">89</dd>
+      <dd class="card__desc">额外检出 6 个干净 0.7.1 GitHub/Git nshm、3 个不兼容模块、应用脚手架与非 nshm 工具</dd>
+    </div>
+    <div class="subcard">
+      <dt class="fact-item__dt"><strong>机器可读索引端点</strong></dt>
+      <dd class="metric-value">index.json / count.json</dd>
+      <dd class="card__desc">由单一数据源 data/entries.json 自动生成</dd>
+    </div>
+  </dl>
+</section>
+    <section class="callout callout--warn">
+  <h2>构建脚本与供应链安全提示</h2>
+  <p>安装 Rust、混合模式或平台 nshm 时，其 build.rs 构建脚本、过程宏与运行时代码会以当前应用的完整权限执行；crate 还可通过 [package.metadata.nsh] 注入系统权限声明、Info.plist 文案、macOS entitlements 或鸿蒙权限配置。交付生产前务必核查上游源码仓库与 nsh.lock 变更。</p>
+</section>
+    <section class="content-band">
+  <h2>Native Shell 与 nshm 常见问题</h2>
+  <div class="faq-list">
+    <article class="faq-item">
+      <h3>内置模块 nsh/*、可安装 nshm 与官方框架 crate 有何区别？</h3>
+      <p>从 &quot;nsh&quot; 导入的内置模块随运行时附带，无需额外安装；nshm 是通过 nsh add 写入 nsh.json 与 nsh.lock 的第三方或可选扩展模块；而 nsh-core、nsh-base、nsh-platform-macos 等 19 个官方 crate 属于框架内部组件，缺少 #[native_module] 与 exports，不能执行 nsh add，由 nsh 自动管理或在 Rust 项目中用 cargo add 引入。</p>
+    </article>
+    <article class="faq-item">
+      <h3>为什么 nsh 0.7.1 没有内置 nsh search 命令？</h3>
+      <p>nsh 0.7.1 的命令行聚焦于从明确标识安装模块：crates.io crate 名、github:owner/repo 简写、带分支/修订号的 Git URL 或本地 --path，暂未提供中央包搜索接口。因此本站点通过自动化脚本汇总六大渠道并开放 index.json 供人与 AI 工具检索。</p>
+    </article>
+    <article class="faq-item">
+      <h3>为何 13 个已验证模块中有 6 个通过 GitHub 或 Git URL 安装？</h3>
+      <p>0.7 生态尚处快速迭代阶段：nsh-webgpu 与 nsh-skia 在 Cargo.toml 中标明了 publish = false；纯 TSX 的 nsh-query 不含 Cargo.toml；早期 0.1.0 版本的 nsh-shadcn 于 2026-11-26 验证时尚未发布至 crates.io（初始 0.1.0 于 2026-11-27 上传），当前目录仍保留已验证的 github:caoxing9/nsh-shadcn 安装指令；nsh-platform-harmonyos 在 crates.io 的 0.1.0 缺少 &quot;platform&quot; 字段导致 nsh add 报错，必须装 GitHub 0.1.1；nsh-widgets 的 crates.io 0.4.1 与 tag v0.4.1 仍锁定 nsh: ^0.6，需要用 --rev master 安装。</p>
+    </article>
+    <article class="faq-item">
+      <h3>所有 nshm 模块在打包应用时都需要安装 Rust 工具链吗？</h3>
+      <p>不一定。包含 Rust crate 的 rust-nshm、hybrid-nshm 与 platform-nshm 需要本地 Cargo 与 rustc（Web 目标通常还需 wasm32-unknown-unknown，部分图形库还需 LLVM clang/llvm-ar）；而像 nsh-query 这样的纯 TSX 模块不含 Cargo.toml，可直接由 nsh 打包。</p>
+    </article>
+    <article class="faq-item">
+      <h3>Awesome NSH 的自动验证具体测了什么、没测什么？</h3>
+      <p>仓库 CI 会在全新临时应用的 nsh.json 目录下使用 nsh 0.7.1 逐条运行 nsh add 并校验 nsh.lock 生成结果。它没有在真机或全平台环境下实际编译与运行 UI 界面，原生运行验证边界已在 /zh/about/ 页面明确说明。</p>
+    </article>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>由单一数据源 <code>data/entries.json</code> 与 <code>data/seo-content.json</code> 生成 · 实测基准：<code>nsh 0.7.1</code>。</p>
+      <nav class="footer__links" aria-label="页脚导航">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>

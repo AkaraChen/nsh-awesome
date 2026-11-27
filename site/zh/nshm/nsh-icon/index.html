@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="zh-Hans" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nsh-icon：支持按需裁剪的 Native Shell 矢量图标库</title>
+  <meta name="description" content="提供 &lt;Icon&gt; 与 icon() 渲染接口，并可按需搭配 Lucide、Heroicons、Tabler、Phosphor 或 Remix 五套独立图标包 crate 使用。">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/nshm/nsh-icon/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/nshm/nsh-icon/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="nsh-icon：支持按需裁剪的 Native Shell 矢量图标库">
+<meta property="og:description" content="提供 &lt;Icon&gt; 与 icon() 渲染接口，并可按需搭配 Lucide、Heroicons、Tabler、Phosphor 或 Remix 五套独立图标包 crate 使用。">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+<meta property="og:updated_time" content="2026-11-25">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="nsh-icon：支持按需裁剪的 Native Shell 矢量图标库">
+<meta name="twitter:description" content="提供 &lt;Icon&gt; 与 icon() 渲染接口，并可按需搭配 Lucide、Heroicons、Tabler、Phosphor 或 Remix 五套独立图标包 crate 使用。">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta name="twitter:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-icon.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/zh/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"WebPage","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/#webpage","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/","name":"nsh-icon：支持按需裁剪的 Native Shell 矢量图标库","description":"提供 \u003cIcon> 与 icon() 渲染接口，并可按需搭配 Lucide、Heroicons、Tabler、Phosphor 或 Remix 五套独立图标包 crate 使用。","inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"breadcrumb":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/#breadcrumb"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/#software"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image-zh.png","width":1200,"height":630,"caption":"Awesome NSH — Native Shell 模块与 Crate 中文目录"},"dateModified":"2026-11-25"},{"@type":"SoftwareSourceCode","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/#software","name":"nsh-icon","description":"提供 \u003cIcon> 与 icon() 渲染接口，并可按需搭配 Lucide、Heroicons、Tabler、Phosphor 或 Remix 五套独立图标包 crate 使用。","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/","codeRepository":"https://github.com/huacnlee/nsh-icon","license":"https://spdx.org/licenses/Apache-2.0","version":"0.2.2","programmingLanguage":"Rust","runtimePlatform":"Native Shell >=0.7","targetProduct":{"@type":"SoftwareApplication","name":"Native Shell (nsh)","url":"https://nsh.dev","applicationCategory":"DeveloperApplication","softwareVersion":">=0.7","operatingSystem":["macOS","iOS","Android","Windows","Linux","Web"]},"dateModified":"2026-11-25","isAccessibleForFree":true,"inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"mainEntityOfPage":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/#webpage"},"sameAs":["https://crates.io/crates/nsh-icon"]},{"@type":"BreadcrumbList","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://nsh-awesome.vercel.app/zh/"},{"@type":"ListItem","position":2,"name":"可安装 nshm","item":"https://nsh-awesome.vercel.app/zh/nshm/"},{"@type":"ListItem","position":3,"name":"nsh-icon","item":"https://nsh-awesome.vercel.app/zh/nshm/nsh-icon/"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/zh/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="主导航">
+        <a class="nav__link is-current" href="/zh/nshm/" aria-current="page">nshm 模块</a>
+        <a class="nav__link" href="/zh/framework/">框架 Crate</a>
+        <a class="nav__link" href="/zh/templates/">示例模板</a>
+        <a class="nav__link" href="/zh/guides/">指南文档</a>
+        <a class="nav__link" href="/zh/discovery/">发现机制</a>
+        <a class="nav__link" href="/zh/about/">关于</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/nshm/nsh-icon/" hreflang="en" lang="en">English</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>浅色模式</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <nav class="breadcrumbs" aria-label="面包屑导航"><ol class="breadcrumbs__list"><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/">首页</a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/nshm/">可安装 nshm</a></li><li class="breadcrumbs__item" aria-current="page"><span>nsh-icon</span></li></ol></nav>
+      <h1>nsh-icon：可按需裁剪的模块化矢量图标渲染器</h1>
+      <p class="hero__desc">由 huacnlee 维护的 Apache-2.0 图标渲染库，将核心 <code>&lt;Icon&gt;</code>/<code>icon()</code> 渲染器与 5 套主流图标包拆分为独立 crate，只把实际引用的矢量图标打入应用包。</p>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">安装命令：</span>
+        <code class="install-cmd">nsh add nsh-icon</code>
+        <button type="button" class="copy-btn" data-copy="nsh add nsh-icon"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsh-icon</span></button>
+      </div>
+      <div class="action-row"><a class="pill-link" href="https://github.com/huacnlee/nsh-icon" target="_blank" rel="noopener">源码仓库</a>
+        <a class="pill-link" href="https://crates.io/crates/nsh-icon" target="_blank" rel="noopener">crates.io</a>
+        <a class="pill-link" href="/zh/nshm/nsh-icon.md">Markdown 版本</a></div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+  <h2>模块档案</h2>
+  <dl class="facts-grid">
+    <div class="fact-item"><dt>分类</dt><dd>图标库</dd></div>
+    <div class="fact-item"><dt>模块形态</dt><dd><code>rust-nshm</code></dd></div>
+    <div class="fact-item"><dt>安装来源</dt><dd><code>crates.io</code></dd></div>
+    <div class="fact-item"><dt>版本</dt><dd><code>0.2.2</code></dd></div>
+    <div class="fact-item"><dt>兼容 NSH</dt><dd><code>&gt;=0.7</code></dd></div>
+    <div class="fact-item"><dt>许可证</dt><dd>Apache-2.0</dd></div>
+    <div class="fact-item"><dt>最近核验</dt><dd>2026-11-25</dd></div>
+    <div class="fact-item"><dt>声明平台</dt><dd>macOS、iOS、Android、Windows、Linux、Web</dd></div>
+  </dl>
+</section>
+    <section class="content-band">
+      <h2>渲染器与图标数据分离，按图标粒度 Tree-Shaking</h2>
+      <p>用普通字符或 Emoji 当作界面图标会受系统字体差异影响，也无法随主题改变线条粗细或被屏幕阅读器正确处理。<code>nsh-icon</code> 通过原生 SVG 矢量解决这一问题：它自身不包含任何图标，仅负责提供 <code>Icon</code> 类型、Rust 端 <code>icon()</code> / <code>labeled_icon()</code> / <code>icon_set!</code> 以及 TSX 端 <code>&lt;Icon&gt;</code>（支持 <code>size</code>、<code>strokeWidth</code> 与 <code>label</code>）渲染接口。</p>
+      <p>图标数据拆分为 <code>nsh-icon-lucide</code>、<code>nsh-icon-heroicons</code>、<code>nsh-icon-tabler</code>、<code>nsh-icon-phosphor</code> 与 <code>nsh-icon-remix</code> 五个独立子 crate。应用只下载用到的图标集，且在编译和打包阶段仅保留被导入使用的矢量图标；未设置 <code>label</code> 的装饰性图标会自动对屏幕阅读器隐藏。</p>
+    </section>
+    <section class="content-band">
+      <h2>与 supernsh-icons 的定位差异与场景取舍</h2>
+      <p>如果应用主要使用上述五大主流单色线性/填充图标库，希望构建轻量、许可证统一为 Apache-2.0，且需要通过 <code>strokeWidth</code> 或 <code>src_with_stroke_width(...)</code> 精细调整描边粗细，<code>nsh-icon</code> 非常契合。</p>
+      <p>若项目中必须用到多色品牌 Logo、国旗、260 套 Iconify 里的冷门图标集或希望生成 <code>.ttf</code> 图标字体，建议选择同分类的 <code>supernsh-icons</code>。</p>
+      <ul class="prose-list"><li>在 Rust（<code>Lucide::Search</code>）和 TSX（<code>&lt;Icon icon={Search} /&gt;</code>）中共用同一套跟随 <code>text-*</code> 主题色变化的矢量图标。</li><li>使用 <code>labeled_icon(Lucide::X, &quot;Close&quot;)</code> 或 <code>&lt;Icon label=&quot;Settings&quot; /&gt;</code> 为纯图标按钮补充无障碍朗读标签。</li><li>直接把响应式信号传给图标函数（<code>icon(move || if dark.get() { Lucide::Moon } else { Lucide::Sun })</code>），随状态切换图标。</li></ul>
+    </section>
+    <section class="content-band">
+      <h2>crates.io 两步安装（主渲染器 + 所需图标集）</h2>
+      <p><code>nsh-icon@0.2.2</code> 与 5 个 <code>nsh-icon-*</code> 子包均以 <code>nsh-core = &quot;0.7.0&quot;</code> 发布在 crates.io，安装主包后再按需添加具体图标集 crate（如 <code>nsh add nsh-icon-lucide</code>）。</p>
+      <ul class="prose-list"><li>必须至少安装一个 <code>nsh-icon-*</code> 子 crate，单独安装 <code>nsh-icon</code> 不含任何内置图标。</li><li>依赖 <code>nsh-core</code> 的 <code>svg</code> 特性（主包已默认开启，但如在平台后端手动关闭默认特性需确保保留 <code>svg</code>）。</li><li>打包应用时需本机 Rust 工具链（Web 目标另需 <code>wasm32-unknown-unknown</code>）。</li></ul>
+    </section>
+    <section class="content-band">
+  <h2>跨平台 SVG 矢量渲染支持</h2>
+  <p>只要平台后端启用了 <code>nsh-core</code> 的 <code>svg</code> 渲染能力，所有六大主流平台均可一致呈现。</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="跨平台 SVG 矢量渲染支持">
+    <table class="data-table">
+      <thead>
+        <tr><th scope="col">平台</th><th scope="col">支持状态</th><th scope="col">技术备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>macOS / Windows / Linux</td><td>完整支持</td><td>高分屏下矢量清晰无锯齿，自动继承当前文字前景色（<code>currentColor</code>）。</td></tr>
+          <tr><td>iOS / Android</td><td>完整支持</td><td>消除各手机系统内置符号字体不一致问题，支持系统读屏标签。</td></tr>
+          <tr><td>Web</td><td>完整支持</td><td>经由 NSH WebAssembly DOM 后端直接渲染裁剪后的 SVG 元素。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>5 个配套可安装图标集 Crate 明细</h2>
+  <p>以下 5 个子 crate 统一归并在本条目下展示；图标数量与上游版本引自 <code>huacnlee/nsh-icon</code> 仓库。</p>
+  <ul class="prose-list">
+    <li><strong>nsh-icon-lucide:</strong> Lucide 1.43.0 — 1,818 个线性图标（<code>Lucide::Search</code> / <code>&quot;nsh-icon-lucide&quot;</code>）。</li>
+    <li><strong>nsh-icon-heroicons:</strong> Heroicons 2.2.0 — 1,288 个图标，含 outline、solid、mini、micro 四种变体。</li>
+    <li><strong>nsh-icon-tabler:</strong> Tabler Icons 3.53.0 — 6,563 个图标，提供 outline 与 filled 样式。</li>
+    <li><strong>nsh-icon-phosphor:</strong> Phosphor 2.1.1 — 9,072 个图标，覆盖 6 种字重与填充/双色调。</li>
+    <li><strong>nsh-icon-remix:</strong> Remix Icon 4.8.0 — 3,188 个图标，支持 line 与 fill 后缀命名。</li>
+  </ul>
+</section>
+    <section class="content-band">
+      <h2>nsh 0.7.1 实测验证记录</h2>
+      <p>在 <code>nsh 0.7.1 (f78eace)</code> 临时应用中执行 <code>nsh add nsh-icon</code> 成功，解析到 <code>crates.io</code> 的 <code>0.2.2</code> 版本（<code>Apache-2.0</code>，更新于 <code>2026-11-25</code>）。</p>
+      <p>验证边界声明：CI 实测覆盖 <code>nsh-icon</code> 主包的 <code>nsh add</code> 解析与锁文件生成；5 个同工作区 <code>0.2.2</code> 子包未逐一在六端执行像素渲染测试。</p>
+    </section>
+    <section class="callout callout--warn">
+  <h2>构建体积与无障碍实践提示</h2>
+  <p>模块按常量按需链接，不会把未引用的上万个 SVG 塞进应用；为按钮中的纯图标提供 <code>label</code>（TSX）或使用 <code>labeled_icon</code>（Rust），可防止辅助功能跳过关键操作按钮。</p>
+</section>
+    <section class="content-band">
+  <h2>同分类及关联 nshm 模块</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/supernsh-icons/">supernsh-icons</a></h3>
+  <p class="card__desc">若需要彩色 Logo、国旗、260 套 Iconify 或 <code>.ttf</code> 字体模式，可对比选用。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-omarchy/">nsh-omarchy</a></h3>
+  <p class="card__desc">同作者作品，常用作 <code>nsh-omarchy</code> 界面按钮与导航栏的标准图标来源。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-shadcn/">nsh-shadcn</a></h3>
+  <p class="card__desc">在 <code>nsh-shadcn</code> 界面中补充任意 Lucide、Tabler 或 Phosphor 变体图标。</p>
+</article>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>返回专题与关联目录</h2>
+  <div class="pill-links">
+    <a class="pill-link" href="/zh/nshm/">返回可安装 nshm 模块清单</a>
+    <a class="pill-link" href="/zh/discovery/">查看图标子包归并与发现策略</a>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>由单一数据源 <code>data/entries.json</code> 与 <code>data/seo-content.json</code> 生成 · 实测基准：<code>nsh 0.7.1</code>。</p>
+      <nav class="footer__links" aria-label="页脚导航">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>

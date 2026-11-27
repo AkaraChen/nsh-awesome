@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-Hans" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nsmetry：对接 Cloudflare Worker 的 NSH 隐私埋点 SDK</title>
+  <meta name="description" content="提供支持批量上报与失败重试的 NSH 事件分析客户端，搭配自托管 Cloudflare Worker 分析面板仓库，经由 crates.io 直接安装。">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/zh/nshm/nsmetry/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/nshm/nsmetry/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/nshm/nsmetry/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/nshm/nsmetry/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="nsmetry：对接 Cloudflare Worker 的 NSH 隐私埋点 SDK">
+<meta property="og:description" content="提供支持批量上报与失败重试的 NSH 事件分析客户端，搭配自托管 Cloudflare Worker 分析面板仓库，经由 crates.io 直接安装。">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/zh/nshm/nsmetry/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+<meta property="og:updated_time" content="2026-11-26">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="nsmetry：对接 Cloudflare Worker 的 NSH 隐私埋点 SDK">
+<meta name="twitter:description" content="提供支持批量上报与失败重试的 NSH 事件分析客户端，搭配自托管 Cloudflare Worker 分析面板仓库，经由 crates.io 直接安装。">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta name="twitter:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/zh/nshm/nsmetry.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/zh/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"WebPage","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/#webpage","url":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/","name":"nsmetry：对接 Cloudflare Worker 的 NSH 隐私埋点 SDK","description":"提供支持批量上报与失败重试的 NSH 事件分析客户端，搭配自托管 Cloudflare Worker 分析面板仓库，经由 crates.io 直接安装。","inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"breadcrumb":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/#breadcrumb"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/#software"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image-zh.png","width":1200,"height":630,"caption":"Awesome NSH — Native Shell 模块与 Crate 中文目录"},"dateModified":"2026-11-26"},{"@type":"SoftwareSourceCode","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/#software","name":"nsmetry","description":"提供支持批量上报与失败重试的 NSH 事件分析客户端，搭配自托管 Cloudflare Worker 分析面板仓库，经由 crates.io 直接安装。","url":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/","codeRepository":"https://github.com/huacnlee/nsmetry","license":"https://spdx.org/licenses/MIT","version":"0.1.0","programmingLanguage":["Rust","TypeScript"],"runtimePlatform":"Native Shell >=0.7","targetProduct":{"@type":"SoftwareApplication","name":"Native Shell (nsh)","url":"https://nsh.dev","applicationCategory":"DeveloperApplication","softwareVersion":">=0.7","operatingSystem":["macOS","Windows","Linux","Android","iOS","Web"]},"dateModified":"2026-11-26","isAccessibleForFree":true,"inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"mainEntityOfPage":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/#webpage"},"sameAs":["https://crates.io/crates/nsmetry"]},{"@type":"BreadcrumbList","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://nsh-awesome.vercel.app/zh/"},{"@type":"ListItem","position":2,"name":"可安装 nshm","item":"https://nsh-awesome.vercel.app/zh/nshm/"},{"@type":"ListItem","position":3,"name":"nsmetry","item":"https://nsh-awesome.vercel.app/zh/nshm/nsmetry/"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/zh/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="主导航">
+        <a class="nav__link is-current" href="/zh/nshm/" aria-current="page">nshm 模块</a>
+        <a class="nav__link" href="/zh/framework/">框架 Crate</a>
+        <a class="nav__link" href="/zh/templates/">示例模板</a>
+        <a class="nav__link" href="/zh/guides/">指南文档</a>
+        <a class="nav__link" href="/zh/discovery/">发现机制</a>
+        <a class="nav__link" href="/zh/about/">关于</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/nshm/nsmetry/" hreflang="en" lang="en">English</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>浅色模式</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <nav class="breadcrumbs" aria-label="面包屑导航"><ol class="breadcrumbs__list"><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/">首页</a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/nshm/">可安装 nshm</a></li><li class="breadcrumbs__item" aria-current="page"><span>nsmetry</span></li></ol></nav>
+      <h1>nsmetry：面向自托管 Cloudflare Worker 的隐私事件分析 SDK</h1>
+      <p class="hero__desc">huacnlee 开源的 MIT 隐私埋点客户端 SDK，支持离线排队、退避重试、应用退后台自动刷新及 <code>&lt;NavStack&gt;</code> 页面切换埋点，对接自托管 NsMetry Worker 与 D1 数据库。</p>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">安装命令：</span>
+        <code class="install-cmd">nsh add nsmetry</code>
+        <button type="button" class="copy-btn" data-copy="nsh add nsmetry"><span data-copy-label>复制</span><span class="sr-only"> — nsh add nsmetry</span></button>
+      </div>
+      <div class="action-row"><a class="pill-link" href="https://github.com/huacnlee/nsmetry" target="_blank" rel="noopener">源码仓库</a>
+        <a class="pill-link" href="https://crates.io/crates/nsmetry" target="_blank" rel="noopener">crates.io</a>
+        <a class="pill-link" href="/zh/nshm/nsmetry.md">Markdown 版本</a></div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+  <h2>模块档案</h2>
+  <dl class="facts-grid">
+    <div class="fact-item"><dt>分类</dt><dd>数据请求与分析</dd></div>
+    <div class="fact-item"><dt>模块形态</dt><dd><code>hybrid-nshm</code></dd></div>
+    <div class="fact-item"><dt>安装来源</dt><dd><code>crates.io</code></dd></div>
+    <div class="fact-item"><dt>版本</dt><dd><code>0.1.0</code></dd></div>
+    <div class="fact-item"><dt>兼容 NSH</dt><dd><code>&gt;=0.7</code></dd></div>
+    <div class="fact-item"><dt>许可证</dt><dd>MIT</dd></div>
+    <div class="fact-item"><dt>最近核验</dt><dd>2026-11-26</dd></div>
+    <div class="fact-item"><dt>声明平台</dt><dd>macOS、Windows、Linux、Android、iOS、Web</dd></div>
+  </dl>
+</section>
+    <section class="content-band">
+      <h2>无 Cookie 批量埋点与安全退避机制</h2>
+      <p>NsMetry 是一套运行在 Cloudflare 免费套餐（单 Worker + D1）上的开源隐私分析系统，不使用 Cookie、不在存储中保留原始个人身份信息，匿名安装 ID 在服务端按站点加盐哈希。仓库 <code>huacnlee/nsmetry</code> 的根目录是完整的 NsMetry 仪表盘应用，而面向应用的客户端 SDK 位于子目录 <code>sdk/nsh/</code>。</p>
+      <p>SDK 导出 <code>createNsMetry</code>、<code>useNsMetry</code>（监听 <code>lifecycle()</code> 变为 <code>&quot;background&quot;</code> 及桌面端退出前 200 ms 窗口自动刷新）、<code>useScreenTracking</code>、<code>navStackPath</code> 与 <code>describePlatform</code>。事件默认每 5 分钟（<code>300_000 ms</code>）或满 50 条批量上报（离线队列上限 1,000 条），出错自动退避且永不向应用抛异常，同时刻意忽略桌面窗口切焦（<code>&quot;inactive&quot;</code>）以避免每次 Cmd-Tab 都发网络请求。</p>
+    </section>
+    <section class="content-band">
+      <h2>Monorepo 目录结构注意事项（`app/` 与 `sdk/nsh/`）</h2>
+      <p>查看 <code>huacnlee/nsmetry</code> 源码时需注意：**仓库根目录**本身是一个 NSH 应用（<code>nsh.json</code> 指向 <code>&quot;entry&quot;: &quot;app/App.tsx&quot;</code>），而可供其他项目安装的 nshm 包位于 <code>sdk/nsh/</code>。因此本模块必须从 crates.io 执行 <code>nsh add nsmetry</code> 安装，而不能直接传根目录的 <code>github:huacnlee/nsmetry</code>。</p>
+      <p>值得开发者参考的工程技巧是，<code>sdk/nsh/Cargo.toml</code> 声明了一个空的 <code>native/src/lib.rs</code> 占位目标（依赖 <code>nsh-core = &quot;0.7.0&quot;</code>），专门用于借由 crates.io 分发纯 TypeScript 的 <code>nsmetry</code> 包。</p>
+      <ul class="prose-list"><li>在完全自建、零第三方追踪服务的前提下统计应用日/周/月活、留存、自定义事件及 <code>&lt;NavStack&gt;</code> 页面路径分布。</li><li>搭配根目录仓库一键部署的 Cloudflare Worker + D1 实例（内置邮件验证码登录与带 OAuth 权限控制的 MCP 服务端）。</li><li>通过 <code>client.setEnabled(false)</code> 与 <code>identify(null)</code> 立即清空队列并尊重用户退出遥测选择。</li></ul>
+    </section>
+    <section class="content-band">
+      <h2>为何应通过 crates.io 而非 GitHub 根目录安装</h2>
+      <p><code>nsmetry@0.1.0</code> 已由 <code>sdk/nsh</code> 单独打包上架 crates.io，让 <code>nsh add nsmetry</code> 绕开仓库根目录的分析面板 <code>nsh.json</code> 精准提取 SDK，因此请直接使用 crates.io 包名安装。</p>
+      <ul class="prose-list"><li>需 <code>nsh &gt;= 0.7</code>，并需自行部署一套 NsMetry Cloudflare Worker 服务端（生产环境建议绑定自有域名，避免 <code>*.workers.dev</code> 被广告拦截器屏蔽）。</li><li>占位原生目标只会在首次构建时参与 Cargo 空链接，无额外运行期原生成本。</li><li>使用 <code>useScreenTracking</code> 时建议去除路由中的具体记录 ID（上报 <code>/message</code> 而非 <code>/message/8812</code>），防止看板维度爆炸。</li></ul>
+    </section>
+    <section class="content-band">
+  <h2>客户端 SDK 六端运行表现</h2>
+  <p>核心排队代码与 Web 端 <code>sdk/js/src/core.ts</code> 共享，针对桌面、移动与浏览器适配生命周期与 UA 描述。</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="客户端 SDK 六端运行表现">
+    <table class="data-table">
+      <thead>
+        <tr><th scope="col">平台</th><th scope="col">支持状态</th><th scope="col">技术备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>iOS / Android</td><td>完整支持</td><td><code>useNsMetry</code> 在退入 <code>&quot;background&quot;</code> 时即时冲刷队列，<code>describePlatform</code> 上报移动端设备标识。</td></tr>
+          <tr><td>macOS / Windows / Linux</td><td>完整支持</td><td>桌面切焦 <code>&quot;inactive&quot;</code> 不触发额外请求；应用退出时在 200 ms 宽限内尽力冲刷队列。</td></tr>
+          <tr><td>Web</td><td>完整支持</td><td><code>describePlatform</code> 返回 <code>undefined</code>，直接沿用浏览器标准 <code>User-Agent</code> 请求头。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>客户端核心 API 与后端生态组件</h2>
+  <p>轻量埋点接口无缝衔接仓库内置的自托管面板。</p>
+  <ul class="prose-list">
+    <li><strong>createNsMetry 与上报方法:</strong> 提供 <code>track(name, props?)</code>、<code>screen(path, props?)</code>、<code>identify</code>、<code>flush</code>、<code>shutdown</code> 与 <code>setEnabled</code>。</li>
+    <li><strong>useNsMetry 与 useScreenTracking:</strong> 自动对接前后台生命周期刷新及 <code>&lt;NavStack&gt;</code> 顶部路由追踪（<code>navStackPath</code>）。</li>
+    <li><strong>自托管 Worker 与 OAuth MCP:</strong> 同仓库包含 Cloudflare Worker + D1 看板应用、约 2 KB Web 埋点脚本及只读分析数据的 MCP 服务。</li>
+  </ul>
+</section>
+    <section class="content-band">
+      <h2>nsh 0.7.1 实测验证记录</h2>
+      <p>CI 已在 <code>nsh 0.7.1 (f78eace)</code> 临时应用中通过 <code>nsh add nsmetry</code> 完成校验，锁定 crates.io <code>0.1.0</code>（<code>MIT</code>，更新于 <code>2026-11-26</code>）。</p>
+      <p>验证边界声明：本站 CI 仅核验了 <code>nsh add nsmetry</code> 从 crates.io 获取包与写入 <code>nsh.lock</code> 的正确性，未实际部署 Cloudflare Worker 验证数据写入。</p>
+    </section>
+    <section class="callout callout--warn">
+  <h2>空原生占位 Crate 与网络权限说明</h2>
+  <p><code>nsmetry</code> 仅出于 crates.io 分发需要在 <code>sdk/nsh/</code> 包含空 Rust 库；实际打包应用时别忘了在应用的 <code>nsh.json</code> 配置 <code>capabilities.network.hosts</code> 允许访问你的统计服务端域名。</p>
+</section>
+    <section class="content-band">
+  <h2>同分类及关联 nshm 模块</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-query/">nsh-query</a></h3>
+  <p class="card__desc">纯 TSX 请求缓存方案，与应用统计埋点一起覆盖网络数据链路。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-o11y/">nsh-o11y</a></h3>
+  <p class="card__desc">在自有监控应用内绘制高密度时序图表时的可视化组合选择。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-icon/">nsh-icon</a></h3>
+  <p class="card__desc">NsMetry 官方自身客户端中亦使用了 <code>nsh-icon-lucide</code>。</p>
+</article>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>返回专题与关联目录</h2>
+  <div class="pill-links">
+    <a class="pill-link" href="/zh/nshm/">返回可安装 nshm 模块清单</a>
+    <a class="pill-link" href="/zh/discovery/">查看多 crate 子目录仓库的分发规则</a>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>由单一数据源 <code>data/entries.json</code> 与 <code>data/seo-content.json</code> 生成 · 实测基准：<code>nsh 0.7.1</code>。</p>
+      <nav class="footer__links" aria-label="页脚导航">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>

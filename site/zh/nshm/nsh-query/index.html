@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-Hans" class="dark" data-theme-pref="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>nsh-query：免 Rust 工具链的纯 TSX TanStack Query 适配</title>
+  <meta name="description" content="将 useQuery、useMutation 与持久化存储接入 NSH 应用生命周期与网络状态，纯 TSX 模块无需编译 Rust 即可从 GitHub 安装。">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="manifest" href="/site.webmanifest">
+  <link rel="canonical" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-query/">
+<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/nshm/nsh-query/">
+<link rel="alternate" hreflang="zh-Hans" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-query/">
+<link rel="alternate" hreflang="x-default" href="https://nsh-awesome.vercel.app/nshm/nsh-query/">
+  <meta property="og:type" content="website">
+<meta property="og:site_name" content="Awesome NSH">
+<meta property="og:title" content="nsh-query：免 Rust 工具链的纯 TSX TanStack Query 适配">
+<meta property="og:description" content="将 useQuery、useMutation 与持久化存储接入 NSH 应用生命周期与网络状态，纯 TSX 模块无需编译 Rust 即可从 GitHub 安装。">
+<meta property="og:url" content="https://nsh-awesome.vercel.app/zh/nshm/nsh-query/">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:secure_url" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+<meta property="og:updated_time" content="2026-11-25">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="nsh-query：免 Rust 工具链的纯 TSX TanStack Query 适配">
+<meta name="twitter:description" content="将 useQuery、useMutation 与持久化存储接入 NSH 应用生命周期与网络状态，纯 TSX 模块无需编译 Rust 即可从 GitHub 安装。">
+<meta name="twitter:image" content="https://nsh-awesome.vercel.app/og-image-zh.png">
+<meta name="twitter:image:alt" content="Awesome NSH — Native Shell 精选模块目录，收录 43 个条目与 13 个 nsh 0.7.1 实测可安装 nshm 模块">
+  <link rel="ai-catalog" href="https://nsh-awesome.vercel.app/.well-known/ai-catalog.json">
+<link rel="alternate" type="text/markdown" href="https://nsh-awesome.vercel.app/zh/nshm/nsh-query.md">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://nsh-awesome.vercel.app/#website","url":"https://nsh-awesome.vercel.app/","name":"Awesome NSH","description":"Native Shell（nsh）模块（nshm）、框架 crate、模板示例与文档教程的精选清单、可搜索目录与机器可读索引。","inLanguage":["en","zh-Hans"],"publisher":{"@id":"https://nsh-awesome.vercel.app/#maintainer"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nsh-awesome.vercel.app/zh/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@type":"Person","@id":"https://nsh-awesome.vercel.app/#maintainer","name":"AkaraChen","url":"https://github.com/AkaraChen","sameAs":["https://github.com/AkaraChen"]},{"@type":"WebPage","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/#webpage","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/","name":"nsh-query：免 Rust 工具链的纯 TSX TanStack Query 适配","description":"将 useQuery、useMutation 与持久化存储接入 NSH 应用生命周期与网络状态，纯 TSX 模块无需编译 Rust 即可从 GitHub 安装。","inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"breadcrumb":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/#breadcrumb"},"mainEntity":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/#software"},"primaryImageOfPage":{"@type":"ImageObject","url":"https://nsh-awesome.vercel.app/og-image-zh.png","width":1200,"height":630,"caption":"Awesome NSH — Native Shell 模块与 Crate 中文目录"},"dateModified":"2026-11-25"},{"@type":"SoftwareSourceCode","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/#software","name":"nsh-query","description":"将 useQuery、useMutation 与持久化存储接入 NSH 应用生命周期与网络状态，纯 TSX 模块无需编译 Rust 即可从 GitHub 安装。","url":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/","codeRepository":"https://github.com/Dearest/nsh-query","license":"https://spdx.org/licenses/MIT","version":"0.1.0","programmingLanguage":"TypeScript","runtimePlatform":"Native Shell >=0.6","targetProduct":{"@type":"SoftwareApplication","name":"Native Shell (nsh)","url":"https://nsh.dev","applicationCategory":"DeveloperApplication","softwareVersion":">=0.6","operatingSystem":["iOS","Android","macOS","Windows","Linux","Web"]},"dateModified":"2026-11-25","isAccessibleForFree":true,"inLanguage":"zh-Hans","isPartOf":{"@id":"https://nsh-awesome.vercel.app/#website"},"mainEntityOfPage":{"@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/#webpage"}},{"@type":"BreadcrumbList","@id":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://nsh-awesome.vercel.app/zh/"},{"@type":"ListItem","position":2,"name":"可安装 nshm","item":"https://nsh-awesome.vercel.app/zh/nshm/"},{"@type":"ListItem","position":3,"name":"nsh-query","item":"https://nsh-awesome.vercel.app/zh/nshm/nsh-query/"}]}]}</script>
+  <script>(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();</script>
+  <link rel="stylesheet" href="/assets/app.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至主要内容</a>
+  <header class="site-header">
+    <div class="container nav__inner">
+      <a class="brand" href="/zh/">
+        <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#55800c" stroke-width="20" stroke-linecap="round"/>
+          <path d="M30 100 V58 a34 34 0 0 1 68 0 V100" fill="none" stroke="#a9d63f" stroke-width="14" stroke-linecap="round"/>
+          <circle cx="64" cy="76" r="10" fill="#f3f5f8"/>
+        </svg>
+        <span>Awesome NSH</span>
+        <span class="brand__tag">13 nshm</span>
+      </a>
+      <nav class="nav__actions" aria-label="主导航">
+        <a class="nav__link is-current" href="/zh/nshm/" aria-current="page">nshm 模块</a>
+        <a class="nav__link" href="/zh/framework/">框架 Crate</a>
+        <a class="nav__link" href="/zh/templates/">示例模板</a>
+        <a class="nav__link" href="/zh/guides/">指南文档</a>
+        <a class="nav__link" href="/zh/discovery/">发现机制</a>
+        <a class="nav__link" href="/zh/about/">关于</a>
+        <a class="nav__link" href="/index.json">index.json</a>
+        <a class="ctrl-btn" id="lang-toggle" href="/nshm/nsh-query/" hreflang="en" lang="en">English</a>
+        <button type="button" class="ctrl-btn" id="theme-toggle"><svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg><svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg><span data-theme-label>浅色模式</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <nav class="breadcrumbs" aria-label="面包屑导航"><ol class="breadcrumbs__list"><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/">首页</a></li><li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/zh/nshm/">可安装 nshm</a></li><li class="breadcrumbs__item" aria-current="page"><span>nsh-query</span></li></ol></nav>
+      <h1>nsh-query：纯 TSX 的 TanStack Query 生命周期适配器</h1>
+      <p class="hero__desc">社区维护的纯 TSX 类型 nshm（无 Cargo.toml），将未改动的 @tanstack/query-core 5.108.4 封装为 solid-query 风格 Hooks，并与 NSH 生命周期、网络状态及 Storage 持久化打通。</p>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">安装命令：</span>
+        <code class="install-cmd">nsh add github:Dearest/nsh-query</code>
+        <button type="button" class="copy-btn" data-copy="nsh add github:Dearest/nsh-query"><span data-copy-label>复制</span><span class="sr-only"> — nsh add github:Dearest/nsh-query</span></button>
+      </div>
+      <div class="action-row"><a class="pill-link" href="https://github.com/Dearest/nsh-query" target="_blank" rel="noopener">源码仓库</a>
+        <a class="pill-link" href="/zh/nshm/nsh-query.md">Markdown 版本</a></div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+  <h2>模块档案</h2>
+  <dl class="facts-grid">
+    <div class="fact-item"><dt>分类</dt><dd>数据请求与分析</dd></div>
+    <div class="fact-item"><dt>模块形态</dt><dd><code>tsx-nshm</code></dd></div>
+    <div class="fact-item"><dt>安装来源</dt><dd><code>github</code></dd></div>
+    <div class="fact-item"><dt>版本</dt><dd><code>0.1.0</code></dd></div>
+    <div class="fact-item"><dt>兼容 NSH</dt><dd><code>&gt;=0.6</code></dd></div>
+    <div class="fact-item"><dt>许可证</dt><dd>MIT</dd></div>
+    <div class="fact-item"><dt>最近核验</dt><dd>2026-11-25</dd></div>
+    <div class="fact-item"><dt>声明平台</dt><dd>iOS、Android、macOS、Windows、Linux、Web</dd></div>
+  </dl>
+</section>
+    <section class="content-band">
+      <h2>适配 NSH 信号模型与平台生命周期</h2>
+      <p>由于 Native Shell 组件函数只运行一次、仅在读取信号处局部重计算，React Query 的整树重渲染模型并不适用。<code>nsh-query</code> 对 <code>@tanstack/query-core</code> 采用 <code>solid-query</code> 风格封装：配置项必须为函数（<code>useQuery(() =&gt; ({ ... }))</code>），结果必须按属性访问而不可解构（读取 <code>todo.data</code> 而非 <code>const { data } = todo</code>）。</p>
+      <p><code>QueryClientProvider</code>（或 <code>connectNsh()</code>）直接桥接 NSH 原生信号：当 <code>lifecycle()</code> 进入 <code>&quot;background&quot;</code> 时暂停轮询、回到前台重新拉取过期查询；桌面端非焦点可见窗口（<code>&quot;inactive&quot;</code>）默认视作可见继续轮询；系统休眠唤醒（<code>wakeCount()</code> 增长）和网络重连（<code>network().online</code>）自动触发刷新；子路径 <code>nsh-query/persist</code> 则可按每秒最多一次写入 5 MB 应用 <code>Storage</code>。</p>
+    </section>
+    <section class="content-band">
+      <h2>纯 TSX 优势与必须注意的 crates.io 同名冲突</h2>
+      <p>在全部 13 个通过 <code>0.7.1</code> 实测的模块中，<code>nsh-query</code> 是**唯一一个纯 TSX（<code>tsx-nshm</code>）模块**，仓库没有 <code>Cargo.toml</code>，因此纯 TSX 项目安装它完全不需要配置 Rust 编译器。桌面多窗口应用中，整个引擎共享单一 <code>QueryClient</code> 缓存。</p>
+      <p>安装时务必避开两个关键坑点：第一，**绝对不要**省略 <code>github:Dearest/</code> 而运行 <code>nsh add nsh-query</code>——crates.io 上存在一个同名但并非 nshm 的 <code>nsh-query</code> Rust crate，直接安装必然失败；第二，不要额外手动安装 <code>@tanstack/query-core</code>，<code>nsh-query</code> 已内置绑定好上下文的版本，重复安装会导致生命周期信号失效。</p>
+      <ul class="prose-list"><li>纯 TSX 开发的跨端应用需要成熟的请求去重、后台自动刷新、乐观更新与离线持久化，同时希望保持零 Rust 构建开销。</li><li>利用 <code>PersistQueryClientProvider</code> 在应用重启冷启动首帧即刻展示上次缓存数据（注意确保 <code>gcTime &gt;= maxAge</code>）。</li><li>桌面多窗口场景共用统一缓存，避免跨窗口重复请求。</li></ul>
+    </section>
+    <section class="content-band">
+      <h2>为何仅托管 GitHub 及防同名碰撞指南</h2>
+      <p>纯 TSX 包不包含 <code>Cargo.toml</code>，无法上架 Cargo 仓库（由根目录 <code>nsh.json</code> 的 <code>&quot;exports&quot;</code> 定义 <code>&quot;nsh-query&quot;</code> 与 <code>&quot;nsh-query/persist&quot;</code>）；且 crates.io 同名 crate 属于其他非 nshm 项目，故必须执行 <code>nsh add github:Dearest/nsh-query</code>。</p>
+      <ul class="prose-list"><li>纯 TSX 项目无需 Rust 工具链即可打包运行。</li><li>兼容 <code>nsh &gt;= 0.6</code>（已在 <code>nsh 0.7.1</code> 验证通过，内部绑定 <code>query-core 5.108.4</code>）。</li><li>启用持久化时若缓存数据结构变更，请调整 <code>buster</code> 参数以失效旧缓存；若 5 MB 空间写满将通过 <code>removeOldestQuery</code> 淘汰最旧查询。</li></ul>
+    </section>
+    <section class="content-band">
+  <h2>六端一致的纯 TSX 支持状态</h2>
+  <p>随 NSH 内置 Rolldown 打包器打包至 QuickJS 或 Web JS 环境，在提供 <code>lifecycle()</code>、<code>network()</code> 与 <code>Storage</code> 的全端运行一致。</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="六端一致的纯 TSX 支持状态">
+    <table class="data-table">
+      <thead>
+        <tr><th scope="col">平台</th><th scope="col">支持状态</th><th scope="col">技术备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>iOS / Android</td><td>完整支持</td><td>退入 <code>&quot;background&quot;</code> 自动暂停定时轮询，切回前台自动刷新陈旧数据。</td></tr>
+          <tr><td>macOS / Windows / Linux</td><td>完整支持</td><td>全窗口共享单实例缓存；设备休眠唤醒（<code>wakeCount()</code>）自动触发过期刷新；<code>&quot;inactive&quot;</code> 默认视为仍可见。</td></tr>
+          <tr><td>Web</td><td>完整支持</td><td>随前端束打包运行，无需 WASM Rust 编译。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>导出路径与相较 React Query 的差异</h2>
+  <p>上游在 <code>docs/differences.md</code> 明确列出了精简后的 API 范围。</p>
+  <ul class="prose-list">
+    <li><strong>nsh-query:</strong> 导出 <code>QueryClient</code>、<code>QueryClientProvider</code>、<code>connectNsh</code>、<code>useQuery</code>、<code>useMutation</code>、<code>useQueries</code>、<code>useInfiniteQuery</code>（统一 <code>use*</code> 前缀，无 <code>create*</code> 别名）。</li>
+    <li><strong>nsh-query/persist:</strong> 导出 <code>createNshStoragePersister</code>、<code>PersistQueryClientProvider</code> 与 <code>useIsRestoring()</code>。</li>
+    <li><strong>不支持的 API:</strong> 不含 Suspense、SSR/Hydration、<code>reconcile</code> 或 <code>useSuspenseQuery</code>；<code>throwOnError</code> 在读取 <code>.data</code> 时抛给最近的 <code>&lt;ErrorBoundary&gt;</code>。</li>
+  </ul>
+</section>
+    <section class="content-band">
+      <h2>nsh 0.7.1 实测验证记录</h2>
+      <p>CI 已在 <code>nsh 0.7.1 (f78eace)</code> 临时应用中运行 <code>nsh add github:Dearest/nsh-query</code> 通过，锁定 <code>0.1.0</code>（<code>MIT</code>，更新于 <code>2026-11-25</code>，源 <code>git+https://github.com/Dearest/nsh-query</code>）。</p>
+      <p>验证边界声明：本站 CI 仅确认 <code>nsh add</code> 正确写入了 <code>nsh.json</code> 与 <code>nsh.lock</code>；上游 <code>tests/PARITY.md</code> 与 <code>example/</code> 假接口演示未在本站 CI 中运行。</p>
+    </section>
+    <section class="callout callout--warn">
+  <h2>无构建脚本风险与运行期作用域说明</h2>
+  <p>因为没有 <code>Cargo.toml</code>，<code>nsh-query</code> 在安装和构建阶段不运行任何 <code>build.rs</code> 或过程宏；作为 JS 运行时代码它仍会访问应用 <code>fetch</code> 与 <code>Storage</code>，更新版本时注意核对 <code>nsh.lock</code> 中的 Git 提交哈希。</p>
+</section>
+    <section class="content-band">
+  <h2>同分类及关联 nshm 模块</h2>
+  <div class="two-col">
+    <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsmetry/">nsmetry</a></h3>
+  <p class="card__desc">与服务端状态缓存互补，负责隐私友好的客户端事件与页面切换遥测上报。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-omarchy/">nsh-omarchy</a></h3>
+  <p class="card__desc">搭配表格、表单与 Toast 反馈承载 <code>useQuery</code>/<code>useMutation</code> 的加载与错误态展示。</p>
+</article>
+  <article class="subcard">
+  <h3 class="card__title"><a href="/zh/nshm/nsh-extra/">nsh-extra</a></h3>
+  <p class="card__desc">将相机、定位等设备端采集流程与异步状态管理和本地持久化结合。</p>
+</article>
+  </div>
+</section>
+    <section class="content-band">
+  <h2>返回专题与关联目录</h2>
+  <div class="pill-links">
+    <a class="pill-link" href="/zh/nshm/">返回可安装 nshm 模块清单</a>
+    <a class="pill-link" href="/zh/discovery/">查看纯 TSX 清单规则与 crates.io 重名案例</a>
+  </div>
+</section>
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <p>由单一数据源 <code>data/entries.json</code> 与 <code>data/seo-content.json</code> 生成 · 实测基准：<code>nsh 0.7.1</code>。</p>
+      <nav class="footer__links" aria-label="页脚导航">
+        <a href="/index.json">index.json</a>
+        <a href="/count.json">count.json</a>
+        <a href="/badge.svg">badge.svg</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap.xml">sitemap.xml</a>
+        <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+        <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+        <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+      <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </footer>
+</body>
+</html>
