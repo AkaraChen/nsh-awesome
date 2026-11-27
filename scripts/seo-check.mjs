@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * Deterministic SEO, Schema.org, hreflang, agentic-discovery, and internal-link
- * regression gate for every generated HTML, XML, JSON, TXT, and MD file in `site/`.
+ * regression gate for every built HTML, XML, JSON, TXT, and MD file in `dist/`.
  *
  * Usage:
- *   node scripts/seo-check.mjs
+ *   node scripts/seo-check.mjs [--dir dist]
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -84,7 +84,7 @@ function parseAttributes(rawAttrs) {
 
 function extractTags(html, tagName) {
   const out = [];
-  const re = new RegExp(`<${tagName}\\b([^>]*)>`, 'gi');
+  const re = new RegExp(`<${tagName}\\b((?:[^>"']|"[^"]*"|'[^']*')*)>`, 'gi');
   for (const m of html.matchAll(re)) {
     out.push(parseAttributes(m[1]));
   }
@@ -595,7 +595,7 @@ export function validateAiCatalogObject(doc, relPath, { siteUrl, toLocalRelative
     }
     if (typeof entry.url === 'string') {
       if (!entry.url.startsWith('https://') || !toLocalRelativePath(entry.url)) {
-        errors.push(`${tag}: entry.url must be HTTPS and resolve locally in site/: ${entry.url}`);
+        errors.push(`${tag}: entry.url must be HTTPS and resolve locally: ${entry.url}`);
       }
     }
     if (typeof entry.updatedAt === 'string' && Number.isNaN(Date.parse(entry.updatedAt))) {
@@ -616,7 +616,7 @@ export function validateAiCatalogObject(doc, relPath, { siteUrl, toLocalRelative
  * Validate every generated HTML, XML, JSON, TXT, and MD artifact in `siteDir`.
  */
 export function runSeoCheck({
-  siteDir = 'site',
+  siteDir = 'dist',
   siteUrl: rawSiteUrl = DEFAULT_SITE_URL,
   dataPath = 'data/entries.json',
 } = {}) {
@@ -1042,7 +1042,7 @@ export function runSeoCheck({
       const expectedTotal = entriesData.entries?.length;
       const expectedNshm = entriesData.entries?.filter((e) => e.installable).length;
       if (indexJsonDoc.counts?.total !== expectedTotal || indexJsonDoc.counts?.installableNshm !== expectedNshm) {
-        errors.push(`site/index.json counts out of parity with ${dataPath}`);
+        errors.push(`${siteDir}/index.json counts out of parity with ${dataPath}`);
       }
     } catch (err) {
       errors.push(`failed to parse ${dataPath}: ${err.message}`);
@@ -1075,8 +1075,16 @@ export function runSeoCheck({
   };
 }
 
+function resolveSiteDirFromArgv(argv) {
+  const dirIdx = argv.indexOf('--dir');
+  if (dirIdx >= 0 && argv[dirIdx + 1]) return argv[dirIdx + 1];
+  const positional = argv.find((a) => !a.startsWith('-'));
+  return positional || 'dist';
+}
+
 function main() {
-  const result = runSeoCheck();
+  const siteDir = resolveSiteDirFromArgv(process.argv.slice(2));
+  const result = runSeoCheck({ siteDir });
   if (!result.ok) {
     console.error(`seo-check: FAILED with ${result.errors.length} error(s):`);
     for (const err of result.errors) {

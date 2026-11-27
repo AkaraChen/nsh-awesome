@@ -1,0 +1,134 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { UI, toHtmlLang, type Locale } from '../i18n/ui';
+import { renderHeadIconsAndManifest, renderSocialMeta } from '../../scripts/lib/seo-assets.mjs';
+import { renderHreflangTags } from '../../scripts/lib/seo-sitemap.mjs';
+import { renderJsonLdScript } from '../../scripts/lib/seo-schema.mjs';
+import { renderAgenticHeadLinks } from '../../scripts/lib/seo-agentic.mjs';
+
+interface Props {
+  lang?: Locale;
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  enUrl?: string;
+  zhUrl?: string;
+  altPath: string;
+  mdUrl?: string;
+  socialType?: 'website' | 'article';
+  publishedTime?: string;
+  modifiedTime?: string;
+  jsonLdGraph?: Record<string, any> | null;
+  activeNav?: string | null;
+  nshmCount: number;
+  nshVerifiedVersion: string;
+  siteUrl?: string;
+  noindex?: boolean;
+}
+
+const {
+  lang = 'en',
+  title,
+  description,
+  canonicalUrl,
+  enUrl,
+  zhUrl,
+  altPath,
+  mdUrl,
+  socialType = 'website',
+  publishedTime,
+  modifiedTime,
+  jsonLdGraph = null,
+  activeNav = null,
+  nshmCount,
+  nshVerifiedVersion,
+  siteUrl = 'https://nsh-awesome.vercel.app/',
+  noindex = false,
+} = Astro.props;
+
+const htmlLang = toHtmlLang(lang);
+const t = UI[lang];
+
+const THEME_INIT_SCRIPT = `(function () {
+  var params = new URLSearchParams(location.search);
+  var qTheme = params.get('theme');
+  var stored = null;
+  try { stored = localStorage.getItem('nsh_awesome_theme'); } catch (e) {}
+  var pref = (qTheme === 'light' || qTheme === 'dark')
+    ? qTheme
+    : (stored === 'light' || stored === 'dark' ? stored : 'system');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  var root = document.documentElement;
+  function applyTheme() {
+    var p = root.dataset.themePref;
+    var dark = p === 'dark' || (p === 'system' && media.matches);
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
+  }
+  root.dataset.themePref = pref;
+  applyTheme();
+  if (typeof media.addEventListener === 'function') {
+    media.addEventListener('change', applyTheme);
+  }
+  window.__applyAwesomeTheme = applyTheme;
+})();`;
+
+function escapeAttr(value: string): string {
+  return String(value ?? '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const descriptionMetaHtml = `<meta name="description" content="${escapeAttr(description)}">`;
+const headIconsHtml = renderHeadIconsAndManifest('/');
+const headSeoTags = noindex
+  ? '<meta name="robots" content="noindex">'
+  : [
+      renderHreflangTags({ enUrl, zhUrl, canonicalUrl }),
+      renderSocialMeta({
+        title,
+        description,
+        canonicalUrl,
+        lang: htmlLang,
+        type: socialType,
+        publishedTime,
+        modifiedTime,
+      }),
+      renderAgenticHeadLinks({ siteUrl, markdownUrl: mdUrl }),
+      jsonLdGraph ? renderJsonLdScript(jsonLdGraph) : '',
+    ]
+      .filter(Boolean)
+      .join('\n');
+---
+
+<!doctype html>
+<html lang={htmlLang} class="dark" data-theme-pref="system">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <Fragment set:html={descriptionMetaHtml} />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0e1016" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <Fragment set:html={headIconsHtml} />
+    <Fragment set:html={headSeoTags} />
+    <script is:inline set:html={THEME_INIT_SCRIPT} />
+    <script src="../scripts/app.ts"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{t.skipToMain}</a>
+    <Header lang={lang} activeNav={activeNav} nshmCount={nshmCount} altPath={altPath} />
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+    <Footer lang={lang} nshVerifiedVersion={nshVerifiedVersion} />
+  </body>
+</html>

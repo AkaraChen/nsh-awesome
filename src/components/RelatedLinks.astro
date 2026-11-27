@@ -1,0 +1,47 @@
+---
+import InlineCode from './InlineCode.astro';
+
+export interface RelatedItem {
+  path: string;
+  label?: string;
+  title?: string;
+  reason?: string;
+  summary?: string;
+}
+
+interface Props {
+  items: RelatedItem[];
+  heading: string;
+  headingLevel?: 2 | 3;
+}
+
+const { items = [], heading, headingLevel = 2 } = Astro.props;
+---
+
+{items.length > 0 && (
+  <section class="content-band">
+    {headingLevel === 3 ? <h3>{heading}</h3> : <h2>{heading}</h2>}
+    <div class="two-col">
+      {items.map((item) => (
+        <article class="subcard">
+          {headingLevel >= 3 ? (
+            <h4 class="card__title">
+              <a href={item.path}>
+                <InlineCode text={item.label || item.title || ''} />
+              </a>
+            </h4>
+          ) : (
+            <h3 class="card__title">
+              <a href={item.path}>
+                <InlineCode text={item.label || item.title || ''} />
+              </a>
+            </h3>
+          )}
+          <p class="card__desc">
+            <InlineCode text={item.reason || item.summary || ''} />
+          </p>
+        </article>
+      ))}
+    </div>
+  </section>
+)}

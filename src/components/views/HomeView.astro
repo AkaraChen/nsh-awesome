@@ -1,0 +1,205 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import InlineCode from '../InlineCode.astro';
+import EntryCard from '../EntryCard.astro';
+import SearchControls from '../SearchControls.astro';
+import DataTable from '../DataTable.astro';
+import Callout from '../Callout.astro';
+import RelatedLinks from '../RelatedLinks.astro';
+import { UI, getLocalePath, type Locale } from '../../i18n/ui';
+import { SECTION_SLUG_FOR_ID, getCatalogBundle, getPageContentEntry } from '../../lib/catalog';
+import { buildHomeSchema } from '../../../scripts/lib/seo-schema.mjs';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = UI[lang];
+const { data, routes } = await getCatalogBundle();
+const pageEntry = await getPageContentEntry(lang, 'home');
+if (pageEntry.data.pageType !== 'home') {
+  throw new Error(`Expected home pageType for ${lang}/home`);
+}
+const pageData = pageEntry.data;
+const { Content } = await render(pageEntry);
+
+const route = routes.find((r) => r.key === 'home' && r.lang === lang)!;
+const entries = data.entries;
+const sections = data.sections;
+const categories = data.categories;
+const installableCount = entries.filter((e) => e.installable).length;
+const frameworkCount = entries.filter((e) => e.section === 'framework').length;
+const templateCount = entries.filter((e) => e.section === 'templates').length;
+const articleCount = entries.filter((e) => e.section === 'articles').length;
+const siteUrl = data.siteUrl || 'https://nsh-awesome.vercel.app/';
+const indexUrl = `${siteUrl}index.json`;
+
+const jsonLdGraph = buildHomeSchema({
+  siteUrl,
+  lang,
+  data,
+  pageUrl: route.url,
+  title: route.title,
+  description: route.description,
+  updatedAt: route.lastmod,
+});
+---
+
+<BaseLayout
+  lang={lang}
+  title={route.title}
+  description={route.description}
+  canonicalUrl={route.url}
+  enUrl={route.enUrl}
+  zhUrl={route.zhUrl}
+  altPath={route.altPath}
+  mdUrl={route.mdUrl}
+  socialType="website"
+  modifiedTime={route.lastmod}
+  jsonLdGraph={jsonLdGraph}
+  activeNav="home"
+  nshmCount={installableCount}
+  nshVerifiedVersion={data.nshVerifiedVersion}
+  siteUrl={siteUrl}
+>
+  <section class="hero">
+    <div class="container hero__copy">
+      <h1>{pageData.h1}</h1>
+      <p class="hero__desc">
+        <InlineCode text={pageData.lead} />
+      </p>
+      <div class="hero__stats">
+        <span class="stat-pill stat-pill--accent">{installableCount} {t.installableStat}</span>
+        <span class="stat-pill">{frameworkCount} {t.frameworkStat}</span>
+        <span class="stat-pill">{templateCount} {t.templatesStat}</span>
+        <span class="stat-pill">{articleCount} {t.guidesStat}</span>
+        <span class="stat-pill">{t.verifiedOnPrefix} {data.nshVerifiedVersion}</span>
+      </div>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">{t.marketIndexUrl}</span>
+        <span class="endpoint-box__url">{indexUrl}</span>
+        <button type="button" class="copy-btn" data-copy={indexUrl} id="copy-index-btn">
+          <span data-copy-label>{t.copy}</span>
+          <span class="sr-only"> — {indexUrl}</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+      <h2>{pageData.definitionHeading}</h2>
+      <div class="md-prose">
+        <Content />
+      </div>
+    </section>
+
+    <DataTable
+      heading={pageData.installSourcesTable.heading}
+      intro={pageData.installSourcesTable.intro}
+      columns={pageData.installSourcesTable.columns}
+      rows={pageData.installSourcesTable.rows}
+    />
+
+    <RelatedLinks
+      items={pageData.navigationHighlights.items}
+      heading={pageData.navigationHighlights.heading}
+    />
+
+    <section class="content-band" id="directory-catalog">
+      <h2>{t.fullDirectoryHeading(entries.length)}</h2>
+      <SearchControls entries={entries} sections={sections} categories={categories} lang={lang} />
+      <div class="results-meta">
+        <span id="results-summary" aria-live="polite">
+          {t.showingSummary(entries.length, entries.length)}
+        </span>
+        <button type="button" class="ctrl-btn" id="clear-filters" hidden>
+          {t.clearFilters}
+        </button>
+      </div>
+      <div class="empty-state" id="empty-state" hidden>
+        {t.emptyState}
+      </div>
+      <div id="catalog-root">
+        {
+          sections.map((sec) => {
+            const secEntries = entries.filter((e) => e.section === sec.id);
+            if (secEntries.length === 0) return null;
+            const hubSlug = SECTION_SLUG_FOR_ID[sec.id] || sec.id;
+            const hubHref = getLocalePath(lang, hubSlug);
+            const noteCls =
+              sec.id === 'framework' ? 'section-note section-note--warn' : 'section-note';
+            return (
+              <section class="section-block" id={`sec-${sec.id}`}>
+                <div class="section-head">
+                  <h2>
+                    <a class="section-head__link" href={hubHref}>
+                      {sec.title[lang]}
+                    </a>
+                  </h2>
+                  <span class="section-count">{secEntries.length}</span>
+                </div>
+                <p class={noteCls}>
+                  <InlineCode text={sec.description[lang]} />
+                </p>
+                <div class="grid">
+                  {secEntries.map((entry) => (
+                    <EntryCard entry={entry} lang={lang} />
+                  ))}
+                </div>
+              </section>
+            );
+          })
+        }
+      </div>
+    </section>
+
+    <section class="content-band">
+      <h2>{pageData.ecosystemStats.heading}</h2>
+      <p>
+        <InlineCode text={pageData.ecosystemStats.summary} />
+      </p>
+      <dl class="metrics-grid">
+        {
+          pageData.ecosystemStats.metrics.map((m) => (
+            <div class="subcard">
+              <dt class="fact-item__dt">
+                <strong>{m.label}</strong>
+              </dt>
+              <dd class="metric-value">{m.value}</dd>
+              <dd class="card__desc">
+                <InlineCode text={m.detail} />
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+
+    <Callout
+      heading={pageData.securityNotice.heading}
+      body={pageData.securityNotice.body}
+      variant="warn"
+    />
+
+    <section class="content-band">
+      <h2>{pageData.faqs.heading}</h2>
+      <div class="faq-list">
+        {
+          pageData.faqs.items.map((item) => (
+            <article class="faq-item">
+              <h3>
+                <InlineCode text={item.question} />
+              </h3>
+              <p>
+                <InlineCode text={item.answer} />
+              </p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

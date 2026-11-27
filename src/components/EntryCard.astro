@@ -1,0 +1,111 @@
+---
+import InlineCode from './InlineCode.astro';
+import { UI, getLocalePath, type Locale } from '../i18n/ui';
+
+interface Props {
+  entry: any;
+  lang: Locale;
+}
+
+const { entry, lang } = Astro.props;
+const t = UI[lang];
+const desc = entry.description?.[lang] || entry.description?.en || '';
+const note = entry.notes?.[lang] || entry.notes?.en || '';
+const detailHref = entry.installable ? getLocalePath(lang, `nshm/${entry.id}`) : null;
+const titleHref = detailHref || entry.sourceUrl;
+
+const searchText = [
+  entry.id,
+  entry.name,
+  entry.kind,
+  entry.sourceType,
+  entry.installCommand || '',
+  entry.description?.en || '',
+  entry.description?.zh || '',
+  entry.notes?.en || '',
+  entry.notes?.zh || '',
+  (entry.platforms || []).join(' '),
+  entry.license || '',
+]
+  .join(' ')
+  .toLowerCase();
+---
+
+<article
+  class="card"
+  data-section={entry.section}
+  data-category={entry.category}
+  data-source={entry.sourceType}
+  data-installable={entry.installable ? 'true' : 'false'}
+  data-search={searchText}
+>
+  <div class="card__top">
+    <h3 class="card__title">
+      <a
+        href={titleHref}
+        target={detailHref ? undefined : '_blank'}
+        rel={detailHref ? undefined : 'noopener'}
+      >
+        {entry.name}
+      </a>
+    </h3>
+    <div class="card__badges">
+      {entry.section === 'framework' ? (
+        <span class="badge badge--warn">{t.notNshm}</span>
+      ) : (
+        <span class="badge badge--citrus">{entry.kind}</span>
+      )}
+      <span class="badge badge--sky">{entry.sourceType}</span>
+      {entry.version && <span class="badge">v{entry.version}</span>}
+    </div>
+  </div>
+  <p class="card__desc">
+    <InlineCode text={desc} />
+  </p>
+  {entry.installable && entry.installCommand && (
+    <div class="install-row">
+      <code class="install-cmd">{entry.installCommand}</code>
+      <button type="button" class="copy-btn" data-copy={entry.installCommand}>
+        <span data-copy-label>{t.copy}</span>
+        <span class="sr-only"> — {entry.installCommand}</span>
+      </button>
+    </div>
+  )}
+  {note && (
+    <p class="card__note">
+      <InlineCode text={note} />
+    </p>
+  )}
+  <div class="card__meta">
+    <div class="card__platforms">
+      {(entry.platforms || []).map((p: string) => (
+        <span class="plat-tag">{p}</span>
+      ))}
+    </div>
+    <div class="card__links">
+      <span>{entry.license}</span>
+      <span>{entry.updatedAt}</span>
+      {detailHref && (
+        <a href={detailHref}>
+          {t.details}
+          <span class="sr-only"> — {entry.name}</span>
+        </a>
+      )}
+      <a href={entry.sourceUrl} target="_blank" rel="noopener">
+        {t.source}
+        <span class="sr-only"> — {entry.name}</span>
+      </a>
+      {entry.cratesUrl && entry.cratesUrl !== entry.sourceUrl && (
+        <a href={entry.cratesUrl} target="_blank" rel="noopener">
+          crates.io<span class="sr-only"> — {entry.name}</span>
+        </a>
+      )}
+      {entry.homepage && entry.homepage !== entry.sourceUrl && (
+        <a href={entry.homepage} target="_blank" rel="noopener">
+          {t.docs}
+          <span class="sr-only"> — {entry.name}</span>
+        </a>
+      )}
+    </div>
+  </div>
+</article>

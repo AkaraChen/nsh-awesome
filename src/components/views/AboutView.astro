@@ -1,0 +1,231 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../Breadcrumbs.astro';
+import InlineCode from '../InlineCode.astro';
+import Callout from '../Callout.astro';
+import RelatedLinks from '../RelatedLinks.astro';
+import { UI, getLocalePath, type Locale } from '../../i18n/ui';
+import { getCatalogBundle, getPageContentEntry } from '../../lib/catalog';
+import { buildArticleSchema } from '../../../scripts/lib/seo-schema.mjs';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = UI[lang];
+const { data, routes } = await getCatalogBundle();
+const pageEntry = await getPageContentEntry(lang, 'about');
+if (pageEntry.data.pageType !== 'about') {
+  throw new Error(`Expected about pageType for ${lang}/about`);
+}
+const pageData = pageEntry.data;
+const { Content } = await render(pageEntry);
+
+const route = routes.find((r) => r.key === 'pillar:about' && r.lang === lang)!;
+const installableCount = data.entries.filter((e) => e.installable).length;
+const siteUrl = data.siteUrl || 'https://nsh-awesome.vercel.app/';
+
+const breadcrumbs = [
+  { label: t.homeLabel, href: getLocalePath(lang, '') },
+  { label: t.aboutBreadcrumb },
+];
+
+const jsonLdGraph = buildArticleSchema({
+  siteUrl,
+  lang,
+  pageUrl: route.url,
+  title: route.title,
+  description: route.description,
+  datePublished: pageData.datePublished,
+  dateModified: route.lastmod,
+  kind: 'about',
+});
+---
+
+<BaseLayout
+  lang={lang}
+  title={route.title}
+  description={route.description}
+  canonicalUrl={route.url}
+  enUrl={route.enUrl}
+  zhUrl={route.zhUrl}
+  altPath={route.altPath}
+  mdUrl={route.mdUrl}
+  socialType="website"
+  modifiedTime={route.lastmod}
+  jsonLdGraph={jsonLdGraph}
+  activeNav="about"
+  nshmCount={installableCount}
+  nshVerifiedVersion={data.nshVerifiedVersion}
+  siteUrl={siteUrl}
+>
+  <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <Breadcrumbs items={breadcrumbs} lang={lang} />
+      <h1>{pageData.h1}</h1>
+      <p class="hero__desc">
+        <InlineCode text={pageData.lead} />
+      </p>
+      <div class="action-row">
+        <a class="pill-link" href={route.mdPath}>
+          {t.markdownEdition}
+        </a>
+        <a
+          class="pill-link"
+          href="https://github.com/AkaraChen/nsh-awesome/blob/main/CONTRIBUTING.md"
+          target="_blank"
+          rel="noopener"
+        >
+          CONTRIBUTING.md
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+      <h2>{pageData.whoHeading}</h2>
+      <div class="md-prose">
+        <Content />
+      </div>
+    </section>
+
+    <section class="content-band">
+      <h2>{pageData.how.heading}</h2>
+      {
+        pageData.how.paragraphs.map((p) => (
+          <p>
+            <InlineCode text={p} />
+          </p>
+        ))
+      }
+      {
+        pageData.how.pipelineScripts.length > 0 && (
+          <div class="table-scroll" tabindex="0" role="region" aria-label={pageData.how.heading}>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th scope="col">{t.pipelineHeaders[0]}</th>
+                  <th scope="col">{t.pipelineHeaders[1]}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {pageData.how.pipelineScripts.map((s) => (
+                  <tr>
+                    <td>
+                      <code>{s.script}</code>
+                    </td>
+                    <td>
+                      <InlineCode text={s.role} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )
+      }
+    </section>
+
+    <section class="content-band">
+      <h2>{pageData.why.heading}</h2>
+      {
+        pageData.why.paragraphs.map((p) => (
+          <p>
+            <InlineCode text={p} />
+          </p>
+        ))
+      }
+    </section>
+
+    <section class="content-band">
+      <h2>{pageData.criteria.heading}</h2>
+      <div class="two-col">
+        <article class="subcard">
+          <h3>{t.inclusionCriteria}</h3>
+          <ul class="prose-list">
+            {
+              pageData.criteria.inclusion.map((item) => (
+                <li>
+                  <InlineCode text={item} />
+                </li>
+              ))
+            }
+          </ul>
+        </article>
+        <article class="subcard">
+          <h3>{t.exclusionRules}</h3>
+          <ul class="prose-list">
+            {
+              pageData.criteria.exclusion.map((item) => (
+                <li>
+                  <InlineCode text={item} />
+                </li>
+              ))
+            }
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="content-band">
+      <h2>{pageData.verificationBoundary.heading}</h2>
+      <p>
+        <InlineCode text={pageData.verificationBoundary.summary} />
+      </p>
+      <div class="two-col">
+        <article class="subcard">
+          <h3>{t.verifiedScope}</h3>
+          <ul class="prose-list">
+            {
+              pageData.verificationBoundary.verifiedItems.map((item) => (
+                <li>
+                  <InlineCode text={item} />
+                </li>
+              ))
+            }
+          </ul>
+        </article>
+        <article class="subcard">
+          <h3>{t.notClaimedScope}</h3>
+          <ul class="prose-list">
+            {
+              pageData.verificationBoundary.notVerifiedItems.map((item) => (
+                <li>
+                  <InlineCode text={item} />
+                </li>
+              ))
+            }
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <Callout
+      heading={pageData.securityPolicy.heading}
+      body={pageData.securityPolicy.body}
+      variant="warn"
+    />
+
+    <section class="content-band">
+      <h2>{pageData.contributing.heading}</h2>
+      <p>
+        <InlineCode text={pageData.contributing.body} />
+      </p>
+      <div class="pill-links">
+        <a
+          class="pill-link"
+          href={pageData.contributing.contributingUrl}
+          target="_blank"
+          rel="noopener"
+        >
+          {t.readContributing}
+        </a>
+      </div>
+    </section>
+
+    <RelatedLinks items={pageData.relatedLinks} heading={t.relatedDirectoryMethodology} />
+  </div>
+</BaseLayout>

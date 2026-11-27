@@ -1,6 +1,6 @@
 /**
- * Pure builders for README.md, README.zh.md, site/index.json,
- * site/count.json, and site/badge.svg from `data/entries.json`.
+ * Pure builders for README.md, README.zh.md, index.json,
+ * count.json, and badge.svg from `data/entries.json`.
  *
  * Preserves byte-for-byte backward compatibility with existing consumers.
  */
@@ -202,8 +202,8 @@ export function buildReadme(data, lang) {
   );
   lines.push(
     isEn
-      ? `- **Automated discovery & CI checks:** Run \`node scripts/discover.mjs\` to scan crates.io, GitHub, and \`longbridge/nsh-showcases\`. CI validates Markdown & schema lint (\`scripts/lint.mjs\`), generated file parity (\`scripts/generate.mjs --check\`), deterministic SEO & Schema/hreflang/agentic gates (\`scripts/seo-check.mjs\`), unit tests (\`node --test scripts/*.test.mjs\`), live link checks (\`scripts/check-links.mjs\`), and real \`nsh add\` installation (\`scripts/verify-install.mjs\`) for every installable entry.`
-      : `- **自动发现与 CI 校验：** 运行 \`node scripts/discover.mjs\` 即可扫描 crates.io、GitHub 与 \`longbridge/nsh-showcases\`；CI 会校验 Markdown/Schema 格式（\`scripts/lint.mjs\`）、生成物一致性（\`scripts/generate.mjs --check\`）、确定性 SEO 与 Schema/hreflang/Agentic 回归门禁（\`scripts/seo-check.mjs\`）、单元测试（\`node --test scripts/*.test.mjs\`）、全量链接可用性（\`scripts/check-links.mjs\`）及每条 \`nshm\` 的真实 \`nsh add\` 安装（\`scripts/verify-install.mjs\`）。`,
+      ? `- **Automated discovery & CI checks:** Run \`node scripts/discover.mjs\` to scan crates.io, GitHub, and \`longbridge/nsh-showcases\`. CI runs \`npm run build\` (Astro static build to \`dist/\`), validates Markdown & schema/collection lint (\`scripts/lint.mjs\`), README parity (\`scripts/generate.mjs --check\`), deterministic SEO & Schema/hreflang/Agentic gates (\`scripts/seo-check.mjs\`), unit tests (\`node --test scripts/*.test.mjs\`), live link checks (\`scripts/check-links.mjs\`), and real \`nsh add\` installation (\`scripts/verify-install.mjs\`) for every installable entry.`
+      : `- **自动发现与 CI 校验：** 运行 \`node scripts/discover.mjs\` 即可扫描 crates.io、GitHub 与 \`longbridge/nsh-showcases\`；CI 会执行 \`npm run build\`（Astro 静态构建至 \`dist/\`），并校验 Markdown/Schema/Content Collections 一致性（\`scripts/lint.mjs\`）、README 同步（\`scripts/generate.mjs --check\`）、确定性 SEO 与 Schema/hreflang/Agentic 回归门禁（\`scripts/seo-check.mjs\`）、单元测试（\`node --test scripts/*.test.mjs\`）、全量链接可用性（\`scripts/check-links.mjs\`）及每条 \`nshm\` 的真实 \`nsh add\` 安装（\`scripts/verify-install.mjs\`）。`,
   );
   lines.push('');
 
@@ -211,8 +211,8 @@ export function buildReadme(data, lang) {
   lines.push('');
   lines.push(
     isEn
-      ? `Contributions are welcome! Edit [\`data/entries.json\`](data/entries.json) (and [\`data/seo-content.json\`](data/seo-content.json) for bilingual page copy), run \`node scripts/generate.mjs\`, and see [\`CONTRIBUTING.md\`](CONTRIBUTING.md) before opening a pull request.`
-      : `欢迎提交新模块或修正信息！请编辑单一数据源 [\`data/entries.json\`](data/entries.json)（更新双语页面文案时同步编辑 [\`data/seo-content.json\`](data/seo-content.json)）并运行 \`node scripts/generate.mjs\`，详情见 [\`CONTRIBUTING.md\`](CONTRIBUTING.md)。`,
+      ? `Contributions are welcome! Edit [\`data/entries.json\`](data/entries.json) (and optional bilingual Markdown pages under \`src/content/\`), run \`node scripts/generate.mjs\` and \`npm run build\`, and see [\`CONTRIBUTING.md\`](CONTRIBUTING.md) before opening a pull request.`
+      : `欢迎提交新模块或修正信息！请编辑单一数据源 [\`data/entries.json\`](data/entries.json)（如需补充深度详情可同步编辑 \`src/content/\` 下的双语 Markdown），运行 \`node scripts/generate.mjs\` 与 \`npm run build\`，详情见 [\`CONTRIBUTING.md\`](CONTRIBUTING.md)。`,
   );
   lines.push('');
 

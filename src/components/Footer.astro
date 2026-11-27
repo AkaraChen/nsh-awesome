@@ -1,0 +1,42 @@
+---
+import { UI, type Locale } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  nshVerifiedVersion: string;
+}
+
+const { lang, nshVerifiedVersion } = Astro.props;
+const t = UI[lang];
+---
+
+<footer class="site-footer">
+  <div class="container footer__inner">
+    <p>
+      {
+        lang === 'zh' ? (
+          <>
+            由 Astro 基于单一数据源 <code>data/entries.json</code> 与 <code>src/content/</code>{' '}
+            构建 · 实测基准：<code>nsh {nshVerifiedVersion}</code>。
+          </>
+        ) : (
+          <>
+            Built with Astro from <code>data/entries.json</code> &amp; <code>src/content/</code> ·
+            Verified on <code>nsh {nshVerifiedVersion}</code>.
+          </>
+        )
+      }
+    </p>
+    <nav class="footer__links" aria-label={t.footerNav}>
+      <a href="/index.json">index.json</a>
+      <a href="/count.json">count.json</a>
+      <a href="/badge.svg">badge.svg</a>
+      <a href="/llms.txt">llms.txt</a>
+      <a href="/sitemap.xml">sitemap.xml</a>
+      <a href="/.well-known/ai-catalog.json">ai-catalog.json</a>
+      <a href="https://nsh.dev" target="_blank" rel="noopener">nsh.dev</a>
+      <a href="https://github.com/AkaraChen/nsh-awesome" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <div id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+  </div>
+</footer>

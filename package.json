@@ -8,9 +8,12 @@
   "homepage": "https://nsh-awesome.vercel.app/",
   "license": "MIT",
   "engines": {
-    "node": ">=22.0.0"
+    "node": ">=22.23.4"
   },
   "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
     "discover": "node scripts/discover.mjs",
     "generate": "node scripts/generate.mjs",
     "generate:check": "node scripts/generate.mjs --check",
@@ -19,5 +22,8 @@
     "check:links": "node scripts/check-links.mjs",
     "verify:install": "node scripts/verify-install.mjs",
     "test": "node --test 'scripts/*.test.mjs'"
+  },
+  "dependencies": {
+    "astro": "^7.4.13"
   }
 }

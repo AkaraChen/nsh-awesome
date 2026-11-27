@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Deterministically generate brand favicons, Web App Manifest, and
- * bilingual Open Graph social preview images in `site/` from `data/entries.json`.
+ * bilingual Open Graph social preview images in `public/` from `data/entries.json`.
  *
  * Usage:
  *   node scripts/build-seo-assets.mjs
@@ -12,7 +12,7 @@ import os from 'node:os';
 import path from 'node:path';
 
 const DATA_PATH = 'data/entries.json';
-const SITE_DIR = 'site';
+const SITE_DIR = 'public';
 
 const RSVG_CAIRO_SCRIPT = `
 import ctypes, sys

@@ -2,15 +2,22 @@
 
 Thank you for helping grow the [Native Shell (NSH)](https://nsh.dev) ecosystem!
 
-## Single Source of Truth
+## Single Source of Truth & Astro Architecture
 
-All lists (`README.md`, `README.zh.md`), the 40-page bilingual static website (`site/` + `site/404.html` + `site/assets/app.{css,js}` + `.md` alternates), agentic discovery artifacts (`site/robots.txt`, `site/sitemap.xml`, `site/llms.txt`, `site/llms-full.txt`, `site/.well-known/ai-catalog.json`), and the machine-readable catalog (`site/index.json`, `site/count.json`) are generated from [`data/entries.json`](data/entries.json) and [`data/seo-content.json`](data/seo-content.json). **Do not edit the generated files by hand** — CI checks byte-for-byte consistency via `node scripts/generate.mjs --check` and enforces deterministic SEO, Schema, `hreflang`, and link-graph gates via `node scripts/seo-check.mjs`.
+- **[`data/entries.json`](data/entries.json)** is the canonical source of truth for all curated entries, categories, install commands, and platform targets. It feeds the Astro `entries` Content Collection (`src/content.config.ts`), `README.md`, `README.zh.md`, `dist/index.json`, `dist/count.json`, `dist/badge.svg`, and verification scripts (`scripts/discover.mjs`, `scripts/verify-install.mjs`).
+- **[`src/content/`](src/content/)** stores bilingual Markdown Content Collections with strict Zod validation:
+  - `src/content/pages/{en,zh}/*.md`: Home copy/FAQs, 4 section hubs (`nshm`, `framework`, `templates`, `guides`), `/discovery/`, and `/about/`.
+  - `src/content/modules/{en,zh}/<id>.md`: Deep-dive bilingual documentation for installable `nshm` modules. **Adding a new `nshm` only requires editing `data/entries.json`** — any installable `nshm` without a dedicated `.md` file automatically renders with deterministic fallback metadata and facts.
+- **Native `astro:i18n`** (`astro.config.mjs`, `src/i18n/ui.ts`): Builds 40 bilingual static HTML pages (`/` + `/zh/` and sub-routes with `trailingSlash: 'always'`) plus `404.html`, 40 `.md` alternates, `robots.txt`, `sitemap.xml`, `llms.txt`, `llms-full.txt`, and `/.well-known/ai-catalog.json` into `dist/` (gitignored).
 
 > [!NOTE]
-> Production deployments on Vercel (`vercel.json`: `"buildCommand": ""`, `"outputDirectory": "site"`) publish the committed `site/` directory directly on every push to `main` without a build step. Always run `node scripts/generate.mjs` and commit the updated `site/` files together with `data/entries.json` and `data/seo-content.json` — CI checks parity, but does not block Vercel from deploying a stale `site/`.
+> `README.md` and `README.zh.md` are still generated from [`data/entries.json`](data/entries.json) via `node scripts/generate.mjs`. **Do not edit the README files by hand** — CI checks byte-for-byte parity via `node scripts/generate.mjs --check`.
 
 > [!NOTE]
-> Raster brand icons and OG social images (`site/favicon.ico`, `site/apple-touch-icon.png`, `site/og-image.png`, `site/og-image-zh.png`) are generated on demand by running `node scripts/build-seo-assets.mjs` manually. That asset script is intentionally excluded from `scripts/generate.mjs` and CI so `--check` stays fast.
+> Raster brand icons and OG social images (`public/favicon.ico`, `public/apple-touch-icon.png`, `public/og-image.png`, `public/og-image-zh.png`) are generated on demand by running `node scripts/build-seo-assets.mjs` manually. That asset script is intentionally excluded from `scripts/generate.mjs`, `npm run build`, and CI.
+
+> [!NOTE]
+> Production deployments on Vercel (`vercel.json`: `"framework": "astro"`, `"buildCommand": "npm run build"`, `"outputDirectory": "dist"`) and GitHub Pages (`.github/workflows/pages.yml`) build `dist/` from committed sources on every push to `main` with locked `package-lock.json` dependencies.
 
 ## Requirements for Installable `nshm` Submissions
 
@@ -25,10 +32,12 @@ All lists (`README.md`, `README.zh.md`), the 40-page bilingual static website (`
 
 ## Workflow
 
-1. Edit [`data/entries.json`](data/entries.json) (and [`data/seo-content.json`](data/seo-content.json) when adding or updating bilingual page copy).
-2. Regenerate all outputs and run local checks:
+1. Edit [`data/entries.json`](data/entries.json) (and optionally add or update bilingual Markdown under `src/content/modules/{en,zh}/<id>.md` or `src/content/pages/{en,zh}/*.md`).
+2. Regenerate READMEs, build Astro `dist/`, and run local checks:
    ```sh
+   npm ci
    node scripts/generate.mjs
+   npm run build
    node scripts/generate.mjs --check
    node scripts/lint.mjs
    node scripts/seo-check.mjs
@@ -36,16 +45,4 @@ All lists (`README.md`, `README.zh.md`), the 40-page bilingual static website (`
    node scripts/verify-install.mjs
    node scripts/check-links.mjs
    ```
-3. Open a pull request against `main`.
-
-## Static Site Architecture & Astro Migration Thresholds
-
-At the current catalog size (43 entries / 40 bilingual SSR HTML pages + `404.html`), `nsh-awesome` intentionally uses a zero-dependency Node SSR generator (`scripts/generate.mjs` + `scripts/lib/*`) so `committed === deployed` holds on Vercel and GitHub Pages without external npm build toolchains or `node_modules`.
-
-Based on the feasibility benchmark in `#461` (§5.2), re-evaluate migrating to Astro if the repository crosses **any** of the following five thresholds (**跨过任一条就重开 Astro 评估**):
-
-1. **长文 MDX ≥ 20–30 篇**：站内新增 20–30 篇以上手写 MDX 深度教程、周报或专栏文章，需要 Shiki 语法高亮、目录提取与内容集合管理。
-2. **需要 Island 状态机**：网页从“静态目录 + 渐进搜索/复制”升级为需要 React/Solid 等状态机驱动的交互 Island（例如在线 NSH TSX Playground 或交互式依赖图谱画布）。
-3. **页面规模突破 150–300 页**：目录扩展到百余模块（300+ 双语 HTML 页面），继续把生成 HTML 提交进 Git 会造成 PR diff 膨胀与仓库体积负担。
-4. **需要 `astro:assets` 转码**：每个模块详情页需要自动化生成多规格 AVIF/WebP 响应式截图或媒体管线（`astro:assets` + Sharp）。
-5. **共享模板 > 8–10 套**：手写 HTML 模板变体超过 8–10 套且出现跨模板样式/作用域维护困难。
+3. Preview locally with `npm run dev` or `npm run preview`, then open a pull request against `main`.

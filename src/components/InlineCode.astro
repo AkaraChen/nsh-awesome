@@ -1,0 +1,12 @@
+---
+import { splitInlineCode } from '../lib/inline-code';
+
+interface Props {
+  text: string | null | undefined;
+}
+
+const { text } = Astro.props;
+const tokens = splitInlineCode(text);
+---
+
+{tokens.map((token) => (token.code ? <code>{token.text}</code> : <>{token.text}</>))}

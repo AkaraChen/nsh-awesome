@@ -1,0 +1,18 @@
+---
+import InlineCode from './InlineCode.astro';
+
+interface Props {
+  heading: string;
+  body: string;
+  variant?: 'info' | 'warn';
+  headingLevel?: 2 | 3;
+}
+
+const { heading, body, variant = 'info', headingLevel = 2 } = Astro.props;
+const cls = variant === 'warn' ? 'callout callout--warn' : 'callout';
+---
+
+<section class={cls}>
+  {headingLevel === 3 ? <h3><InlineCode text={heading} /></h3> : <h2><InlineCode text={heading} /></h2>}
+  <p><InlineCode text={body} /></p>
+</section>

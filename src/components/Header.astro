@@ -1,0 +1,97 @@
+---
+import { NAV_ITEMS, UI, getLocalePath, type Locale } from '../i18n/ui';
+
+interface Props {
+  lang: Locale;
+  activeNav?: string | null;
+  nshmCount: number;
+  altPath: string;
+}
+
+const { lang, activeNav = null, nshmCount, altPath } = Astro.props;
+const t = UI[lang];
+const homeHref = getLocalePath(lang, '');
+---
+
+<header class="site-header">
+  <div class="container nav__inner">
+    <a class="brand" href={homeHref}>
+      <svg width="24" height="24" viewBox="14 12 100 100" aria-hidden="true" focusable="false">
+        <path
+          d="M30 100 V58 a34 34 0 0 1 68 0 V100"
+          fill="none"
+          stroke="#55800c"
+          stroke-width="20"
+          stroke-linecap="round"
+        />
+        <path
+          d="M30 100 V58 a34 34 0 0 1 68 0 V100"
+          fill="none"
+          stroke="#a9d63f"
+          stroke-width="14"
+          stroke-linecap="round"
+        />
+        <circle cx="64" cy="76" r="10" fill="#f3f5f8" />
+      </svg>
+      <span>Awesome NSH</span>
+      <span class="brand__tag">{nshmCount} nshm</span>
+    </a>
+    <nav class="nav__actions" aria-label={t.primaryNav}>
+      {
+        NAV_ITEMS.map((item) => {
+          const href = getLocalePath(lang, item.slug);
+          const isCurrent = activeNav === item.key;
+          return (
+            <a
+              class={isCurrent ? 'nav__link is-current' : 'nav__link'}
+              href={href}
+              aria-current={isCurrent ? 'page' : undefined}
+            >
+              {lang === 'zh' ? item.zh : item.en}
+            </a>
+          );
+        })
+      }
+      <a class="nav__link" href="/index.json">index.json</a>
+      <a
+        class="ctrl-btn"
+        id="lang-toggle"
+        href={altPath}
+        hreflang={t.langSwitchAttr}
+        lang={t.langSwitchAttr}
+      >
+        {t.langSwitchLabel}
+      </a>
+      <button type="button" class="ctrl-btn" id="theme-toggle">
+        <svg
+          class="theme-icon theme-icon--sun"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+        <svg
+          class="theme-icon theme-icon--moon"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
+        <span data-theme-label>{t.themeLightLabel}</span>
+      </button>
+    </nav>
+  </div>
+</header>

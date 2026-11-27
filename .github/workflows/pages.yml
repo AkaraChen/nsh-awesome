@@ -26,11 +26,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Verify generated site is in sync
-        run: node scripts/generate.mjs --check
+          cache: 'npm'
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Astro static site into dist/
+        run: npm run build
+      - name: Verify README parity and SEO gates
+        run: |
+          node scripts/generate.mjs --check
+          node scripts/seo-check.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: site
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4

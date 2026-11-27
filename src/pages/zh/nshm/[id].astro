@@ -1,0 +1,18 @@
+---
+import { getCollection } from 'astro:content';
+import ModuleView from '../../../components/views/ModuleView.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('entries');
+  return entries
+    .filter((e) => e.data.installable)
+    .map((e) => ({
+      params: { id: e.id },
+      props: { entry: { id: e.id, ...e.data } },
+    }));
+}
+
+const { entry } = Astro.props;
+---
+
+<ModuleView lang="zh" entry={entry} />

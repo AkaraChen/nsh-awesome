@@ -1,0 +1,66 @@
+---
+import InlineCode from './InlineCode.astro';
+
+interface Props {
+  heading: string;
+  intro?: string;
+  columns: string[];
+  rows: string[][];
+  headingLevel?: 2 | 3;
+  linkModuleMap?: Map<string, string> | null;
+}
+
+const {
+  heading,
+  intro = '',
+  columns = [],
+  rows = [],
+  headingLevel = 2,
+  linkModuleMap = null,
+} = Astro.props;
+---
+
+<section class="content-band">
+  {headingLevel === 3 ? <h3>{heading}</h3> : <h2>{heading}</h2>}
+  {intro && (
+    <p>
+      <InlineCode text={intro} />
+    </p>
+  )}
+  <div class="table-scroll" tabindex="0" role="region" aria-label={heading}>
+    <table class="data-table">
+      <thead>
+        <tr>
+          {columns.map((col) => (
+            <th scope="col">
+              <InlineCode text={col} />
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            {row.map((cell, idx) => {
+              const text = String(cell ?? '');
+              if (idx === 0 && linkModuleMap && linkModuleMap.has(text)) {
+                return (
+                  <td>
+                    <a href={linkModuleMap.get(text)}>
+                      <strong>{text}</strong>
+                    </a>
+                  </td>
+                );
+              }
+              return (
+                <td>
+                  <InlineCode text={text} />
+                </td>
+              );
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

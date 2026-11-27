@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /**
- * Lint `data/entries.json`, `data/seo-content.json`, `README.md`, `README.zh.md`,
- * `site/index.json`, `site/count.json`, and `site/.well-known/ai-catalog.json`:
- * - Schema & field completeness in `data/entries.json` and `data/seo-content.json`
+ * Lint `data/entries.json`, `src/content/`, `README.md`, `README.zh.md`,
+ * `dist/index.json`, `dist/count.json`, and `dist/.well-known/ai-catalog.json`:
+ * - Schema & field completeness in `data/entries.json`
+ * - Content Collection frontmatter integrity in `src/content/{pages,modules}`
  * - Single H1, sequential heading hierarchy (no skipped heading levels)
  * - Every TOC `#anchor` matches an actual heading in the README
  * - Entry formatting `- [Name](url) — Description.` (EN uppercase start + `.`, ZH ends with `。`)
@@ -10,11 +11,12 @@
  * - Exact entry-count parity across JSON, READMEs, index.json, and count.json
  *
  * Usage:
- *   node scripts/lint.mjs
+ *   node scripts/lint.mjs [--dir dist]
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import YAML from 'yaml';
 import { githubHeadingAnchor } from './generate.mjs';
 
 const REQUIRED_FIELDS = [
@@ -29,6 +31,8 @@ const REQUIRED_FIELDS = [
   'license',
   'updatedAt',
 ];
+
+const REQUIRED_PAGE_SLUGS = ['home', 'nshm', 'framework', 'templates', 'guides', 'discovery', 'about'];
 
 export function validateEntriesData(doc) {
   const errors = [];
@@ -100,91 +104,112 @@ export function validateEntriesData(doc) {
   return errors;
 }
 
-export function validateSeoContentData(seoContent, entriesData) {
+function normalizeYamlDate(value) {
+  if (value instanceof Date) return value.toISOString().slice(0, 10);
+  return String(value ?? '').trim();
+}
+
+function parseFrontmatterFile(filePath) {
+  const raw = fs.readFileSync(filePath, 'utf8');
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
+  if (!match) {
+    throw new Error(`missing YAML frontmatter in ${filePath}`);
+  }
+  const frontmatter = YAML.parse(match[1]);
+  const body = match[2].trim();
+  return { frontmatter, body };
+}
+
+export function validateContentCollections(entriesData, contentDir = 'src/content') {
   const errors = [];
-  if (!seoContent || typeof seoContent !== 'object') {
-    return ['data/seo-content.json must be a JSON object'];
-  }
-  if (seoContent.schemaVersion !== 1) {
-    errors.push(`data/seo-content.json: schemaVersion must be 1 (got ${seoContent.schemaVersion})`);
-  }
-  if (!String(seoContent.siteUrl || '').startsWith('https://')) {
-    errors.push('data/seo-content.json: siteUrl must start with https://');
-  }
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(seoContent.updatedAt || ''))) {
-    errors.push(`data/seo-content.json: updatedAt "${seoContent.updatedAt}" must match YYYY-MM-DD`);
-  }
-  if (!Array.isArray(seoContent.routes) || seoContent.routes.length === 0) {
-    errors.push('data/seo-content.json: routes must be a non-empty array');
-  } else {
-    const seenRouteKeys = new Set();
-    for (const route of seoContent.routes) {
-      if (!route?.key || !route.enPath || !route.zhPath) {
-        errors.push(`data/seo-content.json: invalid route entry ${JSON.stringify(route)}`);
-        continue;
-      }
-      if (seenRouteKeys.has(route.key)) {
-        errors.push(`data/seo-content.json: duplicate route key "${route.key}"`);
-      }
-      seenRouteKeys.add(route.key);
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(String(route.updatedAt || ''))) {
-        errors.push(`data/seo-content.json: route ${route.key} invalid updatedAt "${route.updatedAt}"`);
-      }
-    }
+  if (!fs.existsSync(contentDir)) {
+    return [`${contentDir}: Content Collections directory is missing`];
   }
 
   const seenTitles = new Map();
   const seenDescs = new Map();
-  function checkLocalizedMeta(obj, label) {
-    for (const lang of ['en', 'zh']) {
-      const node = obj?.[lang];
-      if (!node || typeof node !== 'object') {
-        errors.push(`data/seo-content.json: ${label}.${lang} is missing`);
-        continue;
+
+  function checkTitleAndDesc(fm, label) {
+    const title = String(fm?.title || '').trim();
+    const desc = String(fm?.description || '').trim();
+    if (!title) errors.push(`${label}: frontmatter title is empty`);
+    if (!desc) errors.push(`${label}: frontmatter description is empty`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(normalizeYamlDate(fm?.updatedAt))) {
+      errors.push(`${label}: invalid updatedAt "${fm?.updatedAt}"`);
+    }
+    if (title) {
+      const key = title.toLowerCase();
+      if (seenTitles.has(key)) {
+        errors.push(`${label}: duplicate title (matches ${seenTitles.get(key)})`);
+      } else {
+        seenTitles.set(key, label);
       }
-      const title = String(node.title || '').trim();
-      const desc = String(node.metaDescription || '').trim();
-      if (!title) errors.push(`data/seo-content.json: ${label}.${lang}.title is empty`);
-      if (!desc) errors.push(`data/seo-content.json: ${label}.${lang}.metaDescription is empty`);
-      if (title) {
-        const key = title.toLowerCase();
-        if (seenTitles.has(key)) {
-          errors.push(`data/seo-content.json: duplicate title at ${label}.${lang} (matches ${seenTitles.get(key)})`);
-        } else {
-          seenTitles.set(key, `${label}.${lang}`);
-        }
-      }
-      if (desc) {
-        const key = desc.toLowerCase();
-        if (seenDescs.has(key)) {
-          errors.push(
-            `data/seo-content.json: duplicate metaDescription at ${label}.${lang} (matches ${seenDescs.get(key)})`,
-          );
-        } else {
-          seenDescs.set(key, `${label}.${lang}`);
-        }
+    }
+    if (desc) {
+      const key = desc.toLowerCase();
+      if (seenDescs.has(key)) {
+        errors.push(`${label}: duplicate description (matches ${seenDescs.get(key)})`);
+      } else {
+        seenDescs.set(key, label);
       }
     }
   }
 
-  checkLocalizedMeta(seoContent.home, 'home');
-  for (const slug of ['nshm', 'framework', 'templates', 'guides']) {
-    checkLocalizedMeta(seoContent.sections?.[slug], `sections.${slug}`);
-  }
-  for (const slug of ['discovery', 'about']) {
-    checkLocalizedMeta(seoContent.pillars?.[slug], `pillars.${slug}`);
+  for (const lang of ['en', 'zh']) {
+    for (const slug of REQUIRED_PAGE_SLUGS) {
+      const filePath = path.join(contentDir, 'pages', lang, `${slug}.md`);
+      const label = `pages/${lang}/${slug}.md`;
+      if (!fs.existsSync(filePath)) {
+        errors.push(`${label}: missing required page content file`);
+        continue;
+      }
+      try {
+        const { frontmatter, body } = parseFrontmatterFile(filePath);
+        if (frontmatter?.lang !== lang) {
+          errors.push(`${label}: frontmatter lang "${frontmatter?.lang}" != "${lang}"`);
+        }
+        if (frontmatter?.pageSlug !== slug) {
+          errors.push(`${label}: frontmatter pageSlug "${frontmatter?.pageSlug}" != "${slug}"`);
+        }
+        if (!body) {
+          errors.push(`${label}: Markdown body is empty`);
+        }
+        checkTitleAndDesc(frontmatter, label);
+      } catch (err) {
+        errors.push(`${label}: ${err.message}`);
+      }
+    }
   }
 
   const installableIds = new Set(
     (entriesData?.entries || []).filter((e) => e.installable).map((e) => e.id),
   );
-  const seoModules = seoContent.modules || {};
-  for (const id of installableIds) {
-    checkLocalizedMeta(seoModules[id], `modules.${id}`);
-  }
-  for (const id of Object.keys(seoModules)) {
-    if (!installableIds.has(id)) {
-      errors.push(`data/seo-content.json: orphan module entry "modules.${id}" not in installable entries`);
+  for (const lang of ['en', 'zh']) {
+    const modDir = path.join(contentDir, 'modules', lang);
+    if (!fs.existsSync(modDir)) continue;
+    for (const fileName of fs.readdirSync(modDir).sort()) {
+      if (!fileName.endsWith('.md')) continue;
+      const slugId = fileName.slice(0, -'.md'.length);
+      const filePath = path.join(modDir, fileName);
+      const label = `modules/${lang}/${fileName}`;
+      if (!installableIds.has(slugId)) {
+        errors.push(`${label}: orphan module entry "${slugId}" not in installable entries`);
+      }
+      try {
+        const { frontmatter, body } = parseFrontmatterFile(filePath);
+        if (frontmatter?.lang !== lang) {
+          errors.push(`${label}: frontmatter lang "${frontmatter?.lang}" != "${lang}"`);
+        }
+        if (frontmatter?.entryId !== slugId) {
+          errors.push(`${label}: frontmatter entryId "${frontmatter?.entryId}" != "${slugId}"`);
+        }
+        if (!body) {
+          errors.push(`${label}: Markdown body is empty`);
+        }
+        checkTitleAndDesc(frontmatter, label);
+      } catch (err) {
+        errors.push(`${label}: ${err.message}`);
+      }
     }
   }
 
@@ -237,7 +262,6 @@ export function lintReadmeText(text, lang, fileLabel = 'README.md') {
       continue;
     }
 
-    // Top-level bullet outside Contents/Discovery/Contributing sections that links a curated entry
     if (line.startsWith('- [')) {
       const m = line.match(/^- \[(.+?)\]\((https?:\/\/[^)]+)\) — (.+)$/);
       if (!m) {
@@ -281,10 +305,17 @@ export function lintReadmeText(text, lang, fileLabel = 'README.md') {
   return { errors, entryCount };
 }
 
+function resolveSiteDirFromArgv(argv) {
+  const dirIdx = argv.indexOf('--dir');
+  if (dirIdx >= 0 && argv[dirIdx + 1]) return argv[dirIdx + 1];
+  const positional = argv.find((a) => !a.startsWith('-'));
+  return positional || 'dist';
+}
+
 function main() {
+  const siteDir = resolveSiteDirFromArgv(process.argv.slice(2));
   const data = JSON.parse(fs.readFileSync('data/entries.json', 'utf8'));
-  const seoContent = JSON.parse(fs.readFileSync('data/seo-content.json', 'utf8'));
-  const errors = [...validateEntriesData(data), ...validateSeoContentData(seoContent, data)];
+  const errors = [...validateEntriesData(data), ...validateContentCollections(data, 'src/content')];
 
   const enReadme = fs.readFileSync('README.md', 'utf8');
   const zhReadme = fs.readFileSync('README.zh.md', 'utf8');
@@ -299,22 +330,34 @@ function main() {
     errors.push(`README.zh.md has ${zhLint.entryCount} entries, expected ${data.entries.length}`);
   }
 
-  const indexJson = JSON.parse(fs.readFileSync('site/index.json', 'utf8'));
-  const countJson = JSON.parse(fs.readFileSync('site/count.json', 'utf8'));
-  const aiCatalog = JSON.parse(fs.readFileSync('site/.well-known/ai-catalog.json', 'utf8'));
   const installableCount = data.entries.filter((e) => e.installable).length;
+  const indexPath = path.join(siteDir, 'index.json');
+  const countPath = path.join(siteDir, 'count.json');
+  const catalogPath = path.join(siteDir, '.well-known', 'ai-catalog.json');
 
-  if (indexJson.counts?.installableNshm !== installableCount || indexJson.nshms?.length !== installableCount) {
-    errors.push(`site/index.json installable count mismatch (expected ${installableCount})`);
+  for (const reqFile of [indexPath, countPath, catalogPath]) {
+    if (!fs.existsSync(reqFile)) {
+      errors.push(`missing built output ${reqFile} (run npm run build first)`);
+    }
   }
-  if (indexJson.entries?.length !== data.entries.length) {
-    errors.push(`site/index.json entries count mismatch (${indexJson.entries?.length} vs ${data.entries.length})`);
-  }
-  if (countJson.schemaVersion !== 1 || countJson.message !== String(installableCount)) {
-    errors.push(`site/count.json mismatch (expected message "${installableCount}", got "${countJson.message}")`);
-  }
-  if (aiCatalog.specVersion !== '1.0' || !Array.isArray(aiCatalog.entries) || aiCatalog.entries.length === 0) {
-    errors.push('site/.well-known/ai-catalog.json invalid ARD 1.0 payload');
+
+  if (fs.existsSync(indexPath) && fs.existsSync(countPath) && fs.existsSync(catalogPath)) {
+    const indexJson = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+    const countJson = JSON.parse(fs.readFileSync(countPath, 'utf8'));
+    const aiCatalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+
+    if (indexJson.counts?.installableNshm !== installableCount || indexJson.nshms?.length !== installableCount) {
+      errors.push(`${indexPath} installable count mismatch (expected ${installableCount})`);
+    }
+    if (indexJson.entries?.length !== data.entries.length) {
+      errors.push(`${indexPath} entries count mismatch (${indexJson.entries?.length} vs ${data.entries.length})`);
+    }
+    if (countJson.schemaVersion !== 1 || countJson.message !== String(installableCount)) {
+      errors.push(`${countPath} mismatch (expected message "${installableCount}", got "${countJson.message}")`);
+    }
+    if (aiCatalog.specVersion !== '1.0' || !Array.isArray(aiCatalog.entries) || aiCatalog.entries.length === 0) {
+      errors.push(`${catalogPath} invalid ARD 1.0 payload`);
+    }
   }
 
   if (errors.length > 0) {
@@ -324,7 +367,7 @@ function main() {
   }
 
   console.log(
-    `lint: OK (${data.entries.length} total entries, ${installableCount} installable nshms; README.md, README.zh.md, seo-content.json, index.json, count.json, ai-catalog.json in sync)`,
+    `lint: OK (${data.entries.length} total entries, ${installableCount} installable nshms; README.md, README.zh.md, src/content, ${siteDir}/{index.json,count.json,ai-catalog.json} in sync)`,
   );
 }
 

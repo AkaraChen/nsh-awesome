@@ -1,0 +1,178 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../Breadcrumbs.astro';
+import InlineCode from '../InlineCode.astro';
+import DataTable from '../DataTable.astro';
+import RelatedLinks from '../RelatedLinks.astro';
+import { UI, getLocalePath, type Locale } from '../../i18n/ui';
+import {
+  buildInstallableLinkMap,
+  getCatalogBundle,
+  getPageContentEntry,
+} from '../../lib/catalog';
+import { buildArticleSchema } from '../../../scripts/lib/seo-schema.mjs';
+
+interface Props {
+  lang: Locale;
+}
+
+const { lang } = Astro.props;
+const t = UI[lang];
+const { data, routes } = await getCatalogBundle();
+const pageEntry = await getPageContentEntry(lang, 'discovery');
+if (pageEntry.data.pageType !== 'discovery') {
+  throw new Error(`Expected discovery pageType for ${lang}/discovery`);
+}
+const pageData = pageEntry.data;
+const { Content } = await render(pageEntry);
+
+const route = routes.find((r) => r.key === 'pillar:discovery' && r.lang === lang)!;
+const linkMap = buildInstallableLinkMap(data.entries, lang);
+const installableCount = data.entries.filter((e) => e.installable).length;
+const siteUrl = data.siteUrl || 'https://nsh-awesome.vercel.app/';
+
+const breadcrumbs = [
+  { label: t.homeLabel, href: getLocalePath(lang, '') },
+  { label: t.discoveryBreadcrumb },
+];
+
+const jsonLdGraph = buildArticleSchema({
+  siteUrl,
+  lang,
+  pageUrl: route.url,
+  title: route.title,
+  description: route.description,
+  datePublished: pageData.datePublished,
+  dateModified: route.lastmod,
+  kind: 'discovery',
+});
+---
+
+<BaseLayout
+  lang={lang}
+  title={route.title}
+  description={route.description}
+  canonicalUrl={route.url}
+  enUrl={route.enUrl}
+  zhUrl={route.zhUrl}
+  altPath={route.altPath}
+  mdUrl={route.mdUrl}
+  socialType="article"
+  publishedTime={pageData.datePublished}
+  modifiedTime={route.lastmod}
+  jsonLdGraph={jsonLdGraph}
+  activeNav="discovery"
+  nshmCount={installableCount}
+  nshVerifiedVersion={data.nshVerifiedVersion}
+  siteUrl={siteUrl}
+>
+  <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <Breadcrumbs items={breadcrumbs} lang={lang} />
+      <h1>{pageData.h1}</h1>
+      <p class="hero__desc">
+        <InlineCode text={pageData.lead} />
+      </p>
+      <div class="action-row">
+        <a class="pill-link" href={route.mdPath}>
+          {t.markdownEdition}
+        </a>
+        <a
+          class="pill-link"
+          href="https://github.com/AkaraChen/nsh-awesome/blob/main/docs/DISCOVERY.md"
+          target="_blank"
+          rel="noopener"
+        >
+          {t.rawDiscovery}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+      <h2>{t.methodologyOverview}</h2>
+      <div class="md-prose">
+        <Content />
+      </div>
+    </section>
+
+    <section class="content-band">
+      <h2>{pageData.manifestRules.heading}</h2>
+      <p>
+        <InlineCode text={pageData.manifestRules.intro} />
+      </p>
+      <div
+        class="table-scroll"
+        tabindex="0"
+        role="region"
+        aria-label={pageData.manifestRules.heading}
+      >
+        <table class="data-table">
+          <thead>
+            <tr>
+              {pageData.manifestRules.columns.map((c) => (
+                <th scope="col">
+                  <InlineCode text={c} />
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {pageData.manifestRules.rows.map((r) => (
+              <tr>
+                {r.map((cell) => (
+                  <td>
+                    <InlineCode text={cell} />
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ul class="prose-list">
+        {
+          pageData.manifestRules.nuances.map((n) => (
+            <li>
+              <InlineCode text={n} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="content-band">
+      <h2>{pageData.cargoPublishQuirk.heading}</h2>
+      <p>
+        <InlineCode text={pageData.cargoPublishQuirk.explanation} />
+      </p>
+      <pre tabindex="0"><code>{pageData.cargoPublishQuirk.snippet}</code></pre>
+    </section>
+
+    <DataTable
+      heading={pageData.channelsTable.heading}
+      intro={pageData.channelsTable.intro}
+      columns={pageData.channelsTable.columns}
+      rows={pageData.channelsTable.rows}
+    />
+
+    <DataTable
+      heading={pageData.acceptedTable.heading}
+      intro={pageData.acceptedTable.intro}
+      columns={pageData.acceptedTable.columns}
+      rows={pageData.acceptedTable.rows}
+      linkModuleMap={linkMap}
+    />
+
+    <DataTable
+      heading={pageData.exclusionsTable.heading}
+      intro={pageData.exclusionsTable.intro}
+      columns={pageData.exclusionsTable.columns}
+      rows={pageData.exclusionsTable.rows}
+    />
+
+    <RelatedLinks items={pageData.relatedLinks} heading={t.relatedCatalogSections} />
+  </div>
+</BaseLayout>

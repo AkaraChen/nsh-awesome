@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
  * Check all HTTP(S) URLs referenced in `data/entries.json`, `README.md`,
- * `README.zh.md`, `docs/DISCOVERY.md`, `CONTRIBUTING.md`, and generated
- * `site/` discovery/route artifacts (`sitemap.xml`, `robots.txt`, `llms.txt`,
+ * `README.zh.md`, `docs/DISCOVERY.md`, `CONTRIBUTING.md`, and built
+ * `dist/` discovery/route artifacts (`sitemap.xml`, `robots.txt`, `llms.txt`,
  * `.well-known/ai-catalog.json`, `index.html`, `zh/index.html`).
  *
  * Usage:
- *   node scripts/check-links.mjs [--ignore-self]
+ *   node scripts/check-links.mjs [--ignore-self] [--dir dist]
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -28,7 +28,7 @@ export function isSelfUrl(url) {
   });
 }
 
-export function collectUrls({ ignoreSelf = false } = {}) {
+export function collectUrls({ ignoreSelf = false, siteDir = 'dist' } = {}) {
   const urls = new Set();
   const data = JSON.parse(fs.readFileSync('data/entries.json', 'utf8'));
   const baseSiteUrl = String(data.siteUrl || 'https://nsh-awesome.vercel.app/').replace(/\/?$/, '/');
@@ -49,18 +49,20 @@ export function collectUrls({ ignoreSelf = false } = {}) {
     }
   }
 
-  // Generated agentic & route surfaces under site/
-  if (fs.existsSync('site/robots.txt')) {
+  // Built agentic & route surfaces under siteDir (default dist/)
+  const robotsFile = path.join(siteDir, 'robots.txt');
+  if (fs.existsSync(robotsFile)) {
     urls.add(`${baseSiteUrl}robots.txt`);
-    const robots = fs.readFileSync('site/robots.txt', 'utf8');
+    const robots = fs.readFileSync(robotsFile, 'utf8');
     for (const m of robots.matchAll(/^(?:Sitemap|Agentmap):\s*(https?:\/\/\S+)/gim)) {
       urls.add(m[1].trim());
     }
   }
 
-  if (fs.existsSync('site/sitemap.xml')) {
+  const sitemapFile = path.join(siteDir, 'sitemap.xml');
+  if (fs.existsSync(sitemapFile)) {
     urls.add(`${baseSiteUrl}sitemap.xml`);
-    const sitemap = fs.readFileSync('site/sitemap.xml', 'utf8');
+    const sitemap = fs.readFileSync(sitemapFile, 'utf8');
     for (const m of sitemap.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)) {
       urls.add(m[1].trim());
     }
@@ -69,17 +71,19 @@ export function collectUrls({ ignoreSelf = false } = {}) {
     }
   }
 
-  if (fs.existsSync('site/llms.txt')) {
+  const llmsFile = path.join(siteDir, 'llms.txt');
+  if (fs.existsSync(llmsFile)) {
     urls.add(`${baseSiteUrl}llms.txt`);
-    const llms = fs.readFileSync('site/llms.txt', 'utf8');
+    const llms = fs.readFileSync(llmsFile, 'utf8');
     for (const m of llms.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)) {
       urls.add(m[1].trim());
     }
   }
 
-  if (fs.existsSync('site/.well-known/ai-catalog.json')) {
+  const aiCatalogFile = path.join(siteDir, '.well-known', 'ai-catalog.json');
+  if (fs.existsSync(aiCatalogFile)) {
     urls.add(`${baseSiteUrl}.well-known/ai-catalog.json`);
-    const catalog = JSON.parse(fs.readFileSync('site/.well-known/ai-catalog.json', 'utf8'));
+    const catalog = JSON.parse(fs.readFileSync(aiCatalogFile, 'utf8'));
     for (const u of [catalog.host?.identifier, catalog.host?.documentationUrl, catalog.host?.logoUrl]) {
       if (typeof u === 'string' && /^https?:\/\//.test(u)) urls.add(u);
     }
@@ -88,7 +92,7 @@ export function collectUrls({ ignoreSelf = false } = {}) {
     }
   }
 
-  for (const htmlFile of ['site/index.html', 'site/zh/index.html']) {
+  for (const htmlFile of [path.join(siteDir, 'index.html'), path.join(siteDir, 'zh', 'index.html')]) {
     if (!fs.existsSync(htmlFile)) continue;
     const html = fs.readFileSync(htmlFile, 'utf8');
     for (const m of html.matchAll(/<meta\s+property="og:image"\s+content="(https?:\/\/[^"]+)"/gi)) {
@@ -97,7 +101,7 @@ export function collectUrls({ ignoreSelf = false } = {}) {
   }
 
   for (const asset of ['favicon.ico', 'apple-touch-icon.png', 'site.webmanifest']) {
-    if (fs.existsSync(`site/${asset}`)) {
+    if (fs.existsSync(path.join(siteDir, asset)) || fs.existsSync(path.join('public', asset))) {
       urls.add(`${baseSiteUrl}${asset}`);
     }
   }
@@ -148,8 +152,11 @@ async function checkOne(url) {
 }
 
 async function main() {
-  const ignoreSelf = process.argv.includes('--ignore-self');
-  const urls = collectUrls({ ignoreSelf }).sort();
+  const argv = process.argv.slice(2);
+  const ignoreSelf = argv.includes('--ignore-self');
+  const dirIdx = argv.indexOf('--dir');
+  const siteDir = dirIdx >= 0 && argv[dirIdx + 1] ? argv[dirIdx + 1] : 'dist';
+  const urls = collectUrls({ ignoreSelf, siteDir }).sort();
   const results = new Array(urls.length);
   let cursor = 0;
 

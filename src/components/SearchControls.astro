@@ -1,0 +1,117 @@
+---
+import { UI, getLocalePath, type Locale } from '../i18n/ui';
+
+interface Props {
+  entries: any[];
+  sections: any[];
+  categories: any[];
+  lang: Locale;
+}
+
+const { entries = [], sections = [], categories = [], lang } = Astro.props;
+const t = UI[lang];
+const actionUrl = getLocalePath(lang, '');
+const activeCategories = categories.filter((c) => entries.some((e) => e.category === c.id));
+---
+
+<section class="controls" aria-label={t.searchFormLabel}>
+  <form
+    id="catalog-search-form"
+    class="controls__form"
+    role="search"
+    action={actionUrl}
+    method="get"
+    toolname="filter_catalog_entries"
+    tooldescription={t.toolDescription}
+  >
+    <div class="search-wrap">
+      <label id="search-input-label" class="sr-only" for="search-input">
+        {t.searchInputLabel}
+      </label>
+      <svg
+        class="search-icon"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
+      <input
+        id="search-input"
+        name="q"
+        class="search-input"
+        type="search"
+        aria-labelledby="search-input-label"
+        placeholder={t.searchPlaceholder}
+        autocomplete="off"
+        toolparamtitle="Search Query"
+        toolparamdescription={t.queryParamDesc}
+      />
+      <span class="search-kbd" aria-hidden="true">/</span>
+    </div>
+    <label class="sr-only" for="source-filter">
+      {t.sourceFilterLabel}
+    </label>
+    <select
+      id="source-filter"
+      name="source"
+      class="select-filter"
+      toolparamtitle="Distribution Source"
+      toolparamdescription={t.sourceParamDesc}
+    >
+      <option value="all">{t.allSources}</option>
+      <option value="crates.io">crates.io</option>
+      <option value="github">github:</option>
+      <option value="git">{t.gitUrl}</option>
+      <option value="web">{t.webDocs}</option>
+    </select>
+    <button type="submit" class="ctrl-btn ctrl-btn--primary">
+      {t.filterSubmit}
+    </button>
+  </form>
+  <div class="chips" id="section-chips" role="group" aria-label={t.filterBySection}>
+    <button type="button" class="chip is-active" data-section="all" aria-pressed="true">
+      {t.allChip} ({entries.length})
+    </button>
+    {
+      sections.map((s) => {
+        const cnt = entries.filter((e) => e.section === s.id).length;
+        return (
+          <button type="button" class="chip" data-section={s.id} aria-pressed="false">
+            {s.title[lang]} ({cnt})
+          </button>
+        );
+      })
+    }
+  </div>
+  <div class="chips chips--sub" id="category-chips" role="group" aria-label={t.filterByCategory}>
+    <button
+      type="button"
+      class="chip chip--sub is-active"
+      data-category="all"
+      data-owner-section="all"
+      aria-pressed="true"
+    >
+      {t.allCategoriesChip}
+    </button>
+    {
+      activeCategories.map((c) => (
+        <button
+          type="button"
+          class="chip chip--sub"
+          data-category={c.id}
+          data-owner-section={c.section}
+          aria-pressed="false"
+        >
+          {c.title[lang]}
+        </button>
+      ))
+    }
+  </div>
+</section>

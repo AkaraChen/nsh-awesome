@@ -176,8 +176,8 @@ Native Shell 官方文档、架构指南与 nshm 模块开发参考。
 ## 发现机制与自动校验
 
 - **实测准入规则：** 可被 `nsh add` 安装的模块必须在 crate 根包含 `#[native_module("...")]`、在 `nsh.json` 声明 `"exports"`（TSX）或声明 `"platform"`（平台后端），仅有 crates.io `nshm` keyword 并不足够。详见 [`docs/DISCOVERY.md`](docs/DISCOVERY.md) 中 6 条发现渠道的实测命中数，以及为何 18 个 `0.6` 规范化 crate 与 3 个 `0.6`/`=0.7.0` 模块暂未列入 `0.7.1` 安装清单。
-- **自动发现与 CI 校验：** 运行 `node scripts/discover.mjs` 即可扫描 crates.io、GitHub 与 `longbridge/nsh-showcases`；CI 会校验 Markdown/Schema 格式（`scripts/lint.mjs`）、生成物一致性（`scripts/generate.mjs --check`）、确定性 SEO 与 Schema/hreflang/Agentic 回归门禁（`scripts/seo-check.mjs`）、单元测试（`node --test scripts/*.test.mjs`）、全量链接可用性（`scripts/check-links.mjs`）及每条 `nshm` 的真实 `nsh add` 安装（`scripts/verify-install.mjs`）。
+- **自动发现与 CI 校验：** 运行 `node scripts/discover.mjs` 即可扫描 crates.io、GitHub 与 `longbridge/nsh-showcases`；CI 会执行 `npm run build`（Astro 静态构建至 `dist/`），并校验 Markdown/Schema/Content Collections 一致性（`scripts/lint.mjs`）、README 同步（`scripts/generate.mjs --check`）、确定性 SEO 与 Schema/hreflang/Agentic 回归门禁（`scripts/seo-check.mjs`）、单元测试（`node --test scripts/*.test.mjs`）、全量链接可用性（`scripts/check-links.mjs`）及每条 `nshm` 的真实 `nsh add` 安装（`scripts/verify-install.mjs`）。
 
 ## 参与贡献
 
-欢迎提交新模块或修正信息！请编辑单一数据源 [`data/entries.json`](data/entries.json)（更新双语页面文案时同步编辑 [`data/seo-content.json`](data/seo-content.json)）并运行 `node scripts/generate.mjs`，详情见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。
+欢迎提交新模块或修正信息！请编辑单一数据源 [`data/entries.json`](data/entries.json)（如需补充深度详情可同步编辑 `src/content/` 下的双语 Markdown），运行 `node scripts/generate.mjs` 与 `npm run build`，详情见 [`CONTRIBUTING.md`](CONTRIBUTING.md)。

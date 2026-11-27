@@ -531,12 +531,22 @@ test('renderAgenticHeadLinks and buildWebMcpSnippet behave cleanly across static
   assert.ok(registered.every((r) => r.opts.signal.aborted === true));
 });
 
-test('vercel.json enforces static output, trailingSlash, security headers, CORS, and non-redirecting file rules', () => {
-  assert.equal(vercelConfig.framework, null);
-  assert.equal(vercelConfig.buildCommand, '');
-  assert.equal(vercelConfig.outputDirectory, 'site');
+test('vercel.json enforces Astro static build, trailingSlash, security headers, CORS, and immutable _astro rules', () => {
+  assert.equal(vercelConfig.framework, 'astro');
+  assert.equal(vercelConfig.buildCommand, 'npm run build');
+  assert.equal(vercelConfig.outputDirectory, 'dist');
   assert.equal(vercelConfig.trailingSlash, true);
   assert.equal(vercelConfig.rewrites, undefined);
+
+  const astroAssetRule = vercelConfig.headers.find((r) => r.source === '/_astro/(.*)');
+  assert.ok(astroAssetRule, 'Missing cache header rule for /_astro/(.*)');
+  assert.ok(
+    astroAssetRule.headers.some(
+      (h) =>
+        h.key.toLowerCase() === 'cache-control' &&
+        h.value === 'public, max-age=31536000, immutable',
+    ),
+  );
 
   const globalRule = vercelConfig.headers.find((r) => r.source === '/(.*)');
   assert.ok(globalRule);

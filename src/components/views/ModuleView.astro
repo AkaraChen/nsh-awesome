@@ -1,0 +1,221 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../Breadcrumbs.astro';
+import InlineCode from '../InlineCode.astro';
+import DataTable from '../DataTable.astro';
+import Callout from '../Callout.astro';
+import RelatedLinks from '../RelatedLinks.astro';
+import { UI, getLocalePath, type Locale } from '../../i18n/ui';
+import {
+  buildFallbackModuleMeta,
+  getCatalogBundle,
+  getModuleContentEntry,
+} from '../../lib/catalog';
+import { buildModuleSchema } from '../../../scripts/lib/seo-schema.mjs';
+
+interface Props {
+  lang: Locale;
+  entry: any;
+}
+
+const { lang, entry } = Astro.props;
+const t = UI[lang];
+const { data, routes } = await getCatalogBundle();
+const moduleEntry = await getModuleContentEntry(lang, entry.id);
+const fallback = moduleEntry
+  ? null
+  : buildFallbackModuleMeta({
+      entry,
+      lang,
+      allEntries: data.entries,
+      nshVerifiedVersion: data.nshVerifiedVersion,
+    });
+
+const modMeta = moduleEntry ? moduleEntry.data : fallback!;
+const rendered = moduleEntry ? await render(moduleEntry) : null;
+const Content = rendered?.Content;
+
+const route = routes.find((r) => r.key === `module:${entry.id}` && r.lang === lang)!;
+const catMeta = data.categories.find((c) => c.id === entry.category);
+const installableCount = data.entries.filter((e) => e.installable).length;
+const siteUrl = data.siteUrl || 'https://nsh-awesome.vercel.app/';
+
+const breadcrumbs = [
+  { label: t.homeLabel, href: getLocalePath(lang, '') },
+  { label: t.nshmHubLabel, href: getLocalePath(lang, 'nshm') },
+  { label: entry.name },
+];
+
+const jsonLdGraph = buildModuleSchema({
+  siteUrl,
+  lang,
+  entry,
+  pageUrl: route.url,
+  title: route.title,
+  description: route.description,
+  updatedAt: route.lastmod,
+});
+---
+
+<BaseLayout
+  lang={lang}
+  title={route.title}
+  description={route.description}
+  canonicalUrl={route.url}
+  enUrl={route.enUrl}
+  zhUrl={route.zhUrl}
+  altPath={route.altPath}
+  mdUrl={route.mdUrl}
+  socialType="website"
+  modifiedTime={route.lastmod}
+  jsonLdGraph={jsonLdGraph}
+  activeNav="nshm"
+  nshmCount={installableCount}
+  nshVerifiedVersion={data.nshVerifiedVersion}
+  siteUrl={siteUrl}
+>
+  <section class="hero hero--compact">
+    <div class="container hero__copy">
+      <Breadcrumbs items={breadcrumbs} lang={lang} />
+      <h1>{modMeta.h1}</h1>
+      <p class="hero__desc">
+        <InlineCode text={modMeta.summary} />
+      </p>
+      <div class="endpoint-box">
+        <span class="endpoint-box__label">{t.installCommandLabel}</span>
+        <code class="install-cmd">{entry.installCommand}</code>
+        <button type="button" class="copy-btn" data-copy={entry.installCommand}>
+          <span data-copy-label>{t.copy}</span>
+          <span class="sr-only"> — {entry.installCommand}</span>
+        </button>
+      </div>
+      <div class="action-row">
+        <a class="pill-link" href={entry.sourceUrl} target="_blank" rel="noopener">
+          {t.sourceRepo}
+        </a>
+        {
+          entry.cratesUrl && entry.cratesUrl !== entry.sourceUrl && (
+            <a class="pill-link" href={entry.cratesUrl} target="_blank" rel="noopener">
+              crates.io
+            </a>
+          )
+        }
+        {
+          entry.homepage && entry.homepage !== entry.sourceUrl && (
+            <a class="pill-link" href={entry.homepage} target="_blank" rel="noopener">
+              {t.docsDemo}
+            </a>
+          )
+        }
+        <a class="pill-link" href={route.mdPath}>
+          {t.markdown}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container page-body">
+    <section class="content-band">
+      <h2>{t.moduleFacts}</h2>
+      <dl class="facts-grid">
+        <div class="fact-item">
+          <dt>{t.factCategory}</dt>
+          <dd>{catMeta?.title?.[lang] || entry.category}</dd>
+        </div>
+        <div class="fact-item">
+          <dt>{t.factKind}</dt>
+          <dd>
+            <code>{entry.kind}</code>
+          </dd>
+        </div>
+        <div class="fact-item">
+          <dt>{t.factSourceType}</dt>
+          <dd>
+            <code>{entry.sourceType}</code>
+          </dd>
+        </div>
+        <div class="fact-item">
+          <dt>{t.factVersion}</dt>
+          <dd>
+            <code>{entry.version || 'N/A'}</code>
+          </dd>
+        </div>
+        <div class="fact-item">
+          <dt>{t.factNshTarget}</dt>
+          <dd>
+            <code>{entry.nshVersion || data.nshVerifiedVersion}</code>
+          </dd>
+        </div>
+        <div class="fact-item">
+          <dt>{t.factLicense}</dt>
+          <dd>{entry.license}</dd>
+        </div>
+        <div class="fact-item">
+          <dt>{t.factUpdated}</dt>
+          <dd>{entry.updatedAt}</dd>
+        </div>
+        <div class="fact-item">
+          <dt>{t.factPlatforms}</dt>
+          <dd>{(entry.platforms || []).join(lang === 'zh' ? '、' : ', ')}</dd>
+        </div>
+      </dl>
+    </section>
+
+    {
+      Content ? (
+        <div class="md-prose">
+          <Content />
+        </div>
+      ) : (
+        fallback!.paragraphs.map((sec) => (
+          <section class="content-band">
+            <h2>{sec.heading}</h2>
+            {sec.body.map((p) => (
+              <p>
+                <InlineCode text={p} />
+              </p>
+            ))}
+          </section>
+        ))
+      )
+    }
+
+    <DataTable
+      heading={modMeta.platformSupport.heading}
+      intro={modMeta.platformSupport.overview}
+      columns={[...t.platformHeaders]}
+      rows={modMeta.platformSupport.matrix.map((m) => [m.platform, m.status, m.notes])}
+    />
+
+    <Callout
+      heading={modMeta.securityNote.heading}
+      body={modMeta.securityNote.body}
+      variant="warn"
+    />
+
+    <RelatedLinks
+      items={modMeta.related.map((m) => ({
+        path: m.path,
+        label: m.name,
+        reason: m.reason,
+      }))}
+      heading={t.relatedModulesHeading}
+    />
+
+    {
+      modMeta.parentLinks.length > 0 && (
+        <section class="content-band">
+          <h2>{t.parentHubsHeading}</h2>
+          <div class="pill-links">
+            {modMeta.parentLinks.map((p) => (
+              <a class="pill-link" href={p.path}>
+                <InlineCode text={p.label} />
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </div>
+</BaseLayout>

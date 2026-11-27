@@ -4,23 +4,22 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { evaluateNshmManifest, extractTarGzTexts, satisfiesSemver } from './lib/manifest-check.mjs';
-import { lintReadmeText, validateEntriesData, validateSeoContentData } from './lint.mjs';
+import { lintReadmeText, validateContentCollections, validateEntriesData } from './lint.mjs';
 import { getDefaultOgImage, renderHeadIconsAndManifest, renderSocialMeta } from './lib/seo-assets.mjs';
-import { buildPageManifest } from './lib/site-routes.mjs';
+import { buildRouteManifestFromData } from '../src/lib/catalog-pure.mjs';
 import { collectUrls, isSelfUrl } from './check-links.mjs';
 import { runSeoCheck } from './seo-check.mjs';
 
 const entriesData = JSON.parse(fs.readFileSync('data/entries.json', 'utf8'));
-const seoContent = JSON.parse(fs.readFileSync('data/seo-content.json', 'utf8'));
 
-function withTempSiteCopy(t, fn) {
+function withTempDistCopy(t, fn) {
   const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'nsh-seo-check-'));
-  const tmpSite = path.join(tmpRoot, 'site');
-  fs.cpSync('site', tmpSite, { recursive: true });
+  const tmpDist = path.join(tmpRoot, 'dist');
+  fs.cpSync('dist', tmpDist, { recursive: true });
   t.after(() => {
     fs.rmSync(tmpRoot, { recursive: true, force: true });
   });
-  return fn(tmpSite);
+  return fn(tmpDist);
 }
 
 test('evaluateNshmManifest recognizes Rust, TSX, Hybrid, and Platform nshm', () => {
@@ -149,14 +148,14 @@ test('seo-assets renders icons, manifest, bilingual OG images, and escaped socia
   assert.ok(articleMeta.includes('name="twitter:card" content="summary_large_image"'));
 });
 
-test('site-routes buildPageManifest returns 40 unique bilingual routes with consistent metadata', () => {
-  const routes = buildPageManifest(entriesData, seoContent);
+test('buildRouteManifestFromData returns 40 unique bilingual routes with consistent metadata', () => {
+  const routes = buildRouteManifestFromData({ data: entriesData });
   assert.equal(routes.length, 40);
   assert.equal(routes.filter((r) => r.lang === 'en').length, 20);
   assert.equal(routes.filter((r) => r.lang === 'zh').length, 20);
   assert.equal(new Set(routes.map((r) => r.url)).size, 40);
-  assert.equal(new Set(routes.map((r) => r.htmlFile)).size, 40);
-  assert.equal(new Set(routes.map((r) => r.mdFile)).size, 40);
+  assert.equal(new Set(routes.map((r) => r.path)).size, 40);
+  assert.equal(new Set(routes.map((r) => r.mdPath)).size, 40);
   for (const r of routes) {
     assert.match(r.lastmod, /^\d{4}-\d{2}-\d{2}$/);
     assert.ok(r.enUrl.startsWith('https://nsh-awesome.vercel.app/'));
@@ -164,27 +163,47 @@ test('site-routes buildPageManifest returns 40 unique bilingual routes with cons
   }
 });
 
-test('validateSeoContentData passes on real seo-content.json and rejects duplicates or missing modules', () => {
-  assert.deepEqual(validateSeoContentData(seoContent, entriesData), []);
+test('validateContentCollections passes on src/content and rejects orphans, missing pages, or duplicate titles/descriptions', (t) => {
+  assert.deepEqual(validateContentCollections(entriesData, 'src/content'), []);
 
-  const broken = structuredClone(seoContent);
-  delete broken.modules['nsh-omarchy'];
-  broken.pillars.about.en.title = broken.pillars.discovery.en.title;
-  broken.pillars.about.en.metaDescription = broken.pillars.discovery.en.metaDescription;
-  const errs = validateSeoContentData(broken, entriesData);
-  assert.ok(errs.some((e) => e.includes('modules.nsh-omarchy')));
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'nsh-content-check-'));
+  const tmpContent = path.join(tmpRoot, 'content');
+  fs.cpSync('src/content', tmpContent, { recursive: true });
+  t.after(() => {
+    fs.rmSync(tmpRoot, { recursive: true, force: true });
+  });
+
+  // Remove a required page, add an orphan module, and duplicate title/description
+  fs.unlinkSync(path.join(tmpContent, 'pages', 'en', 'templates.md'));
+  fs.copyFileSync(
+    path.join(tmpContent, 'modules', 'en', 'nsh-omarchy.md'),
+    path.join(tmpContent, 'modules', 'en', 'orphan-mod.md'),
+  );
+  const aboutPath = path.join(tmpContent, 'pages', 'en', 'about.md');
+  const discText = fs.readFileSync(path.join(tmpContent, 'pages', 'en', 'discovery.md'), 'utf8');
+  const discTitle = discText.match(/^title: (.+)$/m)[1];
+  const discDesc = discText.match(/^description: (.+)$/m)[1];
+  const aboutText = fs
+    .readFileSync(aboutPath, 'utf8')
+    .replace(/^title: .+$/m, `title: ${discTitle}`)
+    .replace(/^description: .+$/m, `description: ${discDesc}`);
+  fs.writeFileSync(aboutPath, aboutText);
+
+  const errs = validateContentCollections(entriesData, tmpContent);
+  assert.ok(errs.some((e) => e.includes('pages/en/templates.md: missing required page')));
+  assert.ok(errs.some((e) => e.includes('orphan module entry "orphan-mod"')));
   assert.ok(errs.some((e) => e.includes('duplicate title')));
-  assert.ok(errs.some((e) => e.includes('duplicate metaDescription')));
+  assert.ok(errs.some((e) => e.includes('duplicate description')));
 });
 
-test('check-links collects all new production routes and properly filters self hosts', () => {
+test('check-links collects all built dist/ routes and properly filters self hosts', () => {
   assert.equal(isSelfUrl('https://nsh-awesome.vercel.app/'), true);
   assert.equal(isSelfUrl('https://nsh-awesome.vercel.app/zh/nshm/nsh-omarchy/'), true);
   assert.equal(isSelfUrl('https://akarachen.github.io/nsh-awesome/'), true);
   assert.equal(isSelfUrl('https://nsh-awesome.vercel.app.evil.com/'), false);
   assert.equal(isSelfUrl('https://nsh.dev/docs/nshm'), false);
 
-  const allUrls = new Set(collectUrls({ ignoreSelf: false }));
+  const allUrls = new Set(collectUrls({ ignoreSelf: false, siteDir: 'dist' }));
   for (const required of [
     'https://nsh-awesome.vercel.app/',
     'https://nsh-awesome.vercel.app/zh/',
@@ -206,13 +225,13 @@ test('check-links collects all new production routes and properly filters self h
   assert.equal(allUrls.has('http://www.sitemaps.org/schemas/sitemap/0.9'), false);
   assert.equal(allUrls.has('https://github.com/...git'), false);
 
-  const externalOnly = collectUrls({ ignoreSelf: true });
+  const externalOnly = collectUrls({ ignoreSelf: true, siteDir: 'dist' });
   assert.ok(externalOnly.length >= 70);
   assert.equal(externalOnly.some((u) => u.includes('nsh-awesome.vercel.app') && !u.includes('img.shields.io')), false);
 });
 
-test('runSeoCheck passes on real generated site/ with zero errors', () => {
-  const res = runSeoCheck();
+test('runSeoCheck passes on real Astro-built dist/ with zero errors', () => {
+  const res = runSeoCheck({ siteDir: 'dist' });
   assert.equal(res.ok, true, `Unexpected SEO errors:\n${res.errors.join('\n')}`);
   assert.equal(res.errors.length, 0);
   assert.equal(res.stats.indexableHtml, 40);
@@ -221,14 +240,14 @@ test('runSeoCheck passes on real generated site/ with zero errors', () => {
 });
 
 test('runSeoCheck rejects thin SSR content, missing/duplicate h1, and skipped headings', (t) => {
-  withTempSiteCopy(t, (tmpSite) => {
-    const target = path.join(tmpSite, 'about', 'index.html');
+  withTempDistCopy(t, (tmpDist) => {
+    const target = path.join(tmpDist, 'about', 'index.html');
     const html = fs
       .readFileSync(target, 'utf8')
       .replace(/<main\b[^>]*>[\s\S]*?<\/main>/i, '<main id="main-content"><h1>Only one</h1><h4>Skipped</h4></main>');
     fs.writeFileSync(target, html);
 
-    const res = runSeoCheck({ siteDir: tmpSite });
+    const res = runSeoCheck({ siteDir: tmpDist });
     assert.equal(res.ok, false);
     assert.ok(res.errors.some((e) => e.includes('skipped heading level H1 -> H4')));
     assert.ok(res.errors.some((e) => e.includes('English word count too low')));
@@ -236,11 +255,11 @@ test('runSeoCheck rejects thin SSR content, missing/duplicate h1, and skipped he
 });
 
 test('runSeoCheck rejects duplicate titles, title-matching descriptions, and templated descriptions', (t) => {
-  withTempSiteCopy(t, (tmpSite) => {
-    const aboutFile = path.join(tmpSite, 'about', 'index.html');
-    const discFile = path.join(tmpSite, 'discovery', 'index.html');
-    const templatesFile = path.join(tmpSite, 'templates', 'index.html');
-    const guidesFile = path.join(tmpSite, 'guides', 'index.html');
+  withTempDistCopy(t, (tmpDist) => {
+    const aboutFile = path.join(tmpDist, 'about', 'index.html');
+    const discFile = path.join(tmpDist, 'discovery', 'index.html');
+    const templatesFile = path.join(tmpDist, 'templates', 'index.html');
+    const guidesFile = path.join(tmpDist, 'guides', 'index.html');
 
     const discHtml = fs.readFileSync(discFile, 'utf8');
     const discTitle = discHtml.match(/<title>([\s\S]*?)<\/title>/i)[1];
@@ -265,7 +284,7 @@ test('runSeoCheck rejects duplicate titles, title-matching descriptions, and tem
         .replace(/<meta name="description" content="[^"]*"/i, `<meta name="description" content="${sharedTemplate} Betas"`),
     );
 
-    const res = runSeoCheck({ siteDir: tmpSite });
+    const res = runSeoCheck({ siteDir: tmpDist });
     assert.equal(res.ok, false);
     assert.ok(res.errors.some((e) => e.includes('duplicate <title>')));
     assert.ok(res.errors.some((e) => e.includes('meta description duplicates <title>')));
@@ -274,9 +293,9 @@ test('runSeoCheck rejects duplicate titles, title-matching descriptions, and tem
 });
 
 test('runSeoCheck rejects broken canonical, og:url mismatch, bad og:image, and broken hreflang loop', (t) => {
-  withTempSiteCopy(t, (tmpSite) => {
-    const enAbout = path.join(tmpSite, 'about', 'index.html');
-    const zhAbout = path.join(tmpSite, 'zh', 'about', 'index.html');
+  withTempDistCopy(t, (tmpDist) => {
+    const enAbout = path.join(tmpDist, 'about', 'index.html');
+    const zhAbout = path.join(tmpDist, 'zh', 'about', 'index.html');
 
     let enHtml = fs.readFileSync(enAbout, 'utf8');
     enHtml = enHtml
@@ -289,7 +308,7 @@ test('runSeoCheck rejects broken canonical, og:url mismatch, bad og:image, and b
     zhHtml = zhHtml.replace('<link rel="alternate" hreflang="en" href="https://nsh-awesome.vercel.app/about/">', '');
     fs.writeFileSync(zhAbout, zhHtml);
 
-    const res = runSeoCheck({ siteDir: tmpSite });
+    const res = runSeoCheck({ siteDir: tmpDist });
     assert.equal(res.ok, false);
     assert.ok(res.errors.some((e) => e.includes('must self-reference')));
     assert.ok(res.errors.some((e) => e.includes('og:image target missing locally')));
@@ -298,23 +317,23 @@ test('runSeoCheck rejects broken canonical, og:url mismatch, bad og:image, and b
 });
 
 test('runSeoCheck rejects retired JSON-LD types, http:// URLs, bad sitemap, bad robots/llms/ai-catalog, dead links, and orphans', (t) => {
-  withTempSiteCopy(t, (tmpSite) => {
-    const omarchyFile = path.join(tmpSite, 'nshm', 'nsh-omarchy', 'index.html');
+  withTempDistCopy(t, (tmpDist) => {
+    const omarchyFile = path.join(tmpDist, 'nshm', 'nsh-omarchy', 'index.html');
     let omarchyHtml = fs.readFileSync(omarchyFile, 'utf8');
     omarchyHtml = omarchyHtml
       .replace('"@type":"SoftwareSourceCode"', '"@type":"FAQPage"')
       .replace('https://github.com/huacnlee/nsh-omarchy', 'http://github.com/huacnlee/nsh-omarchy');
     fs.writeFileSync(omarchyFile, omarchyHtml);
 
-    const homeFile = path.join(tmpSite, 'index.html');
+    const homeFile = path.join(tmpDist, 'index.html');
     fs.writeFileSync(
       homeFile,
       fs.readFileSync(homeFile, 'utf8').replace('href="/nshm/"', 'href="/nonexistent-route/"'),
     );
 
     // Strip all inbound <a href> links targeting /about/ across all indexable HTML pages
-    for (const rel of fs.readdirSync(tmpSite, { recursive: true })) {
-      const full = path.join(tmpSite, String(rel));
+    for (const rel of fs.readdirSync(tmpDist, { recursive: true })) {
+      const full = path.join(tmpDist, String(rel));
       if (!full.endsWith('.html') || full.endsWith('404.html')) continue;
       const content = fs.readFileSync(full, 'utf8');
       if (content.includes('/about/')) {
@@ -322,16 +341,16 @@ test('runSeoCheck rejects retired JSON-LD types, http:// URLs, bad sitemap, bad 
       }
     }
 
-    const sitemapFile = path.join(tmpSite, 'sitemap.xml');
+    const sitemapFile = path.join(tmpDist, 'sitemap.xml');
     fs.writeFileSync(
       sitemapFile,
       fs.readFileSync(sitemapFile, 'utf8').replace('<url>', '<url><priority>0.8</priority>'),
     );
-    fs.writeFileSync(path.join(tmpSite, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
-    fs.writeFileSync(path.join(tmpSite, 'llms.txt'), '# Tiny\n');
-    fs.writeFileSync(path.join(tmpSite, '.well-known', 'ai-catalog.json'), JSON.stringify({ entries: [] }));
+    fs.writeFileSync(path.join(tmpDist, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
+    fs.writeFileSync(path.join(tmpDist, 'llms.txt'), '# Tiny\n');
+    fs.writeFileSync(path.join(tmpDist, '.well-known', 'ai-catalog.json'), JSON.stringify({ entries: [] }));
 
-    const res = runSeoCheck({ siteDir: tmpSite });
+    const res = runSeoCheck({ siteDir: tmpDist });
     assert.equal(res.ok, false);
     assert.ok(res.errors.some((e) => e.includes('retired/deprecated Schema.org @type "FAQPage"')));
     assert.ok(res.errors.some((e) => e.includes('insecure http:// URL in JSON-LD')));
