@@ -20,7 +20,7 @@ env:
 
 jobs:
   lint-and-consistency:
-    name: lint + generate --check
+    name: lint + seo-check + generate --check
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     steps:
@@ -28,12 +28,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 24
-      - name: Check generated files match data/entries.json
+      - name: Check generated files match data/entries.json & data/seo-content.json
         run: node scripts/generate.mjs --check
       - name: Run schema and awesome-lint checks
         run: node scripts/lint.mjs
+      - name: Run automated SEO regression checks
+        run: node scripts/seo-check.mjs
       - name: Run unit tests
-        run: node --test scripts/verify.test.mjs
+        run: node --test scripts/*.test.mjs
 
   check-links:
     name: check links

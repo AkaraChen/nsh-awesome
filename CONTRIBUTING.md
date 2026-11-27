@@ -4,7 +4,7 @@ Thank you for helping grow the [Native Shell (NSH)](https://nsh.dev) ecosystem!
 
 ## Single Source of Truth
 
-All lists (`README.md`, `README.zh.md`), the 40-page bilingual static website (`site/` + `site/404.html` + `site/assets/app.{css,js}` + `.md` alternates), agentic discovery artifacts (`site/robots.txt`, `site/sitemap.xml`, `site/llms.txt`, `site/llms-full.txt`, `site/.well-known/ai-catalog.json`), and the machine-readable catalog (`site/index.json`, `site/count.json`) are generated from [`data/entries.json`](data/entries.json) and [`data/seo-content.json`](data/seo-content.json). **Do not edit the generated files by hand** — CI checks byte-for-byte consistency via `node scripts/generate.mjs --check`.
+All lists (`README.md`, `README.zh.md`), the 40-page bilingual static website (`site/` + `site/404.html` + `site/assets/app.{css,js}` + `.md` alternates), agentic discovery artifacts (`site/robots.txt`, `site/sitemap.xml`, `site/llms.txt`, `site/llms-full.txt`, `site/.well-known/ai-catalog.json`), and the machine-readable catalog (`site/index.json`, `site/count.json`) are generated from [`data/entries.json`](data/entries.json) and [`data/seo-content.json`](data/seo-content.json). **Do not edit the generated files by hand** — CI checks byte-for-byte consistency via `node scripts/generate.mjs --check` and enforces deterministic SEO, Schema, `hreflang`, and link-graph gates via `node scripts/seo-check.mjs`.
 
 > [!NOTE]
 > Production deployments on Vercel (`vercel.json`: `"buildCommand": ""`, `"outputDirectory": "site"`) publish the committed `site/` directory directly on every push to `main` without a build step. Always run `node scripts/generate.mjs` and commit the updated `site/` files together with `data/entries.json` and `data/seo-content.json` — CI checks parity, but does not block Vercel from deploying a stale `site/`.
@@ -31,6 +31,7 @@ All lists (`README.md`, `README.zh.md`), the 40-page bilingual static website (`
    node scripts/generate.mjs
    node scripts/generate.mjs --check
    node scripts/lint.mjs
+   node scripts/seo-check.mjs
    npm test
    node scripts/verify-install.mjs
    node scripts/check-links.mjs

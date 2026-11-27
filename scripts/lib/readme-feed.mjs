@@ -130,8 +130,8 @@ export function buildReadme(data, lang) {
   lines.push('');
   lines.push(
     isEn
-      ? `> 🌐 **Interactive directory:** [${siteUrl}](${siteUrl}) (${nshmCount} installable \`nshm\` verified on \`nsh ${data.nshVerifiedVersion}\`) · 📡 **Machine-readable index:** [\`index.json\`](${indexUrl}) · 🔍 **Discovery methodology:** [\`docs/DISCOVERY.md\`](docs/DISCOVERY.md)`
-      : `> 🌐 **交互式网页目录：** [${siteUrl}](${siteUrl})（已在 \`nsh ${data.nshVerifiedVersion}\` 实测通过 ${nshmCount} 个可安装 \`nshm\`） · 📡 **机器可读索引：** [\`index.json\`](${indexUrl}) · 🔍 **发现机制调研报告：** [\`docs/DISCOVERY.md\`](docs/DISCOVERY.md)`,
+      ? `> 🌐 **Interactive directory:** [${siteUrl}](${siteUrl}) (${nshmCount} installable \`nshm\` verified on \`nsh ${data.nshVerifiedVersion}\`) · 📡 **Machine-readable index:** [\`index.json\`](${indexUrl}) · 🤖 **LLM index:** [\`llms.txt\`](${siteUrl}llms.txt) · 🔍 **Discovery methodology:** [\`docs/DISCOVERY.md\`](docs/DISCOVERY.md)`
+      : `> 🌐 **交互式网页目录：** [${siteUrl}zh/](${siteUrl}zh/)（已在 \`nsh ${data.nshVerifiedVersion}\` 实测通过 ${nshmCount} 个可安装 \`nshm\`） · 📡 **机器可读索引：** [\`index.json\`](${indexUrl}) · 🤖 **LLM 索引：** [\`llms.txt\`](${siteUrl}llms.txt) · 🔍 **发现机制调研报告：** [\`docs/DISCOVERY.md\`](docs/DISCOVERY.md)`,
   );
   lines.push('');
   lines.push('> [!WARNING]');
@@ -202,8 +202,8 @@ export function buildReadme(data, lang) {
   );
   lines.push(
     isEn
-      ? `- **Automated discovery & CI checks:** Run \`node scripts/discover.mjs\` to scan crates.io, GitHub, and \`longbridge/nsh-showcases\`. CI validates Markdown & schema lint (\`scripts/lint.mjs\`), generated file parity (\`scripts/generate.mjs --check\`), live link checks (\`scripts/check-links.mjs\`), and real \`nsh add\` installation (\`scripts/verify-install.mjs\`) for every installable entry.`
-      : `- **自动发现与 CI 校验：** 运行 \`node scripts/discover.mjs\` 即可扫描 crates.io、GitHub 与 \`longbridge/nsh-showcases\`；CI 会校验 Markdown/Schema 格式（\`scripts/lint.mjs\`）、生成物一致性（\`scripts/generate.mjs --check\`）、全量链接可用性（\`scripts/check-links.mjs\`）及每条 \`nshm\` 的真实 \`nsh add\` 安装（\`scripts/verify-install.mjs\`）。`,
+      ? `- **Automated discovery & CI checks:** Run \`node scripts/discover.mjs\` to scan crates.io, GitHub, and \`longbridge/nsh-showcases\`. CI validates Markdown & schema lint (\`scripts/lint.mjs\`), generated file parity (\`scripts/generate.mjs --check\`), deterministic SEO & Schema/hreflang/agentic gates (\`scripts/seo-check.mjs\`), unit tests (\`node --test scripts/*.test.mjs\`), live link checks (\`scripts/check-links.mjs\`), and real \`nsh add\` installation (\`scripts/verify-install.mjs\`) for every installable entry.`
+      : `- **自动发现与 CI 校验：** 运行 \`node scripts/discover.mjs\` 即可扫描 crates.io、GitHub 与 \`longbridge/nsh-showcases\`；CI 会校验 Markdown/Schema 格式（\`scripts/lint.mjs\`）、生成物一致性（\`scripts/generate.mjs --check\`）、确定性 SEO 与 Schema/hreflang/Agentic 回归门禁（\`scripts/seo-check.mjs\`）、单元测试（\`node --test scripts/*.test.mjs\`）、全量链接可用性（\`scripts/check-links.mjs\`）及每条 \`nshm\` 的真实 \`nsh add\` 安装（\`scripts/verify-install.mjs\`）。`,
   );
   lines.push('');
 
@@ -211,8 +211,8 @@ export function buildReadme(data, lang) {
   lines.push('');
   lines.push(
     isEn
-      ? `Contributions are welcome! Edit [\`data/entries.json\`](data/entries.json), run \`node scripts/generate.mjs\`, and see [\`CONTRIBUTING.md\`](CONTRIBUTING.md) before opening a pull request.`
-      : `欢迎提交新模块或修正信息！请直接编辑单一数据源 [\`data/entries.json\`](data/entries.json) 并运行 \`node scripts/generate.mjs\`，详情见 [\`CONTRIBUTING.md\`](CONTRIBUTING.md)。`,
+      ? `Contributions are welcome! Edit [\`data/entries.json\`](data/entries.json) (and [\`data/seo-content.json\`](data/seo-content.json) for bilingual page copy), run \`node scripts/generate.mjs\`, and see [\`CONTRIBUTING.md\`](CONTRIBUTING.md) before opening a pull request.`
+      : `欢迎提交新模块或修正信息！请编辑单一数据源 [\`data/entries.json\`](data/entries.json)（更新双语页面文案时同步编辑 [\`data/seo-content.json\`](data/seo-content.json)）并运行 \`node scripts/generate.mjs\`，详情见 [\`CONTRIBUTING.md\`](CONTRIBUTING.md)。`,
   );
   lines.push('');
 

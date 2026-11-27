@@ -1,24 +1,37 @@
 #!/usr/bin/env node
 /**
  * Check all HTTP(S) URLs referenced in `data/entries.json`, `README.md`,
- * `README.zh.md`, and `docs/DISCOVERY.md`.
+ * `README.zh.md`, `docs/DISCOVERY.md`, `CONTRIBUTING.md`, and generated
+ * `site/` discovery/route artifacts (`sitemap.xml`, `robots.txt`, `llms.txt`,
+ * `.well-known/ai-catalog.json`, `index.html`, `zh/index.html`).
  *
  * Usage:
  *   node scripts/check-links.mjs [--ignore-self]
  */
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const ignoreSelf = process.argv.includes('--ignore-self');
 const UA = 'nsh-awesome-link-check/1.0 (https://github.com/AkaraChen/nsh-awesome)';
-const SELF_HOSTS = [
+export const SELF_HOSTS = Object.freeze([
   'https://nsh-awesome.vercel.app',
+  'https://akarachen.github.io/nsh-awesome',
   'https://github.com/AkaraChen/nsh-awesome',
   'https://img.shields.io/endpoint?url=https%3A%2F%2Fnsh-awesome.vercel.app%2Fcount.json',
-];
+]);
 
-function collectUrls() {
+export function isSelfUrl(url) {
+  return SELF_HOSTS.some((prefix) => {
+    if (url === prefix) return true;
+    const next = url.charAt(prefix.length);
+    return url.startsWith(prefix) && (next === '/' || next === '?' || next === '#');
+  });
+}
+
+export function collectUrls({ ignoreSelf = false } = {}) {
   const urls = new Set();
   const data = JSON.parse(fs.readFileSync('data/entries.json', 'utf8'));
+  const baseSiteUrl = String(data.siteUrl || 'https://nsh-awesome.vercel.app/').replace(/\/?$/, '/');
   if (data.repository) urls.add(data.repository);
   if (data.siteUrl) urls.add(data.siteUrl);
   for (const e of data.entries) {
@@ -27,7 +40,7 @@ function collectUrls() {
     }
   }
 
-  for (const file of ['README.md', 'README.zh.md', 'docs/DISCOVERY.md']) {
+  for (const file of ['README.md', 'README.zh.md', 'docs/DISCOVERY.md', 'CONTRIBUTING.md']) {
     if (!fs.existsSync(file)) continue;
     const text = fs.readFileSync(file, 'utf8');
     for (const m of text.matchAll(/https?:\/\/[^\s)>`\]"']+/g)) {
@@ -36,10 +49,60 @@ function collectUrls() {
     }
   }
 
-  return [...urls].filter((u) => {
-    if (!ignoreSelf) return true;
-    return !SELF_HOSTS.some((prefix) => u.startsWith(prefix));
-  });
+  // Generated agentic & route surfaces under site/
+  if (fs.existsSync('site/robots.txt')) {
+    urls.add(`${baseSiteUrl}robots.txt`);
+    const robots = fs.readFileSync('site/robots.txt', 'utf8');
+    for (const m of robots.matchAll(/^(?:Sitemap|Agentmap):\s*(https?:\/\/\S+)/gim)) {
+      urls.add(m[1].trim());
+    }
+  }
+
+  if (fs.existsSync('site/sitemap.xml')) {
+    urls.add(`${baseSiteUrl}sitemap.xml`);
+    const sitemap = fs.readFileSync('site/sitemap.xml', 'utf8');
+    for (const m of sitemap.matchAll(/<loc>(https?:\/\/[^<]+)<\/loc>/g)) {
+      urls.add(m[1].trim());
+    }
+    for (const m of sitemap.matchAll(/<xhtml:link\b[^>]*\shref="(https?:\/\/[^"]+)"/g)) {
+      urls.add(m[1].trim());
+    }
+  }
+
+  if (fs.existsSync('site/llms.txt')) {
+    urls.add(`${baseSiteUrl}llms.txt`);
+    const llms = fs.readFileSync('site/llms.txt', 'utf8');
+    for (const m of llms.matchAll(/\]\((https?:\/\/[^)\s]+)\)/g)) {
+      urls.add(m[1].trim());
+    }
+  }
+
+  if (fs.existsSync('site/.well-known/ai-catalog.json')) {
+    urls.add(`${baseSiteUrl}.well-known/ai-catalog.json`);
+    const catalog = JSON.parse(fs.readFileSync('site/.well-known/ai-catalog.json', 'utf8'));
+    for (const u of [catalog.host?.identifier, catalog.host?.documentationUrl, catalog.host?.logoUrl]) {
+      if (typeof u === 'string' && /^https?:\/\//.test(u)) urls.add(u);
+    }
+    for (const entry of catalog.entries || []) {
+      if (typeof entry?.url === 'string' && /^https?:\/\//.test(entry.url)) urls.add(entry.url);
+    }
+  }
+
+  for (const htmlFile of ['site/index.html', 'site/zh/index.html']) {
+    if (!fs.existsSync(htmlFile)) continue;
+    const html = fs.readFileSync(htmlFile, 'utf8');
+    for (const m of html.matchAll(/<meta\s+property="og:image"\s+content="(https?:\/\/[^"]+)"/gi)) {
+      urls.add(m[1].trim());
+    }
+  }
+
+  for (const asset of ['favicon.ico', 'apple-touch-icon.png', 'site.webmanifest']) {
+    if (fs.existsSync(`site/${asset}`)) {
+      urls.add(`${baseSiteUrl}${asset}`);
+    }
+  }
+
+  return [...urls].filter((u) => !ignoreSelf || !isSelfUrl(u));
 }
 
 async function checkOne(url) {
@@ -85,7 +148,8 @@ async function checkOne(url) {
 }
 
 async function main() {
-  const urls = collectUrls().sort();
+  const ignoreSelf = process.argv.includes('--ignore-self');
+  const urls = collectUrls({ ignoreSelf }).sort();
   const results = new Array(urls.length);
   let cursor = 0;
 
@@ -96,7 +160,7 @@ async function main() {
     }
   }
 
-  await Promise.all(Array.from({ length: 4 }, worker));
+  await Promise.all(Array.from({ length: 6 }, worker));
 
   const failed = results.filter((r) => !r.ok);
   console.log(`check-links: checked ${results.length} unique URLs (${results.length - failed.length} OK, ${failed.length} failed)`);
@@ -106,7 +170,9 @@ async function main() {
   if (failed.length > 0) process.exit(1);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

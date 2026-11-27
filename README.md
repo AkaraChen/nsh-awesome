@@ -8,7 +8,7 @@ English | [中文](README.zh.md)
 
 Native Shell is a Rust-first native UI framework: build once in TSX or Rust for iOS, Android, macOS, Windows, Linux, GPUI, TUI, and the web, and extend apps with installable packages called **nshm** via `nsh add`.
 
-> 🌐 **Interactive directory:** [https://nsh-awesome.vercel.app/](https://nsh-awesome.vercel.app/) (13 installable `nshm` verified on `nsh 0.7.1`) · 📡 **Machine-readable index:** [`index.json`](https://nsh-awesome.vercel.app/index.json) · 🔍 **Discovery methodology:** [`docs/DISCOVERY.md`](docs/DISCOVERY.md)
+> 🌐 **Interactive directory:** [https://nsh-awesome.vercel.app/](https://nsh-awesome.vercel.app/) (13 installable `nshm` verified on `nsh 0.7.1`) · 📡 **Machine-readable index:** [`index.json`](https://nsh-awesome.vercel.app/index.json) · 🤖 **LLM index:** [`llms.txt`](https://nsh-awesome.vercel.app/llms.txt) · 🔍 **Discovery methodology:** [`docs/DISCOVERY.md`](docs/DISCOVERY.md)
 
 > [!WARNING]
 > Installing a Rust or TSX `nshm` runs its build scripts (`build.rs`), procedural macros, and runtime code with your app's full permissions, and crates can contribute platform permissions/entitlements via `[package.metadata.nsh]`. Inspect source repositories and `nsh.lock` changes before shipping.
@@ -176,8 +176,8 @@ Official documentation, architecture guides, and module authoring references for
 ## Discovery & Verification
 
 - **Empirical manifest rules:** An installable `nshm` requires `#[native_module("...")]` in its Rust crate root, `nsh.json` `"exports"` for TSX modules, or `nsh.json` `"platform"` for platform targets — not just the `nshm` keyword on crates.io. See [`docs/DISCOVERY.md`](docs/DISCOVERY.md) for hit counts across all 6 discovery channels and why 18 normalized `0.6` crates and 3 `0.6`/`=0.7.0` GitHub modules are currently excluded from the `0.7.1` installable list.
-- **Automated discovery & CI checks:** Run `node scripts/discover.mjs` to scan crates.io, GitHub, and `longbridge/nsh-showcases`. CI validates Markdown & schema lint (`scripts/lint.mjs`), generated file parity (`scripts/generate.mjs --check`), live link checks (`scripts/check-links.mjs`), and real `nsh add` installation (`scripts/verify-install.mjs`) for every installable entry.
+- **Automated discovery & CI checks:** Run `node scripts/discover.mjs` to scan crates.io, GitHub, and `longbridge/nsh-showcases`. CI validates Markdown & schema lint (`scripts/lint.mjs`), generated file parity (`scripts/generate.mjs --check`), deterministic SEO & Schema/hreflang/agentic gates (`scripts/seo-check.mjs`), unit tests (`node --test scripts/*.test.mjs`), live link checks (`scripts/check-links.mjs`), and real `nsh add` installation (`scripts/verify-install.mjs`) for every installable entry.
 
 ## Contributing
 
-Contributions are welcome! Edit [`data/entries.json`](data/entries.json), run `node scripts/generate.mjs`, and see [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request.
+Contributions are welcome! Edit [`data/entries.json`](data/entries.json) (and [`data/seo-content.json`](data/seo-content.json) for bilingual page copy), run `node scripts/generate.mjs`, and see [`CONTRIBUTING.md`](CONTRIBUTING.md) before opening a pull request.
