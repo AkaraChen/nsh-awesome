@@ -134,6 +134,23 @@ function escapeMdTableCell(text) {
   return cleanText(text).replace(/\|/g, '\\|');
 }
 
+function wrapInlineCode(text) {
+  const cleaned = cleanText(text);
+  const matches = cleaned.match(/`+/g);
+  const maxRun = matches ? Math.max(...matches.map((m) => m.length)) : 0;
+  const fence = '`'.repeat(maxRun + 1);
+  const needsPad = cleaned.startsWith('`') || cleaned.endsWith('`');
+  return needsPad ? `${fence} ${cleaned} ${fence}` : `${fence}${cleaned}${fence}`;
+}
+
+function renderCodeFence(lang, code) {
+  const raw = String(code ?? '');
+  const matches = raw.match(/`{3,}/g);
+  const maxRun = matches ? Math.max(...matches.map((m) => m.length)) : 2;
+  const fence = '`'.repeat(maxRun + 1);
+  return `${fence}${lang}\n${raw}\n${fence}`;
+}
+
 function getInstallSourceStats(entries) {
   const installable = entries.filter((e) => e.installable);
   const bySource = {
@@ -154,12 +171,14 @@ function formatEntryMarkdownBlock(entry, lang, siteUrl) {
       : `${base}nshm/${entry.id}/`
     : entry.sourceUrl;
 
-  const lines = [`- [${entry.name}](${detailLink}) — ${cleanText(desc)}`];
+  const lines = [`- [${escapeMdLinkLabel(entry.name)}](${detailLink}) — ${cleanText(desc)}`];
   const meta = [];
 
   if (entry.installable && entry.installCommand) {
     meta.push(
-      isZh ? `安装命令：\`${entry.installCommand}\`` : `Install: \`${entry.installCommand}\``,
+      isZh
+        ? `安装命令：${wrapInlineCode(entry.installCommand)}`
+        : `Install: ${wrapInlineCode(entry.installCommand)}`,
     );
   } else if (entry.section === 'framework') {
     meta.push(
@@ -169,10 +188,18 @@ function formatEntryMarkdownBlock(entry, lang, siteUrl) {
     );
   }
 
-  meta.push(isZh ? `类型：\`${entry.kind}\`` : `Kind: \`${entry.kind}\``);
-  meta.push(isZh ? `来源：\`${entry.sourceType}\`` : `Source: \`${entry.sourceType}\``);
+  meta.push(
+    isZh ? `类型：${wrapInlineCode(entry.kind)}` : `Kind: ${wrapInlineCode(entry.kind)}`,
+  );
+  meta.push(
+    isZh
+      ? `来源：${wrapInlineCode(entry.sourceType)}`
+      : `Source: ${wrapInlineCode(entry.sourceType)}`,
+  );
   if (entry.version) {
-    meta.push(isZh ? `版本：\`${entry.version}\`` : `Version: \`${entry.version}\``);
+    meta.push(
+      isZh ? `版本：${wrapInlineCode(entry.version)}` : `Version: ${wrapInlineCode(entry.version)}`,
+    );
   }
   if (Array.isArray(entry.platforms) && entry.platforms.length > 0) {
     meta.push(
@@ -361,7 +388,7 @@ export function buildLlmsTxt({ siteUrl = SITE_URL, data, pages = [] } = {}) {
     [
       'Full Reference Documentation (llms-full.txt)',
       `${base}llms-full.txt`,
-      'Complete self-contained Markdown reference covering all 43 catalog entries, install commands, and discovery findings.',
+      `Complete self-contained Markdown reference covering all ${entries.length} catalog entries, install commands, and discovery findings.`,
     ],
     [
       'ARD 1.0 AI Resource Catalog (ai-catalog.json)',
@@ -479,7 +506,7 @@ export function buildLlmsFullTxt({ siteUrl = SITE_URL, data, seoContent = null }
   for (const sec of sections) {
     const secEntries = entries.filter((e) => e.section === sec.id);
     if (secEntries.length === 0) continue;
-    lines.push('', `## ${sec.title?.en || sec.id} (${secEntries.length})`, '');
+    lines.push('', `## ${cleanText(sec.title?.en || sec.id)} (${secEntries.length})`, '');
     lines.push(cleanText(sec.description?.en || ''));
     if (sec.id === 'framework') {
       lines.push(
@@ -493,7 +520,7 @@ export function buildLlmsFullTxt({ siteUrl = SITE_URL, data, seoContent = null }
     );
     for (const cat of secCats) {
       const catEntries = secEntries.filter((e) => e.category === cat.id);
-      lines.push('', `### ${cat.title?.en || cat.id}`, '');
+      lines.push('', `### ${cleanText(cat.title?.en || cat.id)}`, '');
       for (const entry of catEntries) {
         lines.push(formatEntryMarkdownBlock(entry, 'en', base));
       }
@@ -567,7 +594,7 @@ export function buildAiCatalogJson({ siteUrl = SITE_URL, data } = {}) {
         tags: ['nsh', 'nshm', 'rust', 'catalog', 'json'],
         capabilities: ['CatalogFeed', 'InstallCommandLookup', 'PlatformMetadata'],
         representativeQueries: [
-          'List all installable nshm modules verified for nsh 0.7.1',
+          `List all installable nshm modules verified for nsh ${verifiedVersion}`,
           'Get the nsh add install command and supported platforms for nsh-omarchy',
           'Which Native Shell framework crates cannot be installed with nsh add?',
         ],
@@ -707,7 +734,7 @@ function renderHomeMarkdown({ base, isZh, data, seoContent, canonicalUrl, altern
     const slug = getSectionHubSlug(sec.id);
     const hubUrl = isZh ? `${base}zh/${slug}/` : `${base}${slug}/`;
 
-    lines.push('', `## ${secTitle} (${secEntries.length})`, '');
+    lines.push('', `## ${cleanText(secTitle)} (${secEntries.length})`, '');
     lines.push(`${cleanText(secDesc)} ([${isZh ? '查看专题页' : 'Section hub'}](${hubUrl}))`);
 
     const secCats = categories.filter(
@@ -715,7 +742,7 @@ function renderHomeMarkdown({ base, isZh, data, seoContent, canonicalUrl, altern
     );
     for (const cat of secCats) {
       const catEntries = secEntries.filter((e) => e.category === cat.id);
-      lines.push('', `### ${cat.title?.[isZh ? 'zh' : 'en'] || cat.id}`, '');
+      lines.push('', `### ${cleanText(cat.title?.[isZh ? 'zh' : 'en'] || cat.id)}`, '');
       for (const item of catEntries) {
         lines.push(formatEntryMarkdownBlock(item, isZh ? 'zh' : 'en', base));
       }
@@ -752,7 +779,7 @@ function renderSectionMarkdown({ base, isZh, data, section, canonicalUrl, altern
   const desc = resolved.description?.[isZh ? 'zh' : 'en'] || '';
 
   const lines = [
-    `# ${title}`,
+    `# ${cleanText(title)}`,
     '',
     `> ${cleanText(desc)}`,
     '',
@@ -779,7 +806,7 @@ function renderSectionMarkdown({ base, isZh, data, section, canonicalUrl, altern
   );
   for (const cat of secCats) {
     const catEntries = secEntries.filter((e) => e.category === cat.id);
-    lines.push('', `## ${cat.title?.[isZh ? 'zh' : 'en'] || cat.id} (${catEntries.length})`, '');
+    lines.push('', `## ${cleanText(cat.title?.[isZh ? 'zh' : 'en'] || cat.id)} (${catEntries.length})`, '');
     for (const item of catEntries) {
       lines.push(formatEntryMarkdownBlock(item, isZh ? 'zh' : 'en', base));
     }
@@ -814,7 +841,7 @@ function renderModuleMarkdown({
   const verifiedVersion = data?.nshVerifiedVersion || '0.7.1';
 
   const lines = [
-    `# ${resolved.name}`,
+    `# ${cleanText(resolved.name)}`,
     '',
     `> ${cleanText(desc)}`,
     '',
@@ -825,30 +852,32 @@ function renderModuleMarkdown({
     `## ${isZh ? '模块档案' : 'Module Facts'}`,
     '',
     isZh ? '| 字段 | 值 |\n|---|---|' : '| Field | Value |\n|---|---|',
-    `| ID | \`${escapeMdTableCell(resolved.id)}\` |`,
-    `| ${isZh ? '分类' : 'Category'} | ${escapeMdTableCell(catTitle)} (\`${escapeMdTableCell(resolved.category)}\`) |`,
-    `| ${isZh ? '形态' : 'Kind'} | ${escapeMdTableCell(getKindLabel(resolved.kind, isZh))} (\`${escapeMdTableCell(resolved.kind)}\`) |`,
-    `| ${isZh ? '分发来源' : 'Source Type'} | \`${escapeMdTableCell(resolved.sourceType)}\` |`,
-    `| ${isZh ? '模块版本' : 'Package Version'} | \`${escapeMdTableCell(resolved.version || 'N/A')}\` |`,
-    `| ${isZh ? '兼容 NSH 版本' : 'NSH Requirement'} | \`${escapeMdTableCell(resolved.nshVersion || verifiedVersion)}\` |`,
+    `| ID | ${escapeMdTableCell(wrapInlineCode(resolved.id))} |`,
+    `| ${isZh ? '分类' : 'Category'} | ${escapeMdTableCell(catTitle)} (${escapeMdTableCell(wrapInlineCode(resolved.category))}) |`,
+    `| ${isZh ? '形态' : 'Kind'} | ${escapeMdTableCell(getKindLabel(resolved.kind, isZh))} (${escapeMdTableCell(wrapInlineCode(resolved.kind))}) |`,
+    `| ${isZh ? '分发来源' : 'Source Type'} | ${escapeMdTableCell(wrapInlineCode(resolved.sourceType))} |`,
+    `| ${isZh ? '模块版本' : 'Package Version'} | ${escapeMdTableCell(wrapInlineCode(resolved.version || 'N/A'))} |`,
+    `| ${isZh ? '兼容 NSH 版本' : 'NSH Requirement'} | ${escapeMdTableCell(wrapInlineCode(resolved.nshVersion || verifiedVersion))} |`,
     `| ${isZh ? '支持平台' : 'Platforms'} | ${escapeMdTableCell((resolved.platforms || []).join(isZh ? '、' : ', '))} |`,
     `| ${isZh ? '许可证' : 'License'} | ${escapeMdTableCell(resolved.license)} |`,
     `| ${isZh ? '最近核验更新' : 'Updated'} | ${escapeMdTableCell(resolved.updatedAt)} |`,
-    `| ${isZh ? '源码仓库' : 'Source Repository'} | [${escapeMdTableCell(resolved.sourceUrl)}](${resolved.sourceUrl}) |`,
+    `| ${isZh ? '源码仓库' : 'Source Repository'} | [${escapeMdLinkLabel(escapeMdTableCell(resolved.sourceUrl))}](${resolved.sourceUrl}) |`,
   ];
 
   if (resolved.cratesUrl && resolved.cratesUrl !== resolved.sourceUrl) {
-    lines.push(`| crates.io | [${escapeMdTableCell(resolved.cratesUrl)}](${resolved.cratesUrl}) |`);
+    lines.push(
+      `| crates.io | [${escapeMdLinkLabel(escapeMdTableCell(resolved.cratesUrl))}](${resolved.cratesUrl}) |`,
+    );
   }
   if (resolved.homepage && resolved.homepage !== resolved.sourceUrl) {
     lines.push(
-      `| ${isZh ? '文档 / 演示' : 'Docs / Demo'} | [${escapeMdTableCell(resolved.homepage)}](${resolved.homepage}) |`,
+      `| ${isZh ? '文档 / 演示' : 'Docs / Demo'} | [${escapeMdLinkLabel(escapeMdTableCell(resolved.homepage))}](${resolved.homepage}) |`,
     );
   }
 
   lines.push('', `## ${isZh ? '安装命令与验证说明' : 'Installation & Verification'}`, '');
   if (resolved.installable && resolved.installCommand) {
-    lines.push('```bash', resolved.installCommand, '```', '');
+    lines.push(renderCodeFence('bash', resolved.installCommand), '');
     lines.push(
       isZh
         ? `该模块已在干净临时应用中于 \`nsh ${verifiedVersion}\` 实测通过 \`nsh add\` 解析安装（不代表已在全部目标平台完成真机编译运行）。`
@@ -876,7 +905,7 @@ function renderModuleMarkdown({
     for (const rel of related) {
       const relUrl = isZh ? `${base}zh/nshm/${rel.id}.md` : `${base}nshm/${rel.id}.md`;
       const relDesc = rel.description?.[isZh ? 'zh' : 'en'] || rel.description?.en || '';
-      lines.push(`- [${rel.name}](${relUrl}) — ${cleanText(relDesc)}`);
+      lines.push(`- [${escapeMdLinkLabel(rel.name)}](${relUrl}) — ${cleanText(relDesc)}`);
     }
   }
 
@@ -886,6 +915,7 @@ function renderModuleMarkdown({
 function renderDiscoveryMarkdown({ base, isZh, data, canonicalUrl, alternateUrl }) {
   const entries = Array.isArray(data?.entries) ? data.entries : [];
   const installable = entries.filter((e) => e.installable);
+  const frameworkCount = entries.filter((e) => e.section === 'framework').length;
   const verifiedVersion = data?.nshVerifiedVersion || '0.7.1';
   const repoUrl = data?.repository || 'https://github.com/AkaraChen/nsh-awesome';
   const htmlUrl = canonicalUrl || (isZh ? `${base}zh/discovery/` : `${base}discovery/`);
@@ -965,7 +995,7 @@ function renderDiscoveryMarkdown({ base, isZh, data, canonicalUrl, alternateUrl 
 
   for (const item of installable) {
     lines.push(
-      `| [${escapeMdTableCell(item.name)}](${base}${isZh ? 'zh/' : ''}nshm/${item.id}.md) | \`${escapeMdTableCell(item.sourceType)}\` | \`${escapeMdTableCell(item.installCommand)}\` | \`${escapeMdTableCell(item.version || 'N/A')}\` |`,
+      `| [${escapeMdLinkLabel(escapeMdTableCell(item.name))}](${base}${isZh ? 'zh/' : ''}nshm/${item.id}.md) | ${escapeMdTableCell(wrapInlineCode(item.sourceType))} | ${escapeMdTableCell(wrapInlineCode(item.installCommand))} | ${escapeMdTableCell(wrapInlineCode(item.version || 'N/A'))} |`,
     );
   }
 
@@ -974,8 +1004,8 @@ function renderDiscoveryMarkdown({ base, isZh, data, canonicalUrl, alternateUrl 
     `## ${isZh ? '4. 排除与暂缓说明' : '4. Excluded & Deferred Candidates'}`,
     '',
     isZh
-      ? '- **官方框架 Crate（19 个）：** 不含 `#[native_module]`，单独列于框架分类并明确标为「非 nshm」。\n- **40 个图标集子 crate + 3 个内部数据 crate：** 归并在父条目 `nsh-icon`（5 个）与 `supernsh-icons`（35 个）下说明。\n- **端用户应用与模板（`SuperNSH/starter`、`spotish`、`Ferrix`）：** `publish = false` 且 `nsh.json` 含 `"root"`/`"id"`，不属于可复用库。\n- **版本不兼容或尚在开发：** `nsh-gpu-lexer`（`0.6`）、`honsunrise/nsh-ext`（严格 `=0.7.0`）、18 个 `0.6` 规范化 crate 与 `nsh-directories` 暂未列入 `0.7.1` 可安装列表。'
-      : '- **19 official framework crates:** Lack `#[native_module]` and live in the dedicated non-nshm framework section.\n- **40 icon-set subcrates + 3 internal data crates:** Documented under parent entries `nsh-icon` (5 packs) and `supernsh-icons` (35 packs).\n- **End-user apps (`SuperNSH/starter`, `huacnlee/spotish`, `ryujane/Ferrix`):** Set `publish = false` and use app-level `"root"`/`"id"` keys rather than `"exports"`.\n- **Incompatible or unreleased:** `nsh-gpu-lexer` (`0.6`), `honsunrise/nsh-ext` (`=0.7.0` exact pin), 18 normalized `0.6` crates, and `nsh-directories` (in development) are excluded from the `0.7.1` list.',
+      ? `- **官方框架 Crate（${frameworkCount} 个）：** 不含 \`#[native_module]\`，单独列于框架分类并明确标为「非 nshm」。\n- **40 个图标集子 crate + 3 个内部数据 crate：** 归并在父条目 \`nsh-icon\`（5 个）与 \`supernsh-icons\`（35 个）下说明。\n- **端用户应用与模板（\`SuperNSH/starter\`、\`spotish\`、\`Ferrix\`）：** \`publish = false\` 且 \`nsh.json\` 含 \`"root"\`/\`"id"\`，不属于可复用库。\n- **版本不兼容或尚在开发：** \`nsh-gpu-lexer\`（\`0.6\`）、\`honsunrise/nsh-ext\`（严格 \`=0.7.0\`）、18 个 \`0.6\` 规范化 crate 与 \`nsh-directories\` 暂未列入 \`0.7.1\` 可安装列表。`
+      : `- **${frameworkCount} official framework crates:** Lack \`#[native_module]\` and live in the dedicated non-nshm framework section.\n- **40 icon-set subcrates + 3 internal data crates:** Documented under parent entries \`nsh-icon\` (5 packs) and \`supernsh-icons\` (35 packs).\n- **End-user apps (\`SuperNSH/starter\`, \`huacnlee/spotish\`, \`ryujane/Ferrix\`):** Set \`publish = false\` and use app-level \`"root"\`/\`"id"\` keys rather than \`"exports"\`.\n- **Incompatible or unreleased:** \`nsh-gpu-lexer\` (\`0.6\`), \`honsunrise/nsh-ext\` (\`=0.7.0\` exact pin), 18 normalized \`0.6\` crates, and \`nsh-directories\` (in development) are excluded from the \`0.7.1\` list.`,
   );
 
   return `${lines.join('\n')}\n`;
