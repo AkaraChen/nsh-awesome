@@ -17,6 +17,6 @@
     "lint": "node scripts/lint.mjs",
     "check:links": "node scripts/check-links.mjs",
     "verify:install": "node scripts/verify-install.mjs",
-    "test": "node --test scripts/verify.test.mjs"
+    "test": "node --test 'scripts/*.test.mjs'"
   }
 }
